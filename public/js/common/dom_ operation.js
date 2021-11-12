@@ -41,13 +41,26 @@ const tag = document.querySelector(element);
 return tag;
 }
 
-// class追加
-const cla_add = (element, cla) => {
-    const tag = element.classList.add(cla);
+// class追加 第二引数はクラスの追加、第三引数はスタイルを追加
+const cla_add = (element, cla = false, css = false, val = false) => {
+    const tag = element;
+    if(cla) {
+        tag.classList.add(cla);
+    }
+    if(css) {
+        tag.style.css = val;
+    }
     return tag;
 }
 
-const cla_remove = (element, cla) => {
-    const tag = element.classList.remove(cla);
+// classsa削除 第二引数はクラスの削除、第三引数はスタイルを追加
+const cla_remove = (element, cla = false, css = false, val = false) => {
+    const tag = element;
+    if(cla) {
+        tag.classList.remove(cla);
+    }
+    if(css) {
+        tag.style.css = val;
+    }
     return tag;
 }
