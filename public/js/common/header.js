@@ -14,8 +14,9 @@ const header_menu_mask = get_tag_byId('header_menu_mask');
 const header_menu_open = get_tag_byId('header_menu_open');
 const header_menu_close = get_tag_byId('header_menu_close');
 const header_menubar_list = get_tag_byId('header_menubar_list');
-const header_menubar = get_tag_query('.header_menubar');
+const body_tag = get_tag_query('body');
 const header_tag = get_tag_query('header');
+const header_menubar = get_tag_query('.header_menubar');
 
 // タイトル操作
 const title_text = Array.from(TITLE);
@@ -56,6 +57,7 @@ const menubar_tag_close = [
     header_menubar
 ];
 
+
 // メニューバー表示
 const menubar_open = () => {
     header_menu_flg = !header_menu_flg;
@@ -65,6 +67,8 @@ const menubar_open = () => {
     for(let i = 0; i < menubar_tag_close.length; i++) {
         cla_remove(menubar_tag_close[i], 'hidden');
     }
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    cla_add(body_tag, 'fixed', 'top', -scrollTop);
 }
 
 // メニューバー非表示
@@ -76,6 +80,8 @@ const menubar_close = () => {
     for(let i = 0; i < menubar_tag_close.length; i++) {
         cla_add(menubar_tag_close[i], 'hidden')
     }
+    cla_remove(body_tag, 'fixed', 'top', 0);
+
 }
 
 // ヘッダーメニュー
