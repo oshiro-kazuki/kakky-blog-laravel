@@ -12,31 +12,16 @@
 
         <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
     </head>
-    <body>
-        <header>
-            <a href="/" class="header_left">
-                <img src="/img/logo.png">
-            </a>
-            <!-- <a href="/" class="header_center">
-                <div id="header_center_title"></div>
-            </a> -->
-            <div class="header_center">
-                <a href="/" id="header_center_title"></a>
-            </div>
-            <div class="header_right" id="header_menu_btn">
-                <span class="material-icons" id="header_menu_open">menu</span>
-                <span class="material-icons hidden" id="header_menu_close">close</span>
-            </div>
-        </header>
-        <div id="header_menu_mask" class="hidden"></div>
-        <div class="header_menubar hidden">
-            <nav>
-                <ul id="header_menubar_list"></ul>
-            </nav>
-        </div>
+    <body id="body_top">
+        @include('common.header')
+
+        <div id="top_image"></div>
+
         <script src="{{ asset('js/common/dom_ operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
+        <script src="{{ asset('js/top_image.js') }}"></script>
     </body>
 </html>
