@@ -87,7 +87,7 @@ const menubar_close = () => {
 // ヘッダーメニュー
 for(let i = 0; i < HEADER_MENUBAR_CONTENTS.length; i++) {
     const list_li = create_tag('li', header_menubar_list);
-    const list_a = create_a_tag('a', list_li, HEADER_MENUBAR_CONTENTS[i].link);
+    const list_a = create_a_tag(list_li, HEADER_MENUBAR_CONTENTS[i].link);
     create_tag('span', list_a, HEADER_MENUBAR_CONTENTS[i].icon, 'material-icons');
     create_tag('p', list_a, HEADER_MENUBAR_CONTENTS[i].text);
 }
