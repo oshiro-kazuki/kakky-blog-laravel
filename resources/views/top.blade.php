@@ -13,6 +13,7 @@
         <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
     </head>
     <body id="body_top">
@@ -20,8 +21,11 @@
 
         <div id="top_image"></div>
 
+        @include('common.footer')
+
         <script src="{{ asset('js/common/dom_ operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
+        <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/top_image.js') }}"></script>
     </body>
 </html>
