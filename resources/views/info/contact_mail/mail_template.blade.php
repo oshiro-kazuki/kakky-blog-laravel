@@ -1,0 +1,1 @@
+{{ $postData['contact_mail_content'] }}

@@ -98,7 +98,7 @@ header a {
 
 .header_menubar {
     min-height: calc(100vh - 60px);
-    width: 70%;
+    width: 85%;
     background-color: white;
     margin-left: auto;
     padding: 30px 20px;
