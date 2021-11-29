@@ -1,22 +1,15 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Admin;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMailSend extends Mailable
+class ContactMailAdmin extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * メール送信引数
-     *
-     * @var array
-     */
-    private $postData;
 
     /**
      * Create a new message instance.
@@ -36,13 +29,12 @@ class ContactMailSend extends Mailable
     public function build()
     {
         return $this->from('info@kakky-blog.com')
-        ->subject('お問い合わせについて')
+        ->subject('お問い合わせの受付')
         ->text(
-            'info.contact_mail.mail_template',
+            'admin.contact_mail.mail_template',
             [
                 'postData' => $this->postData
             ]
         );
-
     }
 }

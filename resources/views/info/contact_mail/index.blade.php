@@ -104,6 +104,7 @@
                         <a id="contact_mail_return_btn" href="javascript:void(0)">戻る</a>
                     </div>
                 </section>
+                <input id="contact_mail_subject_list" name="contact_mail_subject_list" type="hidden">
             </form>
         </div>
 

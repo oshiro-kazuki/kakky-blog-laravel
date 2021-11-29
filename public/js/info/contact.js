@@ -50,6 +50,7 @@ contact_mail_email.addEventListener('input', (e) => {
 
 const contact_mail_subject = get_tag_byId('contact_mail_subject');
 const contact_mail_subject_confirm_text = get_tag_byId('contact_mail_subject_confirm_text');
+const contact_mail_subject_list = get_tag_byId('contact_mail_subject_list');
 
 // optionタグ生成
 subject_lists.forEach((list, index) => {
@@ -67,6 +68,8 @@ contact_mail_subject.addEventListener('change', (e) => {
     contact_mail_confirm_check(2, check_result);
     contact_mail_submit_check(2, check_result);
     get_select(contact_mail_subject_confirm_text, e);
+    // 件名テキストセット
+    contact_mail_subject_list.setAttribute('value', subject_lists[index]);
 });
 
 // お問い合わせ内容nullチェック
