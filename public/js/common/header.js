@@ -1,10 +1,10 @@
 'use strict';
 
-const TITLE = "wan-like";
+const TITLE = 'wan-like';
 const HEADER_MENUBAR_CONTENTS = [
-    {text: "ブログ", link: "https://kakky-blog.com", icon: "article"},
-    {text: "お問い合わせ", link: "/", icon: "email"},
-    {text: "プロフィール", link: "/", icon: "person"},
+    {text: 'ブログ', link: 'https://kakky-blog.com', icon: 'article'},
+    {text: 'お問い合わせ', link: '/info/contact_mail/', icon: 'email'},
+    {text: 'プロフィール', link: '/', icon: 'person'},
 ];
 
 // 使用するタグ

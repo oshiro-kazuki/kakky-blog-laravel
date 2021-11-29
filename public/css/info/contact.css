@@ -1,0 +1,218 @@
+/* お問い合わせ入力画面 */
+.contact_mail_form {
+    margin: 50px auto;
+    font-size: 1.5rem;
+}
+
+.contact_mail_form input,
+.contact_mail_subject_select_area,
+.contact_mail_form textarea {
+    margin-top: 10px;
+    font-size: 1rem;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(158, 158, 158);
+    border-radius: 5px;
+}
+
+.contact_mail_form input {
+    height: 50px;
+    width: 100%;
+    padding: 0 10px;
+    z-index: 5;
+}
+
+#contact_mail_form_input {
+    display: block;
+}
+
+#contact_mail_form_input.hidden {
+    display: none;
+}
+
+.contact_mail_subject_select_area {
+    position: relative;
+    height: 50px;
+    width: 100%;
+}
+
+.contact_mail_subject_select_area select {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    z-index: 2;
+}
+
+#contact_mail_subject_init {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+}
+
+.contact_mail_subject_select_area .material-icons {
+    display: block;
+    text-align: center;
+    font-size: 27px;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    color: deeppink;
+}
+
+.contact_mail_form textarea {
+    height: 200px;
+    width: 100%;
+    padding: 10px;
+}
+
+.contact_mail_name,
+.contact_mail_email,
+.contact_mail_subject,
+.contact_mail_content {
+    margin: 10px;
+}
+
+.contact_mail_name label,
+.contact_mail_email label,
+.contact_mail_subject label,
+.contact_mail_content label {
+    font-weight: 800;
+}
+
+#contact_mail_name_error,
+#contact_mail_email_error,
+#contact_mail_subject_error,
+#contact_mail_content_error {
+    height: 20px;
+    margin-top: 5px;
+    font-size: 18px;
+    color: rgb(226, 17, 58);
+}
+
+.contact_mail_input_submit {
+    height: 50px;
+    width: 300px;
+    margin: 50px auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px #ccc;
+    position: relative;
+}
+
+#contact_mail_input_submit_btn {
+    height: 100%;
+    width: 100%;
+    font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+    letter-spacing: 5px;
+    color: #2f4f4f;
+    background-color: rgb(198, 230, 17);
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+#contact_mail_input_submit_btn.hidden {
+    background-color: #d3d3d3;
+    color: white;
+}
+
+/* お問い合わせ確認画面 */
+#contact_mail_form_confirm {
+    display: block;
+}
+
+#contact_mail_form_confirm.hidden {
+    display: none;
+}
+
+#contact_mail_form_confirm h1 {
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+#contact_mail_form_confirm h1 .material-icons{
+    position: relative;
+    top: 3px;
+    color: tomato;
+}
+
+.contact_mail_name_confirm,
+.contact_mail_email_confirm,
+.contact_mail_subject_confirm,
+.contact_mail_content_confirm {
+    margin: 30px 10px;
+}
+
+.contact_mail_name_confirm label,
+.contact_mail_email_confirm label,
+.contact_mail_subject_confirm label,
+.contact_mail_content_confirm label {
+    font-weight: 800;
+}
+
+#contact_mail_name_confirm_text,
+#contact_mail_email_confirm_text,
+#contact_mail_subject_confirm_text,
+#contact_mail_content_confirm_text {
+    margin: 10px 10px 0;
+    word-break: break-all;
+}
+
+
+/* 送信ボタン */
+.contact_mail_submit {
+    height: 50px;
+    width: 300px;
+    margin: 50px auto 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px #ccc;
+    position: relative;
+}
+
+#contact_mail_submit_btn {
+    height: 100%;
+    width: 100%;
+    font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+    letter-spacing: 5px;
+    color: #2f4f4f;
+    background-color: rgb(198, 230, 17);
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+#contact_mail_submit_btn:disabled {
+    background-color: #d3d3d3;
+    color: white;
+}
+
+.contact_mail_return {
+    height: 50px;
+    width: 300px;
+    margin: 50px auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px #ccc;
+    position: relative;
+}
+
+#contact_mail_return_btn {
+    height: 100%;
+    width: 100%;
+    font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+    letter-spacing: 5px;
+    color: white;
+    background-color: rgb(230, 17, 230);
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    border-radius: 8px;
+}

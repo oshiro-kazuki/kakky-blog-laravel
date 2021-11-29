@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('top');
 });
+
+// 問い合わせ用メール
+Route::prefix('info/contact_mail')->group(function() {
+    Route::get('/', 'MailSendController@index')->name('contact_mail.index');
+    Route::post('/send', 'MailSendController@mailSend')->name('contact_mail.send');
+});
+

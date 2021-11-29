@@ -1,7 +1,7 @@
 'use strict';
 
 // タグ生成
-const create_tag = (element, parent, text = false, cla = false, cla1 = false) => {
+const create_tag = (element, parent, text = false, cla = false, cla1 = false, attribute_name = false, attribute_val = false) => {
     const tag = document.createElement(element);
     if(text) {
         tag.textContent = text;
@@ -12,13 +12,16 @@ const create_tag = (element, parent, text = false, cla = false, cla1 = false) =>
     if(cla1) {
         cla_add(tag, cla1);
     }
+    if(attribute_name) {
+        tag.setAttribute(attribute_name, `${attribute_val}`);
+    }
     parent.appendChild(tag);
     return tag;
 }
 
 // aタグ生成
 const create_a_tag = (parent, link = false, cla = false, text = false) => {
-    const tag = document.createElement("a");
+    const tag = document.createElement('a');
     if(link) {
         tag.href = link;
     }
@@ -34,7 +37,7 @@ const create_a_tag = (parent, link = false, cla = false, text = false) => {
 
 // imgタグ生成
 const create_img_tag = (parent, link = false, cla = false) => {
-    const tag = document.createElement("img");
+    const tag = document.createElement('img');
     if(link) {
         tag.src = link;
     }
