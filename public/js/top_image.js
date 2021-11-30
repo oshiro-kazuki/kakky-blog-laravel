@@ -4,21 +4,21 @@
 const top_image_array_roop = (pattern, array, count = false, positionX = false, positionY = false) => {
     for(let i = 0; i < array.length; i++) {
         switch(pattern) {
-            case "init" :
+            case 'init' :
                 array[i].tag.style.backgroundImage = `url(${array[i].src})`
                 if(i > 0) {
-                    cla_add(array[i].tag, "hidden");
+                    cla_add(array[i].tag, 'hidden');
                 }
                 break;
 
-            case "swiching" :
-                cla_add(array[i].tag, "hidden");
+            case 'swiching' :
+                cla_add(array[i].tag, 'hidden');
                 if(count === i) {
-                    cla_remove(array[i].tag, "hidden");
+                    cla_remove(array[i].tag, 'hidden');
                 }
                 break;
 
-            case "slide" :
+            case 'slide' :
                 if(count === i) {
                     // positionX += .5;
                     array[i].tag.style.backgroundPosition = `${positionX}% ${positionY}%`;
@@ -34,19 +34,19 @@ const top_image_array_roop = (pattern, array, count = false, positionX = false, 
 window.addEventListener('DOMContentLoaded', function () {
     const header = get_tag_query('header');
     const top_image = get_tag_byId('top_image');
-    const top_image1 = create_tag('div', top_image, false, "top_image1");
-    const top_image2 = create_tag('div', top_image, false, "top_image2");
-    const top_image3 = create_tag('div', top_image, false, "top_image3");
+    const top_image1 = create_tag('div', top_image, false, 'top_image1');
+    const top_image2 = create_tag('div', top_image, false, 'top_image2');
+    const top_image3 = create_tag('div', top_image, false, 'top_image3');
     
     // 画像の情報を配列化
     const top_image_array = [
-        {tag: top_image1, src: "/img/top_image1.jpg"},
-        {tag: top_image2, src: "/img/top_image2.jpg"},
-        {tag: top_image3, src: "/img/top_image3.jpg"},
+        {tag: top_image1, src: '/img/top_image/top_image1.jpg'},
+        {tag: top_image2, src: '/img/top_image/top_image2.jpg'},
+        {tag: top_image3, src: '/img/top_image/top_image3.jpg'},
     ];
     
     // 画像の初期設定
-    top_image_array_roop("init", top_image_array);
+    top_image_array_roop('init', top_image_array);
     
     // 画像高さ指定
     const screenH = window.innerHeight - header.clientHeight;
@@ -65,12 +65,12 @@ window.addEventListener('DOMContentLoaded', function () {
             image_count = 0;
         }
     
-        top_image_array_roop("swiching", top_image_array, image_count);
+        top_image_array_roop('swiching', top_image_array, image_count);
     }, 3000);
     
     //　画像スライド
     setInterval(() => {
         positionX += .5;
-        top_image_array_roop("slide", top_image_array, image_count, positionX, positionY);
+        top_image_array_roop('slide', top_image_array, image_count, positionX, positionY);
     }, 100);
 });
