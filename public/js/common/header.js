@@ -4,7 +4,7 @@ const TITLE = 'wan-like';
 const HEADER_MENUBAR_CONTENTS = [
     {text: 'ブログ', link: 'https://kakky-blog.com', icon: 'article'},
     {text: 'お問い合わせ', link: '/info/contact_mail/', icon: 'email'},
-    {text: 'プロフィール', link: '/', icon: 'person'},
+    {text: 'プロフィール', link: '/info/profile/', icon: 'person'},
 ];
 
 // 使用するタグ
