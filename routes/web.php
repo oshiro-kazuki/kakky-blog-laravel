@@ -16,8 +16,12 @@ Route::get('/', function () {
 });
 
 // 問い合わせ用メール
-Route::prefix('info/contact_mail')->group(function() {
+Route::prefix('/info/contact_mail')->group(function() {
     Route::get('/', 'MailSendController@index')->name('contact_mail.index');
     Route::post('/send', 'MailSendController@mailSend')->name('contact_mail.send');
 });
 
+// プロフィール
+Route::get('/info/profile', function () {
+    return view('/info/profile/index');
+});
