@@ -1,7 +1,7 @@
 'use strict';
 
 const FOOTER_LIST_CONTENTS = [
-    {text: 'プロフィール', link: '/'},
+    {text: 'プロフィール', link: '/info/profile/'},
     {text: 'お問い合わせ', link: '/info/contact_mail/'},
     {text: 'プライバシーポリシー', link: '/'},
 ];

@@ -1,0 +1,84 @@
+article,main{
+    margin: 30px  auto;
+    width: 85%;
+}
+/* プロフィール画像 */
+.profile_main_image{
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    background-color: transparent;
+}
+.profile_main_image img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 5px 5px 10px lightpink;
+}
+/* 略歴・拠点 */
+.profile_detail{
+    width: 100%;
+}
+.profile_detail h3{
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 20px
+}
+.profile_detail_list{
+    list-style: none;
+}
+.profile_detail_list li{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding-right: 5px;
+    height: 40px;
+    line-height: 40px;
+}
+.profile_detail_list p{
+    font-size: 18px;
+    padding-left: 10px;
+}
+.profile_detail_list span{
+    font-size: 16px;
+}
+.profile_comment{
+    width: 100%;
+}
+.profile_comment h1{
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 20px
+}
+.profile_comment p{
+    font-size: 18px;
+    margin-top: 10px;
+    padding: 0 5px;
+    padding-bottom: 10px;
+    line-height: 1.6rem;
+}
+/* テキストのbox-shadowの設定 */
+.profile_detail_list li,.profile_comment p{
+    box-shadow: 2px 1px 2px lightpink;
+}
+/* お問い合わせボタン */
+#contact_btn{
+    height: 50px;
+    max-width: 300px;
+    width: 100%;
+    margin: 50px auto;
+    background-color: tomato;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 4px 4px 4px #ccc;
+}
+#contact_btn a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white
+}
