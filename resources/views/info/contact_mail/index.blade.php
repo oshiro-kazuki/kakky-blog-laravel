@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/info/contact.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/component/button/top_page_btn.css') }}">
     </head>
     <body>
         @include('common.header')
@@ -107,6 +108,9 @@
                 <input id="contact_mail_subject_list" name="contact_mail_subject_list" type="hidden">
             </form>
         </div>
+        <aside>
+            <div id="top_page_btn"></div>
+        </aside>
 
         @include('common.footer')
 
@@ -115,5 +119,6 @@
         <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/common/validation.js') }}"></script>
         <script src="{{ asset('js/info/contact.js') }}"></script>
+        <script src="{{ asset('js/component/button/top_page_btn.js') }}"></script>
     </body>
 </html>

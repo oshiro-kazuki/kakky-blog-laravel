@@ -3,7 +3,7 @@
 const FOOTER_LIST_CONTENTS = [
     {text: 'プロフィール', link: '/info/profile/'},
     {text: 'お問い合わせ', link: '/info/contact_mail/'},
-    {text: 'プライバシーポリシー', link: '/'},
+    {text: 'プライバシーポリシー', link: '/info/privacy_policy'},
 ];
 
 const FOOTER_SNS_CONTENTS = [
