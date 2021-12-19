@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/info/profile.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/component/button/contact_btn.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/component/button/top_page_btn.css') }}">
     </head>
     <body>
         @include('common.header')
@@ -42,14 +44,20 @@
                 <h1>コメント</h3>
                 <p>初めまして。<br>koと申します。<br>webエンジニアになって１年になります。<br>長年勤めた税理士事務所では税金を通してお客様の課題を解決し喜ばれることにとてもやりがいを感じておりました。<br>現在は自身が開発したアプリケーションで皆様に貢献できたらと思い、日々精進しております。<br>ホームページの作成やアプリケーションの開発のことで、ご依頼・ご相談があれば是非ご連絡をよろしくお願いいたします。</p>
             </div>
-            <div id="contact_btn"></div>
         </main>
+        <aside>
+            <div id="contact_btn"></div>
+        </aside>
+        <aside>
+            <div id="top_page_btn"></div>
+        </aside>
 
         @include('common.footer')
 
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
         <script src="{{ asset('js/common/footer.js') }}"></script>
-        <script src="{{ asset('js/component/contact_btn.js') }}"></script>
+        <script src="{{ asset('js/component/button/contact_btn.js') }}"></script>
+        <script src="{{ asset('js/component/button/top_page_btn.js') }}"></script>
     </body>
 </html>
