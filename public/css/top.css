@@ -1,20 +1,17 @@
-body {
+body{
     min-height: 100vh;
     width: 100%;
     position: relative;
 }
-
-body.fixed {
+body.fixed{
     position: fixed;
 }
-
-#top_image {
+#top_image{
     width: 100%;
 }
-
 .top_image1,
 .top_image2,
-.top_image3 {
+.top_image3{
     height: 100%;
     width: 100%;
     background-repeat: no-repeat;
@@ -24,11 +21,21 @@ body.fixed {
     transition-duration: 1s;
     opacity: 1;
 }
-
 .top_image1.hidden,
 .top_image2.hidden,
-.top_image3.hidden {
+.top_image3.hidden{
     visibility: hidden;
     opacity: 0;
     position: fixed;
+}
+article{
+    margin: 50px 0; 
+    overflow: hidden;
+}
+article>h3{
+    font-size: 24px;
+    font-weight: 800;
+    color: green;
+    margin-left: 10px;
+    margin-bottom: 30px;
 }
