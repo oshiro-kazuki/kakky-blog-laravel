@@ -35,17 +35,21 @@ const dot_btn_options = {
 }
 
 function dot_btn_callback(item, object){
-    item.forEach((entry, index) => {
-        if(index === 0)currnt_btn(index);
-        object.unobserve(entry.target);
-    });
+    if(item.length > 0){
+        item.forEach((entry, index) => {
+            if(index === 0)currnt_btn(index);
+            object.unobserve(entry.target);
+        });
+    }
 }
 
 const dot_btn_observer = new IntersectionObserver(dot_btn_callback, dot_btn_options);
 
-news_item.forEach(item => {
-    dot_btn_observer.observe(item)
-});
+if(news_item.length > 0){
+    news_item.forEach(item => {
+        dot_btn_observer.observe(item)
+    });
+}
 
 //　右にスライド処理
 function news_next_move(item, index){
@@ -77,62 +81,73 @@ function news_prev_move(item, index){
 
 // ドットボタン押下スライド処理
 function news_dot_click_move(click_index){
-    news_item.forEach((item, index) => {
-        cla_remove(item, 'move');
-        const click_index_diff = index - click_index;
-        const news_items_half = news_item.length / 2;
-        item.style.opacity = 1;
-        if(index === click_index) {
-            item_x[index] = start_news;
-            currnt_btn(index);
-        }else{
-            if(click_index_diff > news_items_half){
-                item_x[index] = start_news + (news_width * (click_index_diff - news_item.length));
-            }
-            else if(click_index_diff < news_items_half * -1){
-                item_x[index] = start_news + (news_width * (click_index_diff + news_item.length));
+    if(news_item.length > 0){
+        news_item.forEach((item, index) => {
+            cla_remove(item, 'move');
+            const click_index_diff = index - click_index;
+            const news_items_half = news_item.length / 2;
+            item.style.opacity = 1;
+            if(index === click_index) {
+                item_x[index] = start_news;
+                currnt_btn(index);
             }else{
-                item_x[index] = start_news + news_width * click_index_diff;
+                if(click_index_diff > news_items_half){
+                    item_x[index] = start_news + (news_width * (click_index_diff - news_item.length));
+                }
+                else if(click_index_diff < news_items_half * -1){
+                    item_x[index] = start_news + (news_width * (click_index_diff + news_item.length));
+                }else{
+                    item_x[index] = start_news + news_width * click_index_diff;
+                }
+                if(item_x[index] >= start_news + news_width * 2 || item_x[index] <= start_news - news_width * 2){
+                    item.style.opacity = 0;
+                }
             }
-            if(item_x[index] >= start_news + news_width * 2 || item_x[index] <= start_news - news_width * 2){
-                item.style.opacity = 0;
-            }
-        }
-        item.style.left = `${item_x[index]}px`;
-    });
+            item.style.left = `${item_x[index]}px`;
+        });
+    }
 }
 
 // ドットボタンのカレントスタイル切り替え
 function currnt_btn(current_index){
-    news_dot_btn.forEach((item, index) => {
-        if(current_index === index){
-            cla_add(item, 'current');
-        }else{
-            cla_remove(item, 'current');
-        }
-    });
+    if(news_dot_btn.length > 0){
+        news_dot_btn.forEach((item, index) => {
+            if(current_index === index){
+                cla_add(item, 'current');
+            }else{
+                cla_remove(item, 'current');
+            }
+        });
+    }
 }
 
 // 次へボタン押下
 news_next_btn.addEventListener('click', () => {
-    news_item.forEach((item, index) => {
-        news_next_move(item, index);
-    });
+    if(news_item.length > 0){
+        news_item.forEach((item, index) => {
+            news_next_move(item, index);
+        });
+    }
 });
 
 // 前へボタン押下
 news_prev_btn.addEventListener('click', () => {
-    news_item.forEach((item, index) => {
-        news_prev_move(item, index);
-    });
+    if(news_item.length > 0){
+        news_item.forEach((item, index) => {
+            news_prev_move(item, index);
+        });
+    }
 });
 
 // ドットボタン押下
-news_dot_btn.forEach((btn, index) => {
-    btn.addEventListener('click', () => {
-        news_dot_click_move(index);
+if(news_dot_btn.length > 0){
+    news_dot_btn.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            news_dot_click_move(index);
+        });
     });
-});
+}
+
 
 // スワイプイベント
 let startX = null;
@@ -152,9 +167,11 @@ function logSwipeEnd(event) {
 	event.preventDefault();
     const swipe_x = endX - startX;
 
-    news_item.forEach((item, index) => {
-        0 < swipe_x ? news_prev_move(item, index) : news_next_move(item, index);
-    });
+    if(news_item.length > 0){
+        news_item.forEach((item, index) => {
+            0 < swipe_x ? news_prev_move(item, index) : news_next_move(item, index);
+        });
+    }
 }
 
 news_items.addEventListener('touchstart', logSwipeStart);
