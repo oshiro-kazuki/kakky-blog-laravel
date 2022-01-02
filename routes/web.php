@@ -31,3 +31,9 @@ Route::prefix('/info')->group(function() {
         return view('/info/privacy_policy');
     });
 });
+
+ // ニュース入力画面
+Route::prefix('/news_input')->group(function() {
+    Route::get('/', 'NewsInputController@index');
+    Route::post('/post', 'NewsInputController@newsPost')->name('news_input.post');
+});
