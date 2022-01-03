@@ -23,6 +23,6 @@ class NewsInputController extends Controller
                 'content' => $postData['news_input_content']
             ]
         );
-        return view('top');
+        return redirect('/');
     }
 }
