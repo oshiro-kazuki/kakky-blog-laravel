@@ -152,6 +152,8 @@ if(news_dot_btn.length > 0){
 // スワイプイベント
 let startX = 0;
 let endX = 0;
+let swipe_x = 0;
+const swiper_limit = 50;
 
 function logSwipeStart(event) {
 	event.preventDefault();
@@ -165,13 +167,12 @@ function logSwipe(event) {
 
 function logSwipeEnd(event) {
 	event.preventDefault();
-    const swipe_x = endX - startX;
-
+    swipe_x = endX - startX;
     if(news_item.length > 0){
         news_item.forEach((item, index) => {            
-            if(swipe_x > 100){
+            if(swipe_x > swiper_limit && endX !== 0){
                 news_prev_move(item, index);
-            }else if(swipe_x < -100){
+            }else if(swipe_x < -swiper_limit && endX !== 0){
                 news_next_move(item, index);
             }else{
                 const news_item_links = document.querySelectorAll('.news_item_link');
@@ -182,6 +183,9 @@ function logSwipeEnd(event) {
             }
         });
     }
+    startX = 0;
+    endX = 0;
+    swipe_x = 0;
 }
 
 news_items.addEventListener('touchstart', logSwipeStart);
