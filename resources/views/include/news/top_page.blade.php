@@ -3,7 +3,7 @@
     <section id="news_items">
         @if(count($news_lists) > 0)
             @foreach ($news_lists as $news_list)
-                <div class="news_item" id="{{$news_list->id}}">
+                <div class="news_item">
                     <a href="/news/#{{$news_list->id}}" class="news_item_link">
                         <h3>{{$news_list->title}}</h3>
                         <p>{{$news_list->content}}</p>
@@ -19,9 +19,13 @@
     </section>
     <section>
         <div class="news_btn">
-            <div id="news_prev_btn">前</div>
+            <div id="news_prev_btn" class="material-icons">
+                arrow_back_ios
+            </div>
             <div id="news_dot_btns"></div>
-            <div id="news_next_btn">次</div>
+            <div id="news_next_btn" class="material-icons">
+                arrow_forward_ios
+            </div>
         </div>
     </section>
     <aside>

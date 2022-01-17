@@ -55,14 +55,20 @@
     display: flex;
     justify-content: space-between;
 }
-#news_prev_btn{
+#news_prev_btn,
+#news_next_btn{
     display: block;
     width: 40px;
     height: 100%;
-    background-color: blue;
-    line-height: 40px;
+    background-color: transparent;
+    line-height: 35px;
     text-align: center;
-    color: white;
+    color: red;
+    border-radius: 50%;
+    border: 3px solid red;
+}
+#news_prev_btn{
+    padding-left: 8px;
 }
 #news_dot_btns{
     display: flex;
@@ -80,16 +86,6 @@
 .news_dot_btn.current{
     background-color: red;
 }
-#news_next_btn{
-    display: block;
-    width: 40px;
-    height: 100%;
-    background-color: red;
-    line-height: 40px;
-    text-align: center;
-    color: white;
-}
-
 #news_index_btn{
     height: 50px;
     max-width: 300px;

@@ -25,11 +25,9 @@
             @if(count($news_lists) > 0)
                 @foreach ($news_lists as $news_list)
                     <section class="news_item" id="{{$news_list->id}}">
-                        <a href="" class="news_item_link">
-                            <h6>{{$news_list->created_at_date}}</h6>
-                            <h3>{{$news_list->title}}</h3>
-                            <p>{{$news_list->content}}</p>
-                        </a>
+                        <h6>{{$news_list->created_at_date}}</h6>
+                        <h3>{{$news_list->title}}</h3>
+                        <p>{{$news_list->content}}</p>
                     </section>
                 @endforeach
             @else

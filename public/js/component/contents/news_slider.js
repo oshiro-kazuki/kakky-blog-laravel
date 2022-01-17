@@ -150,8 +150,8 @@ if(news_dot_btn.length > 0){
 
 
 // スワイプイベント
-let startX = null;
-let endX = null;
+let startX = 0;
+let endX = 0;
 
 function logSwipeStart(event) {
 	event.preventDefault();
@@ -168,8 +168,18 @@ function logSwipeEnd(event) {
     const swipe_x = endX - startX;
 
     if(news_item.length > 0){
-        news_item.forEach((item, index) => {
-            0 < swipe_x ? news_prev_move(item, index) : news_next_move(item, index);
+        news_item.forEach((item, index) => {            
+            if(swipe_x > 100){
+                news_prev_move(item, index);
+            }else if(swipe_x < -100){
+                news_next_move(item, index);
+            }else{
+                const news_item_links = document.querySelectorAll('.news_item_link');
+                const current_link = item.style.left;
+                if(current_link === `${start_news}px`){
+                    location.href = news_item_links[index].href;
+                }
+            }
         });
     }
 }
