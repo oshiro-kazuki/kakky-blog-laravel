@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>wan-like</title>
+        <title>wan-like : NEWS一覧</title>
 
         <!-- fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -14,24 +14,37 @@
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/top.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/component/button/top_page_btn.css') }}">
         <link rel="stylesheet" href="{{ asset('css/news/news.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/component/button/news_btn.css') }}">
     </head>
-    <body id="body_top">
+    <body>
         @include('common.header')
 
-        <div id="top_image"></div>
-
-        @include('news.include')
+        <article class="news_list">
+            <h1>ニュース一覧画面</h1>
+            @if(count($news_lists) > 0)
+                @foreach ($news_lists as $news_list)
+                    <section class="news_item" id="{{$news_list->id}}">
+                        <h6>{{$news_list->created_at_date}}</h6>
+                        <h3>{{$news_list->title}}</h3>
+                        <p>{{$news_list->content}}</p>
+                    </section>
+                @endforeach
+            @else
+                <section class="news_item_none">
+                    <h6>現在ニュースはありません。</h6>
+                </section>
+            @endif
+        </article>
+        <aside>
+            <div id="top_page_btn"></div>
+        </aside>
 
         @include('common.footer')
 
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
         <script src="{{ asset('js/common/footer.js') }}"></script>
-        <script src="{{ asset('js/top_image.js') }}"></script>
-        <script src="{{ asset('js/component/button/news_btn.js') }}"></script>
-        <script src="{{ asset('js/component/contents/news_slider.js') }}"></script>
+        <script src="{{ asset('js/component/button/top_page_btn.js') }}"></script>
     </body>
 </html>

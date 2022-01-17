@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-});
+Route::get('/', 'TopPageController@index');
 
 // info系へアクセス
 Route::prefix('/info')->group(function() {
@@ -32,8 +30,13 @@ Route::prefix('/info')->group(function() {
     });
 });
 
- // ニュース入力画面
+// ニュース入力画面
 Route::prefix('/news_input')->group(function() {
     Route::get('/', 'NewsInputController@index');
     Route::post('/post', 'NewsInputController@newsPost')->name('news_input.post');
+});
+
+// ニュース一覧画面
+Route::prefix('/news')->group(function() {
+    Route::get('/', 'NewsController@index');
 });
