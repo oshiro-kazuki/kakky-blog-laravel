@@ -31,6 +31,7 @@
 .news_item p{
     font-size: 18px;
     line-height: 1.4rem;
+    word-break: break-all;
 }
 .news_item h6{
     font-weight: bold;
