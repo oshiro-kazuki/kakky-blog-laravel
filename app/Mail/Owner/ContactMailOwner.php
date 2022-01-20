@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mail\Admin;
+namespace App\Mail\Owner;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMailAdmin extends Mailable
+class ContactMailOwner extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class ContactMailAdmin extends Mailable
         return $this->from('info@kakky-blog.com')
         ->subject('お問い合わせの受付')
         ->text(
-            'admin.contact_mail.mail_template',
+            'owner.contact_mail.mail_template',
             [
                 'postData' => $this->postData
             ]

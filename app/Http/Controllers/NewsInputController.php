@@ -10,7 +10,7 @@ class NewsInputController extends Controller
 {
     public function index()
     {
-        return view('/admin/news/news_input');
+        return view('/owner/news/news_input');
     }
 
     public function newsPost(NewsRequest $news_request)
