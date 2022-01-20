@@ -15,4 +15,4 @@
 
 ※このメールは自動送信用のメールです。
 
-wan-like より
+{{config('const.APP_NAME')}} より
