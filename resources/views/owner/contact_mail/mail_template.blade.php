@@ -12,4 +12,4 @@
 {{ $postData['contact_mail_content'] }}
 
 
-wan-like より
+{{config('const.APP_NAME')}} より
