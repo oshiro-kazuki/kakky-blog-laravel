@@ -30,6 +30,6 @@
         <script src="{{ asset('js/common/header.js') }}"></script>
         <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/top_image.js') }}"></script>
-        <script src="{{ asset('js/component/contents/news_slider.js') }}"></script>
+        <script src="{{ asset('js/component/contents/carousel.js') }}"></script>
     </body>
 </html>
