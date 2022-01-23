@@ -1,10 +1,10 @@
 .news_items{
-    height: 180px;
+    height: 210px;
 }
 .news_item{
     border: 3px solid #4682b4;
     border-radius: 5px;
-    height: 100%;
+    height: 180px;
     width: 240px;
     box-sizing: border-box;
 }
@@ -25,6 +25,7 @@
     line-height: 1.4rem;
     word-break: break-all;
     height: 80px;
+    padding: 0 5px;
 }
 .news_item h6{
     font-weight: bold;
@@ -41,14 +42,6 @@
     bottom: 5px;
     right: 5px;
 }
-.news_btn{
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-}
 .carousel_prev_btn,
 .carousel_next_btn{
     background-color: transparent;
@@ -60,7 +53,7 @@
     height: 50px;
     max-width: 300px;
     width: 100%;
-    margin: 50px auto;
+    margin: 100px auto 50px;
     background-color: tomato;
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -75,4 +68,8 @@
     font-size: 20px;
     font-weight: bold;
     color: white
+}
+.news_item_none{
+    text-align: center;
+    font-weight: bold;
 }
