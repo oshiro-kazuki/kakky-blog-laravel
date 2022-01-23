@@ -1,263 +1,260 @@
 'use strict';
 window.addEventListener('load', () =>{
+    const btn_view_flg = true;
+    // カルーセルの要素指定
     const carousel_items_container = get_tag_query('.carousel_items_container');
-
-    const start_carousel = 50;
-    const carousel_dot_btns_width = 150;
-    const carousel_item_padding = 10;
-    const carousel_itema = document.querySelector('.carousel_item');
-    const carousel_width = carousel_itema.offsetWidth + carousel_item_padding;
-    const item_x = [];
+    const carousel_items = document.querySelectorAll('.carousel_item');
     
     if(carousel_items_container){
-        carousel_items_container.style.display = 'flex';
-        carousel_items_container.style.position = 'relative';
+        const carousel_items_container_ul = get_tag_query('.carousel_items_container ul');
 
-        const carousel_item = document.querySelectorAll('.carousel_item');
-        const carousel_btns_container = get_tag_query('.carousel_btns_container');
-    
-        if(carousel_btns_container){
-            const carousel_prev_btn = create_tag('div', carousel_btns_container, false, 'carousel_prev_btn');
-            if(carousel_prev_btn){
-                cla_add(carousel_prev_btn, 'material-icons');
-                carousel_prev_btn.textContent= 'arrow_back_ios';
-                carouselBtnStyle(carousel_prev_btn);
-                carousel_prev_btn.style.paddingLeft = '8px';
-            }   
-          
-            const carousel_dot_btns = create_tag('div', carousel_btns_container, false, 'carousel_dot_btns');;
-            if(carousel_dot_btns){
-                carousel_dot_btns.style.display = 'flex';
-                carousel_dot_btns.style.justifyContent = 'space-around';
-                carousel_dot_btns.style.alignItems = 'center';
-                carousel_dot_btns.style.width = `${carousel_dot_btns_width}px`;
-            }
-        
-            const carousel_next_btn = create_tag('div', carousel_btns_container, false, 'carousel_next_btn');
-            if(carousel_next_btn){
-                cla_add(carousel_next_btn, 'material-icons');
-                carousel_next_btn.textContent= 'arrow_forward_ios';
-                carouselBtnStyle(carousel_next_btn);
-            }
-        
-            function carouselBtnStyle(element){
-                element.style.display = 'block';
-                element.style.width = '50px';
-                element.style.height = '50px';
-                element.style.lineHeight = '45px';
-                element.style.textAlign = 'center';
-                element.style.borderRadius = '50%';
-            }
-    
-            // 表示領域で表示
-            const dot_btn_options = {
+        if(carousel_items.length > 0){
+            // 表示領域でカルーセル発火
+            const carousel_options = {
                 root: null,
                 rootMargin: '0px',
                 threshold: 0
             }
             
-            function dot_btn_callback(item, object){
-                if(item.length > 0){
-                    item.forEach((entry, index) => {
-                        if(index === 0)currnt_btn(index);
-                        object.unobserve(entry.target);
-                    });
+            function carousel_callback(entries, object){
+                if(entries[0].isIntersecting){
+                    carouselView();
+                    object.unobserve(entries[0].target);
                 }
             }
         
-            const dot_btn_observer = new IntersectionObserver(dot_btn_callback, dot_btn_options);
-            
-            if(carousel_item.length > 0){
-                carousel_item.forEach(item => {
-                    dot_btn_observer.observe(item)
-                });
-            }
-    
-            // 次へボタン押下
-            carousel_next_btn.addEventListener('click', () => {
-                if(carousel_item.length > 0){
-                    carousel_item.forEach((item, index) => {
-                        carousel_next_move(item, index);
-                    });
-                }
-            });
-            
-            // 前へボタン押下
-            carousel_prev_btn.addEventListener('click', () => {
-                if(carousel_item.length > 0){
-                    carousel_item.forEach((item, index) => {
-                        carousel_prev_move(item, index);
-                    });
-                }
-            });
+            const dot_btn_observer = new IntersectionObserver(carousel_callback, carousel_options);
+            dot_btn_observer.observe(carousel_items_container);
 
-            // パネル初期表示
-            if(carousel_item.length > 0){
-                carousel_item.forEach((item, index) => {
-                    item.style.position = 'absolute';
+            function carouselView(){
+                let current_index               = 1;    // カルセールの表示アイテムインデックス
+                const carousel_item_margin      = 10;   // カルーセルのアイテムのスタイル指定
+                const carousel_container_space  = 20;
+                const carousel_dot_btns_width   = 150;
+                const carousel_dotbtn_size      = 10;
     
-                    if(index < carousel_item.length - 2){
-                        item_x.push(start_carousel + carousel_width * index);
-                    } else {
-                        item_x.push((start_carousel - carousel_width) - (carousel_width * ((carousel_item.length - 1) - index)));
-                    }
-                    item.style.left = `${item_x[index]}px`;
-                    if(carousel_btns_container && carousel_dot_btns !== ''){
-                        create_dot_btn(carousel_dot_btns);
-                    }
+                // アイテム毎にスタイル設定
+                carousel_items.forEach((item) => {
+                    item.style.float = 'left';
+                    item.style.marginRight = `${carousel_item_margin}px`;
+                    item.style.marginLeft = `${carousel_item_margin}px`;
+                    currentItemStyle();
                 });
-            }
-        }
     
-        const carousel_dot_btn = document.querySelectorAll('.carousel_dot_btn');
+                //　カルーセルのコンテナをアイテム数に合わせて幅計算
+                const carousel_item_width = carousel_items[0].offsetWidth + carousel_item_margin * 2;
+                const carousel_container_width = carousel_item_width * carousel_items.length;
     
-        // ドットボタン押下
-        if(carousel_dot_btn.length > 0){
-            carousel_dot_btn.forEach((btn, index) => {
-                btn.addEventListener('click', () => {
-                    carousel_dot_click_move(index);
-                });
-            });
-        }
+                // カルーセルのアイテム親要素スタイル指定
+                carousel_items_container_ul.style.position = 'relative';
+                carousel_items_container_ul.style.height = `${carousel_items_container.clientHeight - carousel_item_margin}px`;
+                carousel_items_container_ul.style.overflow = 'hidden';
+                carousel_items_container_ul.style.transitionProperty = 'left';
+                carousel_items_container_ul.style.transitionDuration = '.5s';
+                carousel_items_container_ul.style.transitionTimingRunction = 'ease-out';
+                carousel_items_container_ul.style.width = `${carousel_container_width}px`;
+                carousel_items_container_ul.style.paddingTop = `10px`;
     
-        // カルーセルのドットボタン生成
-        function create_dot_btn(parent){
-            const dot_btn = create_tag('span', parent, false, 'carousel_dot_btn');
-            dot_btn.style.display = 'block';
-            dot_btn.style.width = '10px';
-            dot_btn.style.height = '10px';
-            dot_btn.style.backgroundColor = '#ccc';
-            dot_btn.style.borderRadius = '50%';
-        }
-        
-        //　右にスライド処理
-        function carousel_next_move(item, index){
-            carousel_move_style(item);
-            if(item_x[index] > start_carousel - carousel_width * 2){
-                item_x[index] = item_x[index] - carousel_width;
-                item.style.opacity = 1;
-                if(item_x[index] === start_carousel)currnt_btn(index);
-            }else{
-                item_x[index] = start_carousel + carousel_width * 2;
-                item.style.opacity = 0;
-            }
-            item.style.left = `${item_x[index]}px`;
-        }
-        
-        // 左にスライド処理
-        function carousel_prev_move(item, index){
-            carousel_move_style(item);
-            if(item_x[index] < carousel_width * 2 + start_carousel){
-                item_x[index] = item_x[index] + carousel_width;
-                item.style.opacity = 1;
-                if(item_x[index] === start_carousel)currnt_btn(index);
-            } else {
-                item_x[index] = start_carousel - (carousel_width * 2);
-                item.style.opacity = 0;
-            }
-            item.style.left = `${item_x[index]}px`;
-        }
+                // カルーセルアイテムの表示位置指定
+                const carousel_item_start = (window.innerWidth - carousel_item_width) / 2;
+                carousel_items_container_ul.style.left = `${carousel_item_start}px`;
     
-        // カルーセルの移動スタイル
-        function carousel_move_style(item){
-            item.style.transitionProperty = 'left';
-            item.style.transitionDuration = '.5s';
-            item.style.transitionTimingRunction = 'ease-out';
-        }
-        
-        // ドットボタンのカレントスタイル切り替え
-        function currnt_btn(current_index){
-            if(carousel_dot_btn.length > 0){
-                carousel_dot_btn.forEach((item, index) => {
-                    if(current_index === index){
-                        item.style.backgroundColor = 'red';
-                    }else{
-                        item.style.backgroundColor = '#ccc';
-                    }
-                });
-            }
-        }
-        
-        // ドットボタン押下スライド処理
-        function carousel_dot_click_move(click_index){
-            if(carousel_item.length > 0){
-                carousel_item.forEach((item, index) => {
-                    cla_remove(item, 'move');
-                    const click_index_diff = index - click_index;
-                    const carousel_items_half = carousel_item.length / 2;
-                    item.style.opacity = 1;
-                    if(index === click_index) {
-                        item_x[index] = start_carousel;
-                        currnt_btn(index);
-                    }else{
-                        if(click_index_diff > carousel_items_half){
-                            item_x[index] = start_carousel + (carousel_width * (click_index_diff - carousel_item.length));
-                        }
-                        else if(click_index_diff < carousel_items_half * -1){
-                            item_x[index] = start_carousel + (carousel_width * (click_index_diff + carousel_item.length));
-                        }else{
-                            item_x[index] = start_carousel + carousel_width * click_index_diff;
-                        }
-                        if(item_x[index] >= start_carousel + carousel_width * 2 || item_x[index] <= start_carousel - carousel_width * 2){
-                            item.style.opacity = 0;
-                        }
-                    }
-                    item.style.left = `${item_x[index]}px`;
-                });
-            }
-        }
-        
-        // スワイプイベント
-        let startX  = 0;
-        let endX    = 0;
-        let endY    = 0;
-        let swipe_x = 0;
-        let swipe_y = 0;
-        const swiper_limit = 50;
-        
-        function logSwipeStart(event) {
-            event.preventDefault();
-            startX = event.touches[0].pageX;
-        }
-        
-        function logSwipe(event) {
-            event.preventDefault();
-            endX = event.touches[0].pageX;
-            endY = event.touches[0].pageY;
-        }
-        
-        function logSwipeEnd(event) {
-            event.preventDefault();
-            swipe_x = endX - startX;
-            if(carousel_item.length > 0){
-                carousel_item.forEach((item, index) => {            
-                    if(swipe_x > swiper_limit && endX !== 0){
-                        carousel_prev_move(item, index);
-                    }else if(swipe_x < -swiper_limit && endX !== 0){
-                        carousel_next_move(item, index);
-                    }else if(endX === 0 && endY === 0){
+    
+                // スワイプイベント
+                let start_x         = 0;
+                let end_x           = 0;
+                let end_y           = 0;
+                let swipe_x         = 0;
+                const swiper_limit  = 50;
+                
+                function logSwipeStart(event) {
+                    event.preventDefault();
+                    start_x = event.touches[0].pageX;
+                }
+                
+                function logSwipe(event) {
+                    event.preventDefault();
+                    end_x = event.touches[0].pageX;
+                    end_y = event.touches[0].pageY;
+                }
+                
+                function logSwipeEnd(event) {
+                    event.preventDefault();
+                    swipe_x = end_x - start_x;
+    
+                    if(swipe_x > swiper_limit && end_x !== 0){
+                        prevMove();
+                    }else if(swipe_x < -swiper_limit && end_x !== 0){
+                        nextMove();
+                    }else if(end_x === 0 && end_y === 0){
                         const carousel_item_links = document.querySelectorAll('.carousel_item_link');
-                        if(carousel_item_links){
-                            const current_link = item.style.left;
-                            if(current_link === `${start_carousel}px`){
-                                location.href = carousel_item_links[index].href;
-                            }
+                        if(carousel_item_links.length > 0){
+                            location.href = carousel_item_links[current_index - 1].href;
                         }
                     }else{
                         return;
                     }
+    
+                    start_x  = 0;
+                    end_x    = 0;
+                    end_y    = 0;
+                    swipe_x  = 0;
+                }
+                
+                carousel_items_container_ul.addEventListener('touchstart', logSwipeStart);
+                
+                carousel_items_container_ul.addEventListener('touchmove', logSwipe);
+    
+                carousel_items_container_ul.addEventListener('touchend', logSwipeEnd);
+                
+                //　右にスライド処理
+                function nextMove(){
+                    // カルーセルのコンテナの位置を取得
+                    const current_left = carousel_items_container_ul.getBoundingClientRect().x;
+                    
+                    let move;
+                    if(current_index < carousel_items.length){
+                        move = current_left - carousel_item_width;
+                        current_index++;
+                    }else{
+                        move = carousel_item_start;
+                        current_index = 1;
+                    }
+                    carousel_items_container_ul.style.left = `${move}px`;
+                    currentItemStyle();
+                    currentDotbtnStyle()
+                }
+                
+                // 左にスライド処理
+                function prevMove(){
+                    // カルーセルのコンテナの位置を取得
+                    const current_left = carousel_items_container_ul.getBoundingClientRect().x;
+                    
+                    let move;
+                    if(current_index > 1){
+                        move = current_left + carousel_item_width;
+                        current_index--;
+                    }else{
+                        move = carousel_item_start - carousel_item_width * (carousel_items.length - 1);
+                        current_index = carousel_items.length;
+                    }
+                    carousel_items_container_ul.style.left = `${move}px`;
+                    currentItemStyle();
+                    currentDotbtnStyle()
+                }
+
+                // カレントアイテムのスタイル設定
+                function currentItemStyle(){
+                    const default_scale         = 1;    // カルーセルでカレントアイテムのスケール標準値
+                    const carousel_item_scale   = 1.05; // カルーセルでカレントアイテムのスケール変動値
+    
+                    carousel_items.forEach((item, index)=>{
+                        if(index === current_index - 1){
+                            item.style.transform = `scale(${carousel_item_scale}, ${carousel_item_scale})`;
+                        }else{
+                            item.style.transform = `scale(${default_scale}, ${default_scale})`;
+                        }
+                    });
+                }
+
+                // ボタンのコンテナスタイル設定
+                const carousel_btns_container = create_tag('div', carousel_items_container, false, 'carousel_btns_container')
+                carousel_btns_container.style.display           = 'flex';
+                carousel_btns_container.style.justifyContent    = 'space-evenly';
+                carousel_btns_container.style.height            = `${50}px`;
+                carousel_btns_container.style.width             = '100%';
+                carousel_btns_container.style.marginTop         = `${carousel_container_space}px`;
+                carousel_btns_container.style.marginBottom      = `${carousel_container_space}px`;
+                carousel_btns_container.style.paddingRight      = `${carousel_container_space}px`;
+                carousel_btns_container.style.paddingLeft       = `${carousel_container_space}px`;
+
+                // ボタンサイズ
+                const carousel_btn_size = 50;
+
+                if(carousel_items.length > 1 && btn_view_flg){
+                    // 前ボタン生成
+                    const carousel_prev_btn = create_tag('div', carousel_btns_container, false, 'carousel_prev_btn');
+                    cla_add(carousel_prev_btn, 'material-icons');
+                    carousel_prev_btn.textContent = 'arrow_back_ios';
+                    carouselBtnStyle(carousel_prev_btn);
+                    carousel_prev_btn.style.paddingLeft = '8px';
+
+                    // 前ボタンをクリックでイベント発火
+                    carousel_prev_btn.addEventListener('click', () => {
+                        prevMove();
+                    });
+                }
+
+                // ドットボタン配置エリア生成
+                const carousel_dotbtn_container = create_tag('div', carousel_btns_container, false, 'carousel_dotbtn_container');;
+                carousel_dotbtn_container.style.display         = 'flex';
+                carousel_dotbtn_container.style.justifyContent  = 'space-evenly';
+                carousel_dotbtn_container.style.alignItems      = 'center';
+                carousel_dotbtn_container.style.width           = `${carousel_dot_btns_width}px`;
+
+                if(carousel_items.length > 1 && btn_view_flg){
+                    // 次ボタン生成
+                    const carousel_next_btn = create_tag('div', carousel_btns_container, false, 'carousel_next_btn');
+                    cla_add(carousel_next_btn, 'material-icons');
+                    carousel_next_btn.textContent = 'arrow_forward_ios';
+                    carouselBtnStyle(carousel_next_btn);
+
+                    // 次ボタンをクリックでイベント発火
+                    carousel_next_btn.addEventListener('click', () => {
+                        nextMove();
+                    });
+                }
+                
+                // ドットボタン生成
+                carousel_items.forEach(() => {
+                    const dot_btn = create_tag('span', carousel_dotbtn_container, false, 'carousel_dotBtn');
+                    dot_btn.style.display           = 'block';
+                    dot_btn.style.width             = `${carousel_dotbtn_size}px`;
+                    dot_btn.style.height            = `${carousel_dotbtn_size}px`;
+                    dot_btn.style.backgroundColor   = '#ccc';
+                    dot_btn.style.borderRadius      = '50%';
                 });
+                
+                // カルーセル次と前ボタンのスタイル指定
+                function carouselBtnStyle(element){
+                    element.style.display       = 'block';
+                    element.style.width         = `${carousel_btn_size}px`;
+                    element.style.height        = `${carousel_btn_size}px`;
+                    element.style.lineHeight    = `${carousel_btn_size- 5}px`;
+                    element.style.textAlign     = 'center';
+                    element.style.borderRadius  = '50%';
+                }
+                
+                // ドットボタンのスタイルとクリック処理
+                const carousel_dotBtns = document.querySelectorAll('.carousel_dotBtn');
+                carousel_dotBtns.forEach((item, index)=>{
+                    if(index === 0){
+                        currentDotbtnStyle();
+                    }
+                    item.addEventListener('click', () =>{
+                        dotbtn_click(index);
+                    });
+                });
+
+                // ドットボタンスタイル指定
+                function currentDotbtnStyle(){
+                    carousel_dotBtns.forEach((item, index)=>{
+                        if(index === current_index - 1){
+                            item.style.backgroundColor = 'red';
+                        }else{
+                            item.style.backgroundColor = '#ccc';
+                        }
+                    })
+                }
+
+                // ドットボタンをクリックでイベント発火
+                function dotbtn_click(click_index){
+                    const move = carousel_item_start - carousel_item_width * click_index;
+                    carousel_items_container_ul.style.left = `${move}px`;
+                    current_index = click_index + 1;
+                    currentDotbtnStyle();
+                }
             }
-            startX  = 0;
-            endX    = 0;
-            endY    = 0;
-            swipe_x = 0;
         }
-        
-        carousel_items_container.addEventListener('touchstart', logSwipeStart);
-        
-        carousel_items_container.addEventListener('touchend', logSwipeEnd);
-        
-        carousel_items_container.addEventListener('touchmove', logSwipe);
     }
 });
