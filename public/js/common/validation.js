@@ -1,57 +1,80 @@
 'use strict';
 
 // nullチェック
-const null_check = (e) => {
+const nullCheck = (e, element) => {
     const text = e.target.value;
-    return text === '' ? true : false;
+    if(text === ''){
+        nullText(element)
+        return true;
+    }
+    errorNoneText(element);
+    return false;
 }
 
 // メールアドレス形式チェック
-const email_check = (e) => {
+const emailCheck = (e, element) => {
     const text = e.target.value;
     const reg = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-    return reg.test(text) ? false : true;
+    if(!reg.test(text)){
+        emailFormatText(element);
+        return true;
+    }
+    errorNoneText(element);
+    return false;
 }
 
 // 選択有無チェック
-const select_check = (index) => {
-    return index === '0' ? true : false;
+const selectCheck = (index, element) => {
+    if(index === '0'){
+        selectNoneText(element);
+        return true;
+    }
+    errorNoneText(element);
+    return false;
 }
 
 // 最大文字数チェック
-const max_length_check = (e, len) => {
+const maxLengthCheck = (e, len, element) => {
     const text = e.target.value;
-    return text.length > len ? true : false;
+    if(text.length > len){
+        maxLengthOverText(element);
+        return true
+    }
+    errorNoneText(element);
+    return false;
 }
 
 // nullの場合メッセージ表示
-const null_check_text = (result, element) => {
-    element.textContent = result ? '入力してください。' : '';
+const nullText = (element) => {
+    element.textContent = '入力してください。';
 }
 
 // メールアドレス形式が異なる場合メッセージ表示
-const email_check_text = (result, element) => {
-    element.textContent = result ? 'メールアドレスの形式が違います。' : '';
+const emailFormatText = (element) => {
+    element.textContent = 'メールアドレスの形式が違います。';
 }
 
 // 選択なしの場合メッセージ表示
-const select_check_text = (result, element) => {
-    element.textContent = result ? '件名を選択してください。' : '';
+const selectNoneText = (element) => {
+    element.textContent = '件名を選択してください。';
 }
 
 // 最大文字数超過の場合メッセージ表示
-const max_length_check_text = (result, element) => {
-    element.textContent = result ? '文字数が上限値を超えています。' : '';
+const maxLengthOverText = (element) => {
+    element.textContent = '文字数が上限値を超えています。';
+}
+
+const errorNoneText = (element) => {
+    element.textContent = '';
 }
 
 // nullと最大文字数超過チェック
-const null_max_check = (event, element, len, index) => {
-    const null_check_result = null_check(event);
-    null_check_text(null_check_result, element);
-    if(!null_check_result){
-        const max_length_check_result = max_length_check(event, len);
-        max_length_check_text(max_length_check_result, element);
-        news_input_confirm_check(index, max_length_check_result);
-        news_input_submit_check(index, max_length_check_result);
+const nullMaxCheck = (e, element, len) => {
+    const null_esult = nullCheck(e, element);
+    if(!null_esult){
+        const max_result = maxLengthCheck(e, len, element);
+        return max_result ? true : false;
+    }else{
+        return true;
     }
 }
