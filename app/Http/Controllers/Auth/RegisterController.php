@@ -8,45 +8,24 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Model\Owners;
+use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
+use Auth;
+use Illuminate\Support\Str;
+use DateTime;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -56,12 +35,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(array $data)
     {
         return User::create([
@@ -69,5 +42,47 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showOwnerRegisterForm()
+    {
+        $script = [
+            'js/auth/register.js',
+        ];
+        return view(
+            'auth.owner.register',
+            [
+                'url'           => 'owner',
+                'screen_title'  => '新規登録画面',
+                'script'        => $script
+            ]
+        );
+    }
+
+    protected function createOwner(RegisterRequest $request)
+    {
+        $request->all();
+        $profile_image_flg = $request['profile_image'] ? true : false;
+        $owners = Owners::insertGetId([
+            'owner_id'          => Str::random(32),
+            'created_at'        => now(),
+            'name'              => $request['name'],
+            'address'           => $request['address'],
+            'tel'               => $request['tel'],
+            'email'             => $request['email'],
+            'profile'           => $request['profile'],
+            'profile_image_flg' => $profile_image_flg,
+            'password'          => Hash::make($request['password']),
+        ]);
+        $this->createOwnerProfileImage($request['profile_image']);
+        return redirect()->intended('register/owner');
+    }
+
+    protected function createOwnerProfileImage($file)
+    {
+        $insert_id = Owners::max('id');
+        $profile_image_path = public_path('/storage/owner/profile/'.$insert_id);
+        $file_name = 'pfrofile_img.jpg';
+        $file->move($profile_image_path,$file_name);
     }
 }

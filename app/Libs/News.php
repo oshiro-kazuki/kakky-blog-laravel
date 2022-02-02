@@ -3,7 +3,7 @@
 namespace App\Libs;
 
 use DateTime;
-use App\NewsList;
+use App\Model\NewsList;
 
 class News
 {

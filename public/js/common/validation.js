@@ -78,3 +78,16 @@ const nullMaxCheck = (e, element, len) => {
         return true;
     }
 }
+
+// nullと最大文字数超過、email形式チェック
+const nullMaxEmailCheck = (e, element, len) => {
+    let check_flg = [true,true,true];
+    check_flg[0] = nullCheck(e, element);
+    if(!check_flg[0]){
+        check_flg[1] = emailCheck(e, element);
+        if(!check_flg[1]){
+            check_flg[2] = maxLengthCheck(e, len, element);
+        }
+    }
+    return check_flg.some(element => element === true);
+}
