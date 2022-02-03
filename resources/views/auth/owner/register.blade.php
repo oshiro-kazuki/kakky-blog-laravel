@@ -3,7 +3,7 @@
 <article>
     <form action="{{ route('ownerRegister') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <section id="register_input" class="form_section" style="display: none;">
+        <section id="register_input" class="form_section">
             <h2>
                 <span class="material-icons">grade</span>
                 入力画面
@@ -60,7 +60,7 @@
 
             <div class="form_list">
                 <label>プロフィール、コメント</label>
-                <textarea id="input_profile" name="profile" maxlength="{{config('const.INPUT_TEXT_LENGTH')}}" value="{{ old('profile') }}" placeholder="プロフィールやアピールポイントを入力、最大{{config('const.INPUT_TEXT_LENGTH')}}文字"></textarea>
+                <textarea id="input_profile" name="profile" maxlength="{{config('const.INPUT_TEXT_LENGTH')}}" placeholder="プロフィールやアピールポイントを入力、最大{{config('const.INPUT_TEXT_LENGTH')}}文字">{{ old('profile') }}</textarea>
                 <p id="form_profile_error">
                     @if ($errors->has('profile'))
                         @foreach ($errors->get('profile') as $detail_errors)
@@ -71,9 +71,9 @@
             </div>
 
             <div class="form_list">
-                <label>プロフィール画像</label>
+                <label>プロフィール画像<span>(3MB以内)</span></label>
                 <div class="profile_image_click">画像を選択
-                    <input id="input_profile_image" class="form_image" type="file" name="profile_image" value="{{ old('profile_image') }}">
+                    <input id="input_profile_image" class="form_image" type="file" name="profile_image">
                 </div>
                 <p id="form_profile_image_error">
                     @if ($errors->has('profile_image'))

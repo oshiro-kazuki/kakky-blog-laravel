@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use Auth;
 use Illuminate\Support\Str;
-use DateTime;
 
 class RegisterController extends Controller
 {
@@ -61,9 +60,14 @@ class RegisterController extends Controller
 
     protected function createOwner(RegisterRequest $request)
     {
+        $profile_image_flg = false;
         $request->all();
-        $profile_image_flg = $request['profile_image'] ? true : false;
-        $owners = Owners::insertGetId([
+        if(!is_null($request['profile_image'])){
+            $profile_image_flg = true;
+            $file = $request['profile_image'];
+            $this->createOwnerProfileImage($file);
+        }
+        Owners::insertGetId([
             'owner_id'          => Str::random(32),
             'created_at'        => now(),
             'name'              => $request['name'],
@@ -74,13 +78,12 @@ class RegisterController extends Controller
             'profile_image_flg' => $profile_image_flg,
             'password'          => Hash::make($request['password']),
         ]);
-        $this->createOwnerProfileImage($request['profile_image']);
         return redirect()->intended('register/owner');
     }
 
     protected function createOwnerProfileImage($file)
     {
-        $insert_id = Owners::max('id');
+        $insert_id = Owners::max('id') + 1;
         $profile_image_path = public_path('/storage/owner/profile/'.$insert_id);
         $file_name = 'pfrofile_img.jpg';
         $file->move($profile_image_path,$file_name);
