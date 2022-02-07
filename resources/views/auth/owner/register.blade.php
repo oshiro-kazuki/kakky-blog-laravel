@@ -36,7 +36,7 @@
 
             <div class="form_list">
                 <label>電話番号<span>(必須)</span></label>
-                <input id="input_tel" type="text" name="tel" maxlength="{{config('const.TEL_LENGTH')}}" value="{{ old('tel') }}" placeholder="電話番号を入力">
+                <input id="input_tel" type="tel" name="tel" maxlength="{{config('const.TEL_LENGTH')}}" value="{{ old('tel') }}" placeholder="ハイフン「-」なしで入力">
                 <p id="form_tel_error">
                     @if ($errors->has('tel'))
                         @foreach ($errors->get('tel') as $detail_errors)
@@ -76,8 +76,8 @@
                     <input id="input_profile_image" class="form_image" type="file" name="profile_image">
                 </div>
                 <p id="form_profile_image_error">
-                    @if ($errors->has('profile_image'))
-                        @foreach ($errors->get('profile_image') as $detail_errors)
+                    @if ($errors->has('profile'))
+                        @foreach ($errors->get('profile') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
                     @endif
@@ -86,8 +86,7 @@
 
             <div class="form_list">
                 <label>パスワード<span>(必須)</span></label>
-                <h6>※パ8文字以上20文字以内で半角英数字、大文字英字と.?_をどれか必ず入れてください。</h6>
-                <input id="input_password" type="password" name="password" maxlength="{{config('const.PASSWORD_LENGTH')}}" value="{{ old('password') }}" placeholder="最大{{config('const.PASSWORD_LENGTH')}}文字">
+                <input id="input_password" type="password" name="password" maxlength="{{config('const.PASSWORD_LENGTH')}}" value="{{ old('password') }}" placeholder="A~Zと.?_を含む半角英数字を入力">
                 <p id="form_password_error">
                     @if ($errors->has('password'))
                         @foreach ($errors->get('password') as $detail_errors)
@@ -100,7 +99,7 @@
             <div class="form_list">
                 <label>パスワード(確認用)</label>
                 <input id="password_confirmation" type="password" name="password_confirmation" maxlength="{{config('const.PASSWORD_LENGTH')}}" value="{{ old('password_confirmation') }}" placeholder="同じパスワードを入力">
-                <p id="form_password_error">
+                <p id="form_password_conf_error">
                     @if ($errors->has('password_confirmation'))
                         @foreach ($errors->get('password_confirmation') as $detail_errors)
                             {{$detail_errors}}
@@ -110,7 +109,7 @@
             </div>
 
             <div class="form_conf_submit">
-                <a id="register_input_conf_btn" class="form_conf_submit_btn" href="javascript:void(0)">確認</a>
+                <a id="register_input_conf_btn" class="form_conf_submit_btn hidden" href="javascript:void(0)">確認</a>
             </div>
         </section>
         <section id="register_conf" class="form_section">
@@ -127,27 +126,27 @@
 
             <div class="conf_list">
                 <label>住所</label>
-                <p id="input_address"></p>
+                <p id="conf_address"></p>
             </div>
 
             <div class="conf_list">
                 <label>電話番号</label>
-                <p id="input_tel"></p>
+                <p id="conf_tel"></p>
             </div>
 
             <div class="conf_list">
                 <label>メールアドレス</label>
-                <p id="input_email"></p>
+                <p id="conf_email"></p>
             </div>
 
             <div class="conf_list">
                 <label>プロフィール、コメント</label>
-                <p id="input_profile"></p>
+                <p id="conf_profile"></p>
             </div>
 
             <div class="conf_list">
                 <label>プロフィール画像</label>
-                <p id="profile_image"></p>
+                <p id="conf_image"></p>
             </div>
 
             <div class="conf_list">
@@ -156,7 +155,7 @@
             </div>
 
             <div class="form_submit">
-                <button id="submit_btn" class="form_submit_btn" type="submit">新規登録</button>
+                <button id="submit_btn" class="form_submit_btn" type="submit" disabled>新規登録</button>
             </div>
         </section>
     </form>

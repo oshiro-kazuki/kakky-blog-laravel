@@ -1,34 +1,16 @@
 'use strict';
-// ログインボタン制御管理フラグ
-const login_submit_flg = [true,true];
+// 必須項目入力管理フラグ
+const submit_flg = [true,true,true,true,true,true];
+const max_len = 191;
 
-const login_email_input = get_tag_byId('login_email_input');
-if(login_email_input){
-    login_email_input.addEventListener('input', (e) => {
-        const login_email_error = get_tag_byId('login_email_error');
-        const result = nullMaxEmailCheck(e, login_email_error, 191);
-        login_submit_flg_check(0, result);
-    });
-}
+requireText('input_name', 'form_name_error', 'conf_name', max_len, submit_flg, 0, 'register_input_conf_btn', 'submit_btn');
+requireFullWidth('input_address', 'form_address_error', 'conf_address', max_len, submit_flg, 1, 'register_input_conf_btn', 'submit_btn');
+requireTell('input_tel', 'form_tel_error', 'conf_tel', submit_flg, 2, 'register_input_conf_btn', 'submit_btn');
+requireEmail('input_email', 'form_email_error', 'conf_email', max_len, submit_flg, 3, 'register_input_conf_btn', 'submit_btn');
+requirePassword('input_password', 'form_password_error', submit_flg, 4, 'register_input_conf_btn', 'submit_btn');
+requirePassword('password_confirmation', 'form_password_conf_error', submit_flg, 5, 'register_input_conf_btn', 'submit_btn');
 
-const login_password_input = get_tag_byId('login_password_input');
-if(login_password_input){
-    login_password_input.addEventListener('input', (e) => {
-        const login_password_error = get_tag_byId('login_password_error');
-        const result = nullMaxCheck(e, login_password_error, 20);
-        login_submit_flg_check(1, result);
-    });
-}
 
-// ログインボタン制御
-const login_submit_btn = get_tag_byId('login_submit_btn');
-const login_submit_flg_check = (index ,flg) => {
-    login_submit_flg[index] = flg;
-    // 制御項目が全て入力されているか判定
-    const submit_flg_result = login_submit_flg.some(element => element === true);
-    if(submit_flg_result) {
-        login_submit_btn.disabled = true;
-    } else {
-        login_submit_btn.disabled = false;
-    }
-}
+
+// nullableText('input_profile', 'form_profile_error', 'conf_profile', 140, submit_flg, 4, 'register_input_conf_btn', 'submit_btn');
+// nullableImage('input_profile_image', 'form_profile_image_error', submit_flg, 5, 'register_input_conf_btn', 'submit_btn');
