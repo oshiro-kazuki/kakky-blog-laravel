@@ -1,5 +1,4 @@
 'use strict';
-
 // 件名リスト
 const subject_lists = [
     '- 選択してください -',
@@ -16,15 +15,14 @@ const submit_flg = [
 ];
 
 // お問い合わせ入力フォーム
-//　お名前nullチェック
+// お名前nullチェック
 const contact_mail_name = get_tag_byId('contact_mail_name');
 const contact_mail_name_confirm_text = get_tag_byId('contact_mail_name_confirm_text');
 contact_mail_name.addEventListener('input', (e) => {
     const contact_mail_name_error = get_tag_byId('contact_mail_name_error');
-    const check_result = null_check(e);
-    null_check_text(check_result, contact_mail_name_error);
-    contact_mail_confirm_check(0, check_result);
-    contact_mail_submit_check(0, check_result);
+    const null_result = nullCheck(e, contact_mail_name_error);
+    contact_mail_confirm_check(0, null_result);
+    contact_mail_submit_check(0, null_result);
     get_text(contact_mail_name_confirm_text, e);
 });
 
@@ -33,18 +31,13 @@ const contact_mail_email = get_tag_byId('contact_mail_email');
 const contact_mail_email_confirm_text = get_tag_byId('contact_mail_email_confirm_text');
 contact_mail_email.addEventListener('input', (e) => {
     const contact_mail_email_error = get_tag_byId('contact_mail_email_error');
-    const flgs = [true, true];
-    flgs[0] = null_check(e);
-    null_check_text(flgs[0], contact_mail_email_error);
-    // メールアドレス形式チェック
-    if(!flgs[0]) {
-        flgs[1] = email_check(e);
-        email_check_text(flgs[1], contact_mail_email_error);
+    const null_result = nullCheck(e, contact_mail_email_error);
+    if(!null_result) {
+        const email_format_result = emailCheck(e, contact_mail_email_error);
+        contact_mail_confirm_check(1, email_format_result);
+        contact_mail_submit_check(1, email_format_result);
+        get_text(contact_mail_email_confirm_text, e);
     }
-    const flg_result = flgs.some(element => element === true);
-    contact_mail_confirm_check(1, flg_result);
-    contact_mail_submit_check(1, flg_result);
-    get_text(contact_mail_email_confirm_text, e);
 });
 
 
@@ -63,8 +56,7 @@ contact_mail_subject.addEventListener('change', (e) => {
     const contact_mail_subject_error = get_tag_byId('contact_mail_subject_error');
     const index = e.target.value;
     contact_mail_subject_init.textContent = subject_lists[index];
-    const check_result = select_check(index);
-    select_check_text(check_result, contact_mail_subject_error);
+    const check_result = selectCheck(index, contact_mail_subject_error);
     contact_mail_confirm_check(2, check_result);
     contact_mail_submit_check(2, check_result);
     get_select(contact_mail_subject_confirm_text, e);
@@ -77,8 +69,7 @@ const contact_mail_content = get_tag_byId('contact_mail_content');
 const contact_mail_content_confirm_text = get_tag_byId('contact_mail_content_confirm_text');
 contact_mail_content.addEventListener('input', (e) => {
     const contact_mail_content_error = get_tag_byId('contact_mail_content_error');
-    const check_result = null_check(e);
-    null_check_text(check_result, contact_mail_content_error);
+    const check_result = nullCheck(e, contact_mail_content_error);
     contact_mail_confirm_check(3, check_result);
     contact_mail_submit_check(3, check_result);
     get_text(contact_mail_content_confirm_text, e);

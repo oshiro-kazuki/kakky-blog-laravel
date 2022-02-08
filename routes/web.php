@@ -40,3 +40,17 @@ Route::prefix('/news_input')->group(function() {
 Route::prefix('/news')->group(function() {
     Route::get('/', 'NewsController@index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/login/owner', 'Auth\LoginController@showOwnerLoginForm');
+Route::get('/register/owner', 'Auth\RegisterController@showOwnerRegisterForm');
+
+Route::post('/login/owner', 'Auth\LoginController@ownerLogin')->name('ownerLogin.post');
+Route::post('/register/owner', 'Auth\RegisterController@createOwner')->name('ownerRegister');
+
+Route::view('/home', 'home')->middleware('auth');
+Route::view('/owner', 'owner');

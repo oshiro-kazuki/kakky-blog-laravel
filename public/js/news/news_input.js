@@ -12,7 +12,9 @@ const news_input_title = get_tag_byId('news_input_title');
 const news_input_title_confirm_text = get_tag_byId('news_input_title_confirm_text');
 news_input_title.addEventListener('input', (e) => {
     const news_input_title_error = get_tag_byId('news_input_title_error');
-    null_max_check(e, news_input_title_error, 20, 0);
+    const result = nullMaxCheck(e, news_input_title_error, 20);
+    news_input_confirm_check(0, result);
+    news_input_submit_check(0, result);
     get_text(news_input_title_confirm_text, e);
 });
 
@@ -21,7 +23,9 @@ const news_input_content = get_tag_byId('news_input_content');
 const news_input_content_confirm_text = get_tag_byId('news_input_content_confirm_text');
 news_input_content.addEventListener('input', (e) => {
     const news_input_content_error = get_tag_byId('news_input_content_error');
-    null_max_check(e, news_input_content_error, 140, 1);
+    const result = nullMaxCheck(e, news_input_content_error, 140);
+    news_input_confirm_check(1, result);
+    news_input_submit_check(1, result);
     get_text(news_input_content_confirm_text, e);
 });
 
@@ -78,4 +82,3 @@ news_input_return_btn.addEventListener('click', () => {
     cla_add(news_input_form_confirm, 'hidden');
     location.href = '#';
 });
-
