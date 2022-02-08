@@ -1,64 +1,86 @@
-/* ニュース入力画面 */
-.news_input_form{
-    margin: 50px auto;
+.form_section{
+    display: block;
+}
+.form_section.hidden{
+    display: none;
+}
+.form_section h2{
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 800;
     font-size: 1.5rem;
 }
-.news_input_form h1{
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 20px;
-    font-size: 1.7rem;
+.form_section h2 .material-icons{
+    position: relative;
+    top: 3px;
+    color: tomato;
 }
-.news_input_form input,
-.news_input_form textarea{
+.form_list{
+    margin: 10px;
+}
+.form_list > label{
+    font-weight: 800;
+    font-size: 1.4rem;
+}
+.form_list > label span{
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: #ff1493;
+    margin-left: 5px;
+}
+.form_list > input,
+.form_list > textarea{
+    width: 100%;
+    height: 50px;
     margin-top: 10px;
-    font-size: 1.3rem;
+    font-size: 1.0rem;
     background-color: rgb(250, 250, 250);
     border: 1px solid rgb(158, 158, 158);
     border-radius: 5px;
 }
-.news_input_form input{
+.form_list > input{
     height: 50px;
-    width: 100%;
     padding: 0 10px;
-    z-index: 5;
 }
-#news_input_form_input{
-    display: block;
-}
-#news_input_form_input.hidden{
-    display: none;
-}
-.news_input_form textarea{
+.form_list > textarea{
     height: 200px;
-    width: 100%;
     padding: 10px;
 }
-.news_input_title,
-.news_input_content{
-    margin: 10px;
-}
-.news_input_title label,
-.news_input_content label{
-    font-weight: 800;
-}
-#news_input_title_error,
-#news_input_content_error{
-    height: 20px;
+.form_list p{
+    height: 35px;
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 17px;
     color: rgb(226, 17, 58);
 }
-.news_input_confirm_submit{
+.profile_image_click{
+    margin: 20px auto 0;
+    width: 300px;
+    background-color: navy;
+    height: 50px;
+    z-index: 0;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+.form_image{
+    margin-top: -100px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+}
+.form_conf_submit{
     height: 50px;
     width: 300px;
-    margin: 50px auto;
+    margin: 30px auto 0;
     border-radius: 8px;
     border: 1px solid #ccc;
     box-shadow: 2px 2px 4px #ccc;
     position: relative;
 }
-#news_input_confirm_btn{
+.form_conf_submit_btn{
     height: 100%;
     width: 100%;
     font-weight: 800;
@@ -71,45 +93,27 @@
     top: 0;
     z-index: 1;
 }
-#news_input_confirm_btn.hidden{
+.form_conf_submit_btn.hidden{
     background-color: #d3d3d3;
     color: white;
 }
-/* 確認画面 */
-#news_input_form_confirm{
-    display: block;
-}
-#news_input_form_confirm.hidden{
-    display: none;
-}
-#news_input_form_input h2,
-#news_input_form_confirm h2{
-    text-align: center;
-    font-weight: 800;
-    font-size: 1.5rem;
-}
-#news_input_form_input h2 .material-icons,
-#news_input_form_confirm h2 .material-icons{
-    position: relative;
-    top: 3px;
-    color: tomato;
-}
-.news_input_title_confirm,
-.news_input_content_confirm{
+.conf_list{
     margin: 30px 10px;
 }
-.news_input_title_confirm label,
-.news_input_content_confirm label{
+.conf_list > label{
     font-weight: 800;
 }
-#news_input_title_confirm_text,
-#news_input_content_confirm_text{
+.conf_list > p{
     margin: 10px 10px 0;
     word-break: break-all;
 }
-
-/* 送信ボタン */
-.news_input_submit{
+.conf_list img{
+    display: block;
+    height: 200px;
+    width: 300px;
+    margin: 10px auto;
+}
+.form_submit{
     height: 50px;
     width: 300px;
     margin: 50px auto 0;
@@ -118,7 +122,7 @@
     box-shadow: 2px 2px 4px #ccc;
     position: relative;
 }
-#news_input_submit_btn{
+.form_submit_btn{
     height: 100%;
     width: 100%;
     font-weight: 800;
@@ -131,11 +135,11 @@
     top: 0;
     z-index: 1;
 }
-#news_input_submit_btn:disabled{
+.form_submit_btn:disabled{
     background-color: #d3d3d3;
     color: white;
 }
-.news_input_return{
+.form_return{
     height: 50px;
     width: 300px;
     margin: 50px auto;
@@ -144,7 +148,7 @@
     box-shadow: 2px 2px 4px #ccc;
     position: relative;
 }
-#news_input_return_btn{
+#form_return_btn{
     height: 100%;
     width: 100%;
     font-weight: 800;

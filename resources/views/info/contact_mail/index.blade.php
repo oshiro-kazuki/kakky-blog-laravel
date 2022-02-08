@@ -26,7 +26,7 @@
                 <section id="contact_mail_form_input">
                     <div class="contact_mail_name">
                         <label>お名前</label>
-                        <input id="contact_mail_name" type="text" name="contact_mail_name" size="40" value="{{ old('contact_mail_name') }}" placeholder="お名前を入力してください">
+                        <input id="contact_mail_name" type="text" name="contact_mail_name" size="40" value="{{ old('contact_mail_name') }}" placeholder="お名前を入力">
                         <p id="contact_mail_name_error">
                             @if ($errors->has('contact_mail_name'))
                                 @foreach ($errors->get('contact_mail_name') as $detail_errors)
@@ -37,7 +37,7 @@
                     </div>
                     <div class="contact_mail_email">
                         <label>メールアドレス</label>
-                        <input id="contact_mail_email" type="email" name="contact_mail_email" size="100" value="{{ old('contact_mail_email') }}" placeholder="メールアドレスを入力してください">
+                        <input id="contact_mail_email" type="email" name="contact_mail_email" size="100" value="{{ old('contact_mail_email') }}" placeholder="メールアドレスを入力">
                         <p id="contact_mail_email_error">
                             @if ($errors->has('contact_mail_email'))
                                 @foreach ($errors->get('contact_mail_email') as $detail_errors)
@@ -50,7 +50,7 @@
                         <label>件名</label><br>
                         <div class="contact_mail_subject_select_area">
                             <select id="contact_mail_subject" name="contact_mail_subject"></select>
-                            <p id="contact_mail_subject_init">- 選択してください -</p>
+                            <p id="contact_mail_subject_init">- 要件を選択 -</p>
                             <span class="material-icons">pan_tool_alt</span>
                         </div>
                         <p id="contact_mail_subject_error">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="contact_mail_content">
                         <label>お問い合わせ内容</label>
-                        <textarea id="contact_mail_content" name="contact_mail_content" cols="30" rows="10" placeholder="お問い合わせ内容を入力してください">{{ old('contact_mail_content') }}</textarea>
+                        <textarea id="contact_mail_content" name="contact_mail_content" cols="30" rows="10" placeholder="お問い合わせ内容を入力">{{ old('contact_mail_content') }}</textarea>
                         <p id="contact_mail_content_error">
                             @if ($errors->has('contact_mail_content'))
                                 @foreach ($errors->get('contact_mail_content') as $detail_errors)

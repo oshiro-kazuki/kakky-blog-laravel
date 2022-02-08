@@ -32,7 +32,7 @@
                     </h2>
                     <div class="news_input_title">
                         <label>タイトル</label>
-                        <input id="news_input_title" type="text" name="news_input_title" maxlength="20" value="{{ old('news_input_title') }}" placeholder="タイトルを入力してください(最大20文字)">
+                        <input id="news_input_title" type="text" name="news_input_title" maxlength="20" value="{{ old('news_input_title') }}" placeholder="タイトルを入力(最大20文字)">
                         <p id="news_input_title_error">
                             @if ($errors->has('news_input_title'))
                                 @foreach ($errors->get('news_input_title') as $detail_errors)
@@ -43,7 +43,7 @@
                     </div>
                     <div class="news_input_content">
                         <label>本文</label>
-                        <textarea id="news_input_content" type="text" name="news_input_content" maxlength="140" size="140" cols="30" rows="10" value="{{ old('news_input_content') }}" placeholder="本文を入力してください(最大140文字)"></textarea>
+                        <textarea id="news_input_content" type="text" name="news_input_content" maxlength="140" size="140" cols="30" rows="10" value="{{ old('news_input_content') }}" placeholder="本文を入力(最大140文字)"></textarea>
                         <p id="news_input_content_error">
                             @if ($errors->has('news_input_content'))
                                 @foreach ($errors->get('news_input_content') as $detail_errors)
