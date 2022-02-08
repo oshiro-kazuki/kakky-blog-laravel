@@ -82,4 +82,3 @@ news_input_return_btn.addEventListener('click', () => {
     cla_add(news_input_form_confirm, 'hidden');
     location.href = '#';
 });
-

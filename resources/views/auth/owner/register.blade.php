@@ -112,7 +112,7 @@
                 <a id="register_input_conf_btn" class="form_conf_submit_btn hidden" href="javascript:void(0)">確認</a>
             </div>
         </section>
-        <section id="register_conf" class="form_section">
+        <section id="register_conf" class="form_section hidden">
             <h2>
                 <span class="material-icons">grade</span>
                 登録内容の確認
@@ -141,12 +141,12 @@
 
             <div class="conf_list">
                 <label>プロフィール、コメント</label>
-                <p id="conf_profile"></p>
+                <p id="conf_profile">-</p>
             </div>
 
-            <div class="conf_list">
+            <div class="conf_list" id="conf_image">
                 <label>プロフィール画像</label>
-                <p id="conf_image"></p>
+                <p>-</p>
             </div>
 
             <div class="conf_list">
@@ -156,6 +156,10 @@
 
             <div class="form_submit">
                 <button id="submit_btn" class="form_submit_btn" type="submit" disabled>新規登録</button>
+            </div>
+
+           <div class="form_return">
+                <a id="form_return_btn" href="javascript:void(0)">戻る</a>
             </div>
         </section>
     </form>

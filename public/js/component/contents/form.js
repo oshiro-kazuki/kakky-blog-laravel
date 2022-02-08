@@ -67,11 +67,15 @@ const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
     const input_tag = get_tag_byId(input_ele);
     const conf_tag = get_tag_byId(conf_ele);
     input_tag.addEventListener('input', (e) => {
-        const err_tag = get_tag_byId(err_ele);
-        const result = maxLengthCheck(e, max, err_tag);
-        confCheck(target_flg, index, result, conf_btn);
-        submitCheck(target_flg, index, result, submit_btn);
-        getText(conf_tag, e);
+        if(e.target.textLength > 0){
+            const err_tag = get_tag_byId(err_ele);
+            const result = maxLengthCheck(e, max, err_tag);
+            confCheck(target_flg, index, result, conf_btn);
+            submitCheck(target_flg, index, result, submit_btn);
+            getText(conf_tag, e);
+        }else{
+            conf_tag.textContent = '-';
+        }
     });
 }
 
@@ -79,12 +83,15 @@ const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 const nullableImage = (input_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn) => {
     const input_tag = get_tag_byId(input_ele);
     const conf_tag = get_tag_byId(conf_ele);
+    const text = get_tag_query(`#${conf_ele} p`);
     input_tag.addEventListener('change', (e) => {
+        text.remove();
+        const image = create_img_tag(conf_tag);
         const err_tag = get_tag_byId(err_ele);
         const result = extensionFileSizeCheck(e, err_tag);
         confCheck(target_flg, index, result, conf_btn);
         submitCheck(target_flg, index, result, submit_btn);
-        // getImage(conf_tag, e);
+        getImage(image, e);
     });
 }
 
@@ -117,5 +124,39 @@ const getText = (element, event) => {
 
 // 確認フォームに画像設定
 const getImage = (element, event) => {
-    element.src = event.target.value;
+    const file_reader = new FileReader();
+	file_reader.onload = function(){
+		element.setAttribute('src', file_reader.result);
+	}
+	file_reader.readAsDataURL(event.target.files[0]);
+}
+
+const sectionChange = (input_sec, conf_sec, input_btn) => {
+    const input_section = get_tag_byId(input_sec);
+    const conf_section = get_tag_byId(conf_sec);
+    const btn = get_tag_byId(input_btn);
+    btn.addEventListener('click', () => {
+        const reg = /hidden/;
+        const is = reg.test(input_section.className);
+        const cs = reg.test(conf_section.className);
+        if(cs){
+            cla_add(input_section, 'hidden');
+            cla_remove(conf_section, 'hidden');
+        }else{
+            cla_remove(input_section, 'hidden');
+            cla_add(conf_section, 'hidden');
+        }
+        location.href = '#';
+    });
+}
+
+const returnClick = (input_sec, conf_sec, element) => {
+    const btn = get_tag_byId(element);
+    const input_section = get_tag_byId(input_sec);
+    const conf_section = get_tag_byId(conf_sec);
+    btn.addEventListener('click', () => {
+        cla_remove(input_section, 'hidden');
+        cla_add(conf_section, 'hidden');
+        location.href = '#';
+    });
 }
