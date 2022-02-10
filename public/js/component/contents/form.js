@@ -91,9 +91,9 @@ const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 const nullableImage = (input_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
     const text = get_tag_query(`#${conf_ele} p`);
+    const image = create_img_tag(gea.co);
     gea.in.addEventListener('change', (e) => {
         text.remove();
-        const image = create_img_tag(gea.co);
         const result = extensionFileSizeCheck(e, gea.er);
         confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
         getImage(image, e);
