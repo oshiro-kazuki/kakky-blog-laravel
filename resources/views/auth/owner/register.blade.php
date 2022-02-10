@@ -13,61 +13,51 @@
             <div class="form_list">
                 <label>会社または店舗名<span>(必須)</span></label>
                 <input id="input_name" type="text" name="name" maxlength="{{config('const.MAX_LENGTH')}}" value="{{ old('name') }}" placeholder="商号または屋号を入力">
-                <p id="form_name_error">
-                    @if ($errors->has('name'))
+                <p id="form_name_error">@if ($errors->has('name'))
                         @foreach ($errors->get('name') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_list">
                 <label>住所<span>(必須)</span></label>
                 <input id="input_address" type="text" name="address" maxlength="{{config('const.MAX_LENGTH')}}" value="{{ old('address') }}" placeholder="都道府県から入力">
-                <p id="form_address_error">
-                    @if ($errors->has('address'))
+                <p id="form_address_error">@if ($errors->has('address'))
                         @foreach ($errors->get('address') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_list">
                 <label>電話番号<span>(必須)</span></label>
                 <input id="input_tel" type="tel" name="tel" maxlength="{{config('const.TEL_LENGTH')}}" value="{{ old('tel') }}" placeholder="ハイフン「-」なしで入力">
-                <p id="form_tel_error">
-                    @if ($errors->has('tel'))
+                <p id="form_tel_error">@if ($errors->has('tel'))
                         @foreach ($errors->get('tel') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_list">
                 <label>メールアドレス<span>(必須)</span></label>
                 <input id="input_email" type="email" name="email" maxlength="{{config('const.MAX_LENGTH')}}" value="{{ old('email') }}" placeholder="メールアドレスを入力">
-                <p id="form_email_error">
-                    @if ($errors->has('email'))
+                <p id="form_email_error">@if ($errors->has('email'))
                         @foreach ($errors->get('email') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_list">
                 <label>プロフィール、コメント</label>
                 <textarea id="input_profile" name="profile" maxlength="{{config('const.INPUT_TEXT_LENGTH')}}" placeholder="プロフィールやアピールポイントを入力、最大{{config('const.INPUT_TEXT_LENGTH')}}文字">{{ old('profile') }}</textarea>
-                <p id="form_profile_error">
-                    @if ($errors->has('profile'))
+                <p id="form_profile_error">@if ($errors->has('profile'))
                         @foreach ($errors->get('profile') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_list">
@@ -75,37 +65,31 @@
                 <div class="profile_image_click">画像を選択
                     <input id="input_profile_image" class="form_image" type="file" name="profile_image">
                 </div>
-                <p id="form_profile_image_error">
-                    @if ($errors->has('profile'))
+                <p id="form_profile_image_error">@if ($errors->has('profile'))
                         @foreach ($errors->get('profile') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_list">
                 <label>パスワード<span>(必須)</span></label>
                 <input id="input_password" type="password" name="password" maxlength="{{config('const.PASSWORD_LENGTH')}}" value="{{ old('password') }}" placeholder="A~Zと.?_を含む半角英数字を入力">
-                <p id="form_password_error">
-                    @if ($errors->has('password'))
+                <p id="form_password_error">@if ($errors->has('password'))
                         @foreach ($errors->get('password') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_list">
                 <label>パスワード(確認用)</label>
                 <input id="password_confirmation" type="password" name="password_confirmation" maxlength="{{config('const.PASSWORD_LENGTH')}}" value="{{ old('password_confirmation') }}" placeholder="同じパスワードを入力">
-                <p id="form_password_conf_error">
-                    @if ($errors->has('password_confirmation'))
+                <p id="form_password_conf_error">@if ($errors->has('password_confirmation'))
                         @foreach ($errors->get('password_confirmation') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
-                    @endif
-                </p>
+                    @endif</p>
             </div>
 
             <div class="form_conf_submit">
