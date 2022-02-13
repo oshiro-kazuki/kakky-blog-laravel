@@ -52,17 +52,20 @@
     font-size: 17px;
     color: rgb(226, 17, 58);
 }
-.profile_image_click{
+.profile_image_click,
+.profile_image_del_click{
     margin: 20px auto 0;
     width: 300px;
-    background-color: navy;
     height: 50px;
     z-index: 0;
     text-align: center;
     line-height: 50px;
     border-radius: 10px;
-    color: white;
     font-weight: bold;
+}
+.profile_image_click{
+    background-color: navy;
+    color: white;
 }
 .form_image{
     margin-top: -100px;
@@ -70,6 +73,19 @@
     height: 100%;
     opacity: 0;
     z-index: 1;
+}
+.form_del_image_btn{
+    display: block;
+    margin: 20px auto 0;
+    width: 300px;
+    height: 50px;
+    z-index: 0;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: red;
+    color: white;
 }
 .form_conf_submit{
     height: 50px;
@@ -93,9 +109,12 @@
     top: 0;
     z-index: 1;
 }
+.form_del_image_btn.hidden,
 .form_conf_submit_btn.hidden{
     background-color: #d3d3d3;
     color: white;
+    user-select: none;
+    z-index: -1;
 }
 .conf_list{
     margin: 30px 10px;

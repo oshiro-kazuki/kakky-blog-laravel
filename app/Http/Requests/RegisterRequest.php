@@ -50,7 +50,7 @@ class RegisterRequest extends FormRequest
             'address.required'                  => '住所'.$this->required_error,
             'address.string'                    => $this->form_error,
             'address.max'                       => $this->form_error,
-            'address.regex'                     => $this->form_error.'bb',
+            'address.regex'                     => $this->form_error,
             'tel.required'                      => '電話番号'.$this->required_error,
             'tel.string'                        => $this->form_error,
             'tel.regex'                         => $this->form_error,
