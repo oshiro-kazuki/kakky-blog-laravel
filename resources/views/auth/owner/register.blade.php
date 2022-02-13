@@ -65,6 +65,9 @@
                 <div class="profile_image_click">画像を選択
                     <input id="input_profile_image" class="form_image" type="file" name="profile_image">
                 </div>
+                <div class="profile_image_del_click">
+                    <a href="javascript:void(0)" class="form_del_image_btn hidden" id="form_del_image_btn">画像を削除</a>
+                </div>
                 <p id="form_profile_image_error">@if ($errors->has('profile'))
                         @foreach ($errors->get('profile') as $detail_errors)
                             {{$detail_errors}}
