@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
     requirePassword('input_password', 'form_password_error', submit_flg, 4, 'register_input_conf_btn', 'submit_btn');
     requirePassword('password_confirmation', 'form_password_conf_error', submit_flg, 5, 'register_input_conf_btn', 'submit_btn');
     nullableText('input_profile', 'form_profile_error', 'conf_profile', 140, submit_flg, 6, 'register_input_conf_btn', 'submit_btn');
-    nullableImage('input_profile_image', 'form_profile_image_error', 'conf_image', submit_flg, 7, 'register_input_conf_btn', 'submit_btn');
+    nullableImage('input_profile_image', 'form_profile_image_error', 'conf_image', 'form_del_image_btn', submit_flg, 7, 'register_input_conf_btn', 'submit_btn');
     
     sectionChange('register_input', 'register_conf', 'register_input_conf_btn');
     returnClick('register_input' ,'register_conf', 'form_return_btn');
