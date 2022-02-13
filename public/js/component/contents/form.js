@@ -91,12 +91,15 @@ const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 const nullableImage = (input_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
     const text = get_tag_query(`#${conf_ele} p`);
-    const image = create_img_tag(gea.co);
     gea.in.addEventListener('change', (e) => {
-        text.remove();
+        const get_image = get_tag_query(`#${conf_ele} img`);
+        if(get_image === null){
+            create_img_tag(gea.co);
+            text.remove();
+        }
         const result = extensionFileSizeCheck(e, gea.er);
         confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-        getImage(image, e);
+        setImage(conf_ele, e.target.files[0]);
     });
 }
 
@@ -104,10 +107,8 @@ const nullableImage = (input_ele, err_ele, conf_ele, target_flg, index, conf_btn
 const setElementArray = (input_ele, err_ele, conf_ele = false) => {
     const input_tag = get_tag_byId(input_ele);
     const err_tag = get_tag_byId(err_ele);
-    // let conf = '';
     if(conf_ele){
         const conf_tag = get_tag_byId(conf_ele);
-        // conf = conf_tag;
         return {in : input_tag,er : err_tag,co : conf_tag};
     }
     return {in:input_tag,er:err_tag};
@@ -161,12 +162,13 @@ const getText = (element, text_val) => {
 }
 
 // 確認フォームに画像設定
-const getImage = (element, event) => {
+const setImage = (conf_ele, val) => {
+    const element = get_tag_query(`#${conf_ele} img`);
     const file_reader = new FileReader();
-	file_reader.onload = function(){
-		element.setAttribute('src', file_reader.result);
-	}
-	file_reader.readAsDataURL(event.target.files[0]);
+    file_reader.onload = function(){
+        element.setAttribute('src', file_reader.result);
+    }
+    file_reader.readAsDataURL(val);
 }
 
 const sectionChange = (input_sec, conf_sec, input_btn) => {
