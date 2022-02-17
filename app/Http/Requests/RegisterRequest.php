@@ -3,23 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Libs\AuthForm;
 
 class RegisterRequest extends FormRequest
 {
-    private $required_error = 'を入力してください。';
-    private $form_error     = '入力内容に誤りがあります。';
-    private $max_length     = '191';
-    private $letter         = '0-9a-zA-Z';
-    private $symbol         = '.?_';
-    private $requiredsymbol = '';
-    private $password_max   = '20';
-    private $password_min   = '8';
-    private $password_regex = '';
-    private $not_half_size  = '\x01-\x7E\uFF61-\uFF9F';
-
     public function __construct() {
-        $this->requiredsymbol = '(?=.*[A-Z])(?=.*['.$this->symbol.'])';
-        $this->password_regex = $this->requiredsymbol.'['.$this->letter.$this->symbol.']{'.$this->password_min.','.$this->password_max.'}';
+        $af                     = new AuthForm();
+        $this->required_error   = $af->required_error;
+        $this->form_error       = $af->form_error;
+        $this->max_length       = $af->max_length;
+        $this->password_regex   = $af->password_regex;
+        $this->not_half_size    = $af->not_half_size;
     }
 
     public function authorize()
@@ -36,7 +30,7 @@ class RegisterRequest extends FormRequest
             'email'                 => 'required|string|email|max:'.$this->max_length,
             'profile'               => 'string|max:140|nullable',
             'profile_image'         => 'file|max:3000|image|mimes:jpeg,png,jpg',
-            'password'              => 'required|string|confirmed|regex:/^'.$this->password_regex.'$/',
+            'password'              => 'bail|required|string|confirmed|regex:/^'.$this->password_regex.'$/',
             'password_confirmation' => 'required|string|regex:/^'.$this->password_regex.'$/',
         ];
     }
