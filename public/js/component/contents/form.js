@@ -105,6 +105,15 @@ const nullableImage = (input_ele, err_ele, conf_ele, del_ele, target_flg, index,
     });
 }
 
+// ログインフォームテキスト
+const loginText = (input_ele, err_ele, target_flg, index, submit_btn) => {
+    const gea = setElementArray(input_ele, err_ele);
+    gea.in.addEventListener('input', (e) => {
+        const result = nullCheck(e, gea.er);
+        submitCheck(target_flg, index, result, submit_btn);
+    });
+}
+
 // 入力、エラー、確認の要素取得
 const setElementArray = (input_ele, err_ele, conf_ele = false, del_ele = false) => {
     const input_tag = get_tag_byId(input_ele);
