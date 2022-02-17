@@ -9,10 +9,50 @@ window.addEventListener('load', () =>{
         const carousel_items_container_ul = get_tag_query('.carousel_items_container ul');
 
         if(carousel_items.length > 0){
-            // 表示領域でカルーセル発火
+            let current_index               = 1;    // カルセールの表示アイテムインデックス
+            const carousel_item_margin      = 10;   // カルーセルのアイテムのスタイル指定
+            const carousel_container_space  = 20;
+            const carousel_dot_btns_width   = 150;
+            const carousel_dotbtn_size      = 10;
+            // アイテム毎にスタイル設定
+            carousel_items.forEach((item) => {
+                item.style.float = 'left';
+                item.style.marginRight = `${carousel_item_margin}px`;
+                item.style.marginLeft = `${carousel_item_margin}px`;
+                currentItemStyle();
+            });
+            //　カルーセルのコンテナをアイテム数に合わせて幅計算
+            const carousel_item_width = carousel_items[0].offsetWidth + carousel_item_margin * 2;
+            const carousel_container_width = carousel_item_width * carousel_items.length;
+            // カルーセルのアイテム親要素スタイル指定
+            carousel_items_container_ul.style.position = 'relative';
+            carousel_items_container_ul.style.height = `${carousel_items_container.clientHeight - carousel_item_margin}px`;
+            carousel_items_container_ul.style.overflow = 'hidden';
+            carousel_items_container_ul.style.transitionProperty = 'left';
+            carousel_items_container_ul.style.transitionDuration = '.5s';
+            carousel_items_container_ul.style.transitionTimingRunction = 'ease-out';
+            carousel_items_container_ul.style.width = `${carousel_container_width}px`;
+            carousel_items_container_ul.style.paddingTop = `10px`;
+            // カルーセルアイテムの表示位置指定
+            const carousel_item_start = (window.innerWidth - carousel_item_width) / 2;
+            carousel_items_container_ul.style.left = `${carousel_item_start}px`;
+            // カレントアイテムのスタイル設定
+            function currentItemStyle(){
+                const default_scale         = 1;    // カルーセルでカレントアイテムのスケール標準値
+                const carousel_item_scale   = 1.05; // カルーセルでカレントアイテムのスケール変動値
+                carousel_items.forEach((item, index)=>{
+                    if(index === current_index - 1){
+                        item.style.transform = `scale(${carousel_item_scale}, ${carousel_item_scale})`;
+                    }else{
+                        item.style.transform = `scale(${default_scale}, ${default_scale})`;
+                    }
+                });
+            }
+
+            // 表示領域でカルーセルのスワイプイベント発火
             const carousel_options = {
                 root: null,
-                rootMargin: '200px 0px 0px 0px',
+                rootMargin: '0px',
                 threshold: 0
             }
             
@@ -27,39 +67,6 @@ window.addEventListener('load', () =>{
             dot_btn_observer.observe(carousel_items_container);
 
             function carouselView(){
-                let current_index               = 1;    // カルセールの表示アイテムインデックス
-                const carousel_item_margin      = 10;   // カルーセルのアイテムのスタイル指定
-                const carousel_container_space  = 20;
-                const carousel_dot_btns_width   = 150;
-                const carousel_dotbtn_size      = 10;
-    
-                // アイテム毎にスタイル設定
-                carousel_items.forEach((item) => {
-                    item.style.float = 'left';
-                    item.style.marginRight = `${carousel_item_margin}px`;
-                    item.style.marginLeft = `${carousel_item_margin}px`;
-                    currentItemStyle();
-                });
-    
-                //　カルーセルのコンテナをアイテム数に合わせて幅計算
-                const carousel_item_width = carousel_items[0].offsetWidth + carousel_item_margin * 2;
-                const carousel_container_width = carousel_item_width * carousel_items.length;
-    
-                // カルーセルのアイテム親要素スタイル指定
-                carousel_items_container_ul.style.position = 'relative';
-                carousel_items_container_ul.style.height = `${carousel_items_container.clientHeight - carousel_item_margin}px`;
-                carousel_items_container_ul.style.overflow = 'hidden';
-                carousel_items_container_ul.style.transitionProperty = 'left';
-                carousel_items_container_ul.style.transitionDuration = '.5s';
-                carousel_items_container_ul.style.transitionTimingRunction = 'ease-out';
-                carousel_items_container_ul.style.width = `${carousel_container_width}px`;
-                carousel_items_container_ul.style.paddingTop = `10px`;
-    
-                // カルーセルアイテムの表示位置指定
-                const carousel_item_start = (window.innerWidth - carousel_item_width) / 2;
-                carousel_items_container_ul.style.left = `${carousel_item_start}px`;
-    
-    
                 // スワイプイベント
                 let start_x         = 0;
                 let end_x           = 0;
@@ -141,20 +148,6 @@ window.addEventListener('load', () =>{
                     carousel_items_container_ul.style.left = `${move}px`;
                     currentItemStyle();
                     currentDotbtnStyle()
-                }
-
-                // カレントアイテムのスタイル設定
-                function currentItemStyle(){
-                    const default_scale         = 1;    // カルーセルでカレントアイテムのスケール標準値
-                    const carousel_item_scale   = 1.05; // カルーセルでカレントアイテムのスケール変動値
-    
-                    carousel_items.forEach((item, index)=>{
-                        if(index === current_index - 1){
-                            item.style.transform = `scale(${carousel_item_scale}, ${carousel_item_scale})`;
-                        }else{
-                            item.style.transform = `scale(${default_scale}, ${default_scale})`;
-                        }
-                    });
                 }
 
                 // ボタンのコンテナスタイル設定
