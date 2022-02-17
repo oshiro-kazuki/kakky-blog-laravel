@@ -1,5 +1,5 @@
 'use strict';
-window.addEventListener('load', () =>{
+function carouselStart(){
     const btn_view_flg = true;
     // カルーセルの要素指定
     const carousel_items_container = get_tag_query('.carousel_items_container');
@@ -7,12 +7,12 @@ window.addEventListener('load', () =>{
     
     if(carousel_items_container){
         const carousel_items_container_ul = get_tag_query('.carousel_items_container ul');
-
+    
         if(carousel_items.length > 0){
             // 表示領域でカルーセル発火
             const carousel_options = {
                 root: null,
-                rootMargin: '100px 0px 0px 0px',
+                rootMargin: '0px',
                 threshold: 0
             }
             
@@ -25,7 +25,7 @@ window.addEventListener('load', () =>{
         
             const dot_btn_observer = new IntersectionObserver(carousel_callback, carousel_options);
             dot_btn_observer.observe(carousel_items_container);
-
+    
             function carouselView(){
                 let current_index               = 1;    // カルセールの表示アイテムインデックス
                 const carousel_item_margin      = 10;   // カルーセルのアイテムのスタイル指定
@@ -142,7 +142,7 @@ window.addEventListener('load', () =>{
                     currentItemStyle();
                     currentDotbtnStyle()
                 }
-
+    
                 // カレントアイテムのスタイル設定
                 function currentItemStyle(){
                     const default_scale         = 1;    // カルーセルでカレントアイテムのスケール標準値
@@ -156,7 +156,7 @@ window.addEventListener('load', () =>{
                         }
                     });
                 }
-
+    
                 // ボタンのコンテナスタイル設定
                 const carousel_btns_container = create_tag('div', carousel_items_container, false, 'carousel_btns_container')
                 carousel_btns_container.style.display           = 'flex';
@@ -167,10 +167,10 @@ window.addEventListener('load', () =>{
                 carousel_btns_container.style.marginBottom      = `${carousel_container_space}px`;
                 carousel_btns_container.style.paddingRight      = `${carousel_container_space}px`;
                 carousel_btns_container.style.paddingLeft       = `${carousel_container_space}px`;
-
+    
                 // ボタンサイズ
                 const carousel_btn_size = 50;
-
+    
                 if(carousel_items.length > 1 && btn_view_flg){
                     // 前ボタン生成
                     const carousel_prev_btn = create_tag('div', carousel_btns_container, false, 'carousel_prev_btn');
@@ -178,27 +178,27 @@ window.addEventListener('load', () =>{
                     carousel_prev_btn.textContent = 'arrow_back_ios';
                     carouselBtnStyle(carousel_prev_btn);
                     carousel_prev_btn.style.paddingLeft = '8px';
-
+    
                     // 前ボタンをクリックでイベント発火
                     carousel_prev_btn.addEventListener('click', () => {
                         prevMove();
                     });
                 }
-
+    
                 // ドットボタン配置エリア生成
                 const carousel_dotbtn_container = create_tag('div', carousel_btns_container, false, 'carousel_dotbtn_container');;
                 carousel_dotbtn_container.style.display         = 'flex';
                 carousel_dotbtn_container.style.justifyContent  = 'space-evenly';
                 carousel_dotbtn_container.style.alignItems      = 'center';
                 carousel_dotbtn_container.style.width           = `${carousel_dot_btns_width}px`;
-
+    
                 if(carousel_items.length > 1 && btn_view_flg){
                     // 次ボタン生成
                     const carousel_next_btn = create_tag('div', carousel_btns_container, false, 'carousel_next_btn');
                     cla_add(carousel_next_btn, 'material-icons');
                     carousel_next_btn.textContent = 'arrow_forward_ios';
                     carouselBtnStyle(carousel_next_btn);
-
+    
                     // 次ボタンをクリックでイベント発火
                     carousel_next_btn.addEventListener('click', () => {
                         nextMove();
@@ -235,7 +235,7 @@ window.addEventListener('load', () =>{
                         dotbtn_click(index);
                     });
                 });
-
+    
                 // ドットボタンスタイル指定
                 function currentDotbtnStyle(){
                     carousel_dotBtns.forEach((item, index)=>{
@@ -246,7 +246,7 @@ window.addEventListener('load', () =>{
                         }
                     })
                 }
-
+    
                 // ドットボタンをクリックでイベント発火
                 function dotbtn_click(click_index){
                     const move = carousel_item_start - carousel_item_width * click_index;
@@ -257,4 +257,4 @@ window.addEventListener('load', () =>{
             }
         }
     }
-});
+}
