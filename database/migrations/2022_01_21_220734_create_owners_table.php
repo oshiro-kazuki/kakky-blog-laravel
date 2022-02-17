@@ -25,8 +25,6 @@ class CreateOwnersTable extends Migration
             $table->string('password', 60);
             $table->string('profile', 140)->nullable();
             $table->boolean('profile_image_flg')->default(false);
-            $table->bigInteger('login_count')->default(0);
-            $table->timestamp('last_login')->nullable();
             $table->boolean('Withdrawal')->default(false);
             $table->timestamp('Withdrawal_date')->nullable();
             $table->rememberToken();

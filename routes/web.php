@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', 'TopPageController@index');
 
 // info系へアクセス
@@ -45,12 +34,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-Route::get('/login/owner', 'Auth\LoginController@showOwnerLoginForm');
-Route::get('/register/owner', 'Auth\RegisterController@showOwnerRegisterForm');
-
-Route::post('/login/owner', 'Auth\LoginController@ownerLogin')->name('ownerLogin.post');
-Route::post('/register/owner', 'Auth\RegisterController@createOwner')->name('ownerRegister');
-
-Route::view('/home', 'home')->middleware('auth');
-Route::view('/owner', 'owner');
+// オーナー用画面
+Route::prefix('/owner')->group(function() {
+    // ログイン画面表示
+    Route::get('/login', 'Auth\LoginController@showOwnerLoginForm');
+    Route::get('/register', 'Auth\RegisterController@showOwnerRegisterForm');
+    // 送信処理
+    Route::post('/login', 'Auth\LoginController@ownerLogin')->name('ownerLogin');
+    Route::post('/register', 'Auth\RegisterController@createOwner')->name('ownerRegister');
+    // 認証後処理
+    Route::middleware('auth:owner')->get('/', 'OwnerController@index');
+});

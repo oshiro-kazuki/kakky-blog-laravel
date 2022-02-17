@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'APP_NAME' => 'wan-like',
+    'APP_NAME' => 'kazukie',
     // 共通文字数指定
     'MAX_LENGTH'        => 191,
     'PASSWORD_LENGTH'   => 20,

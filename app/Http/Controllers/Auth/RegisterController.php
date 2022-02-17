@@ -78,7 +78,7 @@ class RegisterController extends Controller
             'profile_image_flg' => $profile_image_flg,
             'password'          => Hash::make($request['password']),
         ]);
-        return redirect()->intended('login/owner');
+        return redirect()->intended('owner/login');
     }
 
     protected function createOwnerProfileImage($file)
