@@ -151,4 +151,7 @@
         </section>
     </form>
 </article>
+<section class="form_link">
+    <a href="/owner/login">ログインはこちら</a>
+</section>
 @endsection
