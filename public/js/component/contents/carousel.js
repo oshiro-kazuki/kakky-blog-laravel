@@ -12,7 +12,7 @@ window.addEventListener('load', () =>{
             // 表示領域でカルーセル発火
             const carousel_options = {
                 root: null,
-                rootMargin: '0px',
+                rootMargin: '50px 0px 0px 0px',
                 threshold: 0
             }
             
