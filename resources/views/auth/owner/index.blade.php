@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/component/form/form.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth/index.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/component/button/top_page_btn.css') }}">
     </head>
     <body>
         @include('common.header')
@@ -25,12 +24,6 @@
             <h1>{{$screen_title}}</h1>
             @yield('content')
         </main>
-
-        <aside>
-            <div id="top_page_btn">
-                <a href="/">トップ画面へ</a>
-            </div>
-        </aside>
 
         @include('common.footer')
 

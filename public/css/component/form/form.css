@@ -181,3 +181,10 @@
     z-index: 1;
     border-radius: 8px;
 }
+.form_link{
+    margin: 40px 10px;
+}
+.form_link a{
+    color: blue;
+    text-decoration: underline;
+}
