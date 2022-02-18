@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', function () {
     
     //　画像スライド
     setInterval(() => {
-        positionX += .25;
+        positionX += .2;
         top_image_array_roop('slide', top_image_array, image_count, positionX, positionY);
     }, 100);
 });
