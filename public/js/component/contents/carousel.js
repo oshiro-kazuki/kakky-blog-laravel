@@ -1,21 +1,20 @@
 'use strict';
+// body_tagはheader.jsで読み込んでいる
 const btn_view_flg = true;
 // カルーセルの要素指定
 const carousel_items_container = get_tag_query('.carousel_items_container');
-// const body_tag = get_tag_query('body');
 const carousel_items_container_ul = get_tag_query('.carousel_items_container ul');
 const carousel_items = document.querySelectorAll('.carousel_item');
 const carousel_item_title = get_tag_query('.carousel_item_title');
 const carousel_item_content = get_tag_query('.carousel_item_content');
 const carousel_item_date = get_tag_query('.carousel_item_date');
 
-// 
-const carousel_dialog_container = get_tag_query('.carousel_dialog_container');
 const carousel_dialog_item = get_tag_query('.carousel_dialog_item');
 const carousel_dialog_item_date = get_tag_query('.carousel_dialog_item_date');
 const carousel_dialog_close_btn = get_tag_query('.carousel_dialog_item_close_btn');
 const carousel_dialog_item_title = get_tag_query('.carousel_dialog_item_title');
 const carousel_dialog_item_content = get_tag_query('.carousel_dialog_item_content');
+const carousel_dialog_overray = get_tag_query('.carousel_dialog_overray');
 
 let current_index               = 1;    // 表示アイテムインデックス
 const carousel_item_margin      = 10;   // カルーセルのアイテムのスタイル指定
@@ -55,7 +54,7 @@ const carouselView = ()=>{
         }else if(swipe_x < -swiper_limit && end_x !== 0){
             nextMove();
         }else if(end_x === 0 && end_y === 0){
-            if(carousel_dialog_container === null){
+            if(carousel_dialog_item === null){
                 const carousel_item_links = document.querySelectorAll('.carousel_item_link');
                 if(carousel_item_links.length > 0){
                     location.href = carousel_item_links[current_index - 1].href;
@@ -239,14 +238,6 @@ const clickDialogView = (index)=>{
     getDialogText(dialog_text);
 }
 
-carousel_dialog_container.addEventListener('click', ()=>{
-    dialogViewChange();
-});
-
-carousel_dialog_close_btn.addEventListener('', ()=>{
-    dialogHidden();
-});
-
 const dialogViewChange = ()=>{
     dialog_flg ? dialogHidden() : dialogView();
     dialog_flg = !dialog_flg;
@@ -254,7 +245,7 @@ const dialogViewChange = ()=>{
 
 let scrollTop;
 const dialogView = ()=>{
-    carousel_dialog_container.style.display = 'block';
+    carousel_dialog_overray.style.display = 'block';
     carousel_dialog_item.style.display = 'block';
     scrollTop = window.scrollY;
     body_tag.style.position = 'fixed';
@@ -262,10 +253,10 @@ const dialogView = ()=>{
 }
 
 const dialogHidden = ()=>{
-    carousel_dialog_container.style.display = 'none';
+    carousel_dialog_overray.style.display = 'none';
     carousel_dialog_item.style.display = 'none';
     body_tag.style.position = '';
-    body_tag.style.top = ``;
+    body_tag.style.top = '';
     window.scrollTo(0, scrollTop);
 }
 
@@ -274,7 +265,6 @@ const getDialogText = (target)=>{
     carousel_dialog_item_title.textContent = target.title.textContent;
     carousel_dialog_item_content.textContent = target.content.textContent;
 }
-
 
 if(carousel_items_container){
     if(carousel_items.length > 0){
@@ -299,8 +289,16 @@ if(carousel_items_container){
        
         carousel_items_container_ul.style.left = `${carousel_item_start}px`;
 
-        if(carousel_dialog_container !== null){
+        if(carousel_dialog_item !== null){
             dialogHidden();
+
+            carousel_dialog_overray.addEventListener('click', ()=>{
+                dialogViewChange();
+            });
+            
+            carousel_dialog_close_btn.addEventListener('click', ()=>{
+                dialogHidden();
+            });
         }
 
         // 表示領域でカルーセルのスワイプイベント発火

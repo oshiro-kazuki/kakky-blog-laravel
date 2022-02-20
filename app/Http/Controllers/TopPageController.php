@@ -23,7 +23,7 @@ class TopPageController extends Controller
         if(count($news_lists) > 0){
             foreach ($news_lists as $key => $value) {
                 $value->created_at_date = $news->formatDate($value->created_at);
-                $value->content = $news->contentLenthgCut($value->content);
+                $value->content_format = $news->contentLenthgCut($value->content);
             }
         }
         

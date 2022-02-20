@@ -7,21 +7,21 @@
                     <li class="news_item carousel_item">
                         <a href="/news/#{{$news_list->id}}" class="news_item_link carousel_item_link">
                             <h3 class="carousel_item_title">{{$news_list->title}}</h3>
-                            <p class="carousel_item_content">{{$news_list->content}}</p>
+                            <p>{{$news_list->content_format}}</p>
                             <h6 class="carousel_item_date">{{$news_list->created_at_date}}</h6>
                         </a>
                     </li>
+                    <span class="carousel_item_content" style="display: none;">{{$news_list->content}}</span>
                 @endforeach
             </ul>
         </section>
-        <section class="news_dialog_container carousel_dialog_container">
-            <div class="news_dialog_item carousel_dialog_item">
-                <h6 class="carousel_dialog_item_date"></h6>
-                <span class="carousel_dialog_item_close_btn">×</span>
-                <h3 class="carousel_dialog_item_title"></h3>
-                <p class="carousel_dialog_item_content"></p>
-            </div>
+        <section class="news_dialog_item carousel_dialog_item">
+            <h6 class="carousel_dialog_item_date"></h6>
+            <span class="carousel_dialog_item_close_btn">×</span>
+            <h3 class="carousel_dialog_item_title"></h3>
+            <p class="carousel_dialog_item_content"></p>
         </section>
+        <section class="carousel_dialog_overray"></section>
     @else
         <section class="news_item_none">
             <h6>現在ニュースはありません。</h6>
