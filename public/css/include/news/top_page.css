@@ -115,6 +115,7 @@
 .news_dialog_item p{
     font-size: 18px;
     background-color: #f5f5f5;
+    word-break: break-all;
 }
 .carousel_dialog_overray{
     position: fixed;
