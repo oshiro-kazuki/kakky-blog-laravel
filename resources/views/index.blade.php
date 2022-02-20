@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/news/top_page.css') }}">
     </head>
-    <body id="body_top">
+    <body>
         @include('common.header')
 
         <div id="top_image"></div>

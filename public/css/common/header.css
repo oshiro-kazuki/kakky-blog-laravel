@@ -1,4 +1,4 @@
-header {
+header{
     height: 60px;
     width: 100%;
     padding: 0 10px ;
@@ -7,61 +7,51 @@ header {
     align-items: center;
     justify-content: space-between;
 }
-
-header.hidden {
+header.hidden{
     background-color: white;
 }
-
-header a {
+header a{
     display: block;
 }
-
-.header_left {
+.header_left{
     height: 40px;
     width: 40px;
 }
-
-.header_left img {
+.header_left img{
     height: 100%;
     width: 100%;
     border-radius: 50%;
 }
-
-.header_center {
+.header_center{
     height: 40px;
     line-height: 40px;
 }
-
-.header_center #header_center_title {
+.header_center #header_center_title{
     font-size: 30px;
     font-weight: 600;
     color: yellow;
     display: flex;
     justify-content: center;
+    letter-spacing: 3px;
 }
-
-.header_center #header_center_title.hidden {
+.header_center #header_center_title.hidden{
     color: #0000ff;
 }
-
-.header_center #header_center_title p {
+.header_center #header_center_title p{
     margin: 0;
     padding: 0;
 }
-
-.header_right {
+.header_right{
     height: 40px;
     line-height: 40px;
 }
-
-.header_right span {
+.header_right span{
     font-size: 40px;
     color: whitesmoke;
     float: right;
 }
-
 #header_menu_open,
-#header_menu_close {
+#header_menu_close{
     transform: rotate(0);
     opacity: 1;
     display: block;
@@ -69,20 +59,17 @@ header a {
     transition-property: transform 1s, opacity;
     transition-duration: 1s;
 }
-
-#header_menu_close {
+#header_menu_close{
     color: #ff1493;
 }
-
 #header_menu_open.hidden,
-#header_menu_close.hidden {
+#header_menu_close.hidden{
     transform: rotate(90deg);
     opacity: 0;
     visibility: hidden;
     position: absolute;
 }
-
-#header_menu_mask {
+#header_menu_mask{
     position: fixed;
     top: 60px;
     left: 0;
@@ -91,12 +78,10 @@ header a {
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 2;
 }
-
-#header_menu_mask.hidden {
+#header_menu_mask.hidden{
     display: none;
 }
-
-.header_menubar {
+.header_menubar{
     min-height: calc(100vh - 60px);
     width: 85%;
     background-color: white;
@@ -111,19 +96,16 @@ header a {
     transition-duration: .7s;
     overflow: hidden;
 }
-
-.header_menubar.hidden {
-    transform: translateX(500px);
+.header_menubar.hidden{
+    transform: translateX(100%);
 }
-
-.header_menubar li {
+.header_menubar li{
     height: 50px;
     width: 100%;
     margin-bottom: 30px;
     font-size: 28px;
 }
-
-.header_menubar li a {
+.header_menubar li a{
     display: block;
     height: 100%;
     width: 100%;
@@ -131,13 +113,11 @@ header a {
     border-radius: 5px;
     background-color: #e0ffff;
 }
-
 .header_menubar li span,
-.header_menubar li p {
+.header_menubar li p{
     display: inline;
     margin-left: 10px;
 }
-
-.header_menubar li span {
+.header_menubar li span{
     color: #ff7f50;
 }
