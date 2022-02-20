@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
     </head>
-    <body id="body_top">
+    <body>
         @include('common.header')
 
         <main>
