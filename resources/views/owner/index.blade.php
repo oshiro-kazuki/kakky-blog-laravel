@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/owner/index.css') }}">
     </head>
     <body>
         @include('common.header')
@@ -21,6 +22,9 @@
         <main>
             <h1>{{ $owner['name'] }}　様</h1>
         </main>
+        <aside class="logout">
+            <a href="/owner/logout" class="logout_btn">ログアウト</a>
+        </aside>
 
         @include('common.footer')
 
