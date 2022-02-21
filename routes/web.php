@@ -39,9 +39,12 @@ Route::prefix('/owner')->group(function() {
     // ログイン画面表示
     Route::get('/login', 'Auth\LoginController@showOwnerLoginForm');
     Route::get('/register', 'Auth\RegisterController@showOwnerRegisterForm');
+    Route::get('/logout', 'Auth\LoginController@ownerLogout');
     // 送信処理
     Route::post('/login', 'Auth\LoginController@ownerLogin')->name('ownerLogin');
     Route::post('/register', 'Auth\RegisterController@createOwner')->name('ownerRegister');
     // 認証後処理
-    Route::middleware('auth:owner')->get('/', 'OwnerController@index');
+    Route::middleware('auth:owner')->group(function(){
+        Route::get('/', 'OwnerController@index');
+    });
 });
