@@ -18,7 +18,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('guest:owner')->except('logout');
+        $this->middleware('guest:owner')->except('ownerLogout');
     }
 
     public function showOwnerLoginForm()
@@ -42,8 +42,18 @@ class LoginController extends Controller
         $login_data = $request->all();
 
         if (Auth::guard('owner')->attempt(['email' => $login_data['login_email'], 'password' => $login_data['login_password']], $request->get('remember'))) {
+            Auth::logoutOtherDevices($request->input('login_password'));
             return redirect()->intended('owner/login');
         }
         return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function ownerLogout(Request $request)
+    {
+        Auth::guard('owner')->logout();
+
+        Auth::logoutOtherDevices($request); // 他のデバイス上のセッションを無効化
+
+        return redirect('owner/login');
     }
 }
