@@ -1,4 +1,4 @@
-@extends('auth.owner.index')
+@extends('auth.index')
 @section('content')
 <article>
     <form action="{{ route('ownerLogin') }}" method="post" enctype="multipart/form-data">
