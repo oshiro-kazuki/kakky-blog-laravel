@@ -5,18 +5,18 @@
         @csrf
         <section class="form_list">
             <label>メールアドレス</label>
-            <input id="login_email" type="email" name="login_email" maxlength="191" placeholder="メールアドレスを入力">
-            <p id="login_email_error">@if ($errors->has('login_email'))
-                    @foreach ($errors->get('login_email') as $detail_errors)
+            <input id="login_email" type="email" name="email" maxlength="{{config('const.MAX_LENGTH')}}" placeholder="メールアドレスを入力">
+            <p id="login_email_error">@if ($errors->has('email'))
+                    @foreach ($errors->get('email') as $detail_errors)
                         {{$detail_errors}}
                     @endforeach
                 @endif</p>
         </section>
         <section class="form_list">
             <label>パスワード</label>
-            <input id="login_password" type="password" name="login_password" maxlength="20" placeholder="パスワードを入力">
-            <p id="login_password_error">@if ($errors->has('login_password'))
-                    @foreach ($errors->get('login_password') as $detail_errors)
+            <input id="login_password" type="password" name="password" maxlength="{{config('const.PASSWORD_LENGTH')}}" placeholder="パスワードを入力">
+            <p id="login_password_error">@if ($errors->has('password'))
+                    @foreach ($errors->get('password') as $detail_errors)
                         {{$detail_errors}}
                     @endforeach
                 @endif</p>
