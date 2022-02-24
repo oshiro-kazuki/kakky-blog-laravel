@@ -53,13 +53,7 @@ class LoginController extends Controller
         }
 
         // バリデーションチェック
-        $validator = Validator::make(
-            $request->all(),
-            [
-                $this->username()   => 'required|string|email|max:'.$this->max_length,
-                'password'          => 'required|string|regex:/^'.$this->password_regex.'$/',
-            ]
-        );
+        $validator = $this->validator($request);
 
         // バリデーションでエラーの場合
         if ($validator->fails()) {
@@ -112,5 +106,14 @@ class LoginController extends Controller
     {
         $this->incrementLoginAttempts($request);            // 失敗カウント
         return $this->sendFailedLoginResponse($request);    // 失敗メッセージ
+    }
+
+    // バリデーション
+    protected function validator(Request $request)
+    {
+        return Validator::make($request->all(), [
+            $this->username()   => 'required|string|email|max:'.$this->max_length,
+            'password'          => 'required|string|regex:'.$this->password_regex,
+        ]);
     }
 }

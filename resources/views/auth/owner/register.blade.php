@@ -12,9 +12,9 @@
 
             <div class="form_list">
                 <label>会社または店舗名<span>(必須)</span></label>
-                <input id="input_name" type="text" name="name" maxlength="{{config('const.MAX_LENGTH')}}" value="{{ old('name') }}" placeholder="商号または屋号を入力">
-                <p id="form_name_error">@if ($errors->has('name'))
-                        @foreach ($errors->get('name') as $detail_errors)
+                <input id="input_name" type="text" name="company_name" maxlength="{{config('const.MAX_LENGTH')}}" value="{{ old('company_name') }}" placeholder="商号または屋号を入力">
+                <p id="form_name_error">@if ($errors->has('company_name'))
+                        @foreach ($errors->get('company_name') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
                     @endif</p>
@@ -63,13 +63,13 @@
             <div class="form_list">
                 <label>プロフィール画像<span>(3MB以内)</span></label>
                 <div class="profile_image_click">画像を選択
-                    <input id="input_profile_image" class="form_image" type="file" name="profile_image">
+                    <input id="input_profile_image" class="form_image" type="file" name="image">
                 </div>
                 <div class="profile_image_del_click">
                     <a href="javascript:void(0)" class="form_del_image_btn hidden" id="form_del_image_btn">画像を削除</a>
                 </div>
-                <p id="form_profile_image_error">@if ($errors->has('profile'))
-                        @foreach ($errors->get('profile') as $detail_errors)
+                <p id="form_profile_image_error">@if ($errors->has('image'))
+                        @foreach ($errors->get('image') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
                     @endif</p>
@@ -77,7 +77,7 @@
 
             <div class="form_list">
                 <label>パスワード<span>(必須)</span></label>
-                <input id="input_password" type="password" name="password" maxlength="{{config('const.PASSWORD_LENGTH')}}" value="{{ old('password') }}" placeholder="A~Zと.?_を含む半角英数字を入力">
+                <input id="input_password" type="password" name="password" maxlength="{{config('const.PASSWORD_LENGTH')}}" placeholder="A~Zと.?_を含む半角英数字を入力">
                 <p id="form_password_error">@if ($errors->has('password'))
                         @foreach ($errors->get('password') as $detail_errors)
                             {{$detail_errors}}
@@ -87,7 +87,7 @@
 
             <div class="form_list">
                 <label>パスワード(確認用)</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" maxlength="{{config('const.PASSWORD_LENGTH')}}" value="{{ old('password_confirmation') }}" placeholder="同じパスワードを入力">
+                <input id="password_confirmation" type="password" name="password_confirmation" maxlength="{{config('const.PASSWORD_LENGTH')}}" placeholder="同じパスワードを入力">
                 <p id="form_password_conf_error">@if ($errors->has('password_confirmation'))
                         @foreach ($errors->get('password_confirmation') as $detail_errors)
                             {{$detail_errors}}
