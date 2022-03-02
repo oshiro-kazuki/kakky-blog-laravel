@@ -11,31 +11,18 @@ class ContactMailSend extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * メール送信引数
-     *
-     * @var array
-     */
     private $postData;
+    private $app_info_mail_address;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($postData)
+    public function __construct($postData, $app_info_mail_address)
     {
-        $this->postData = $postData;
+        $this->postData              = $postData;
+        $this->app_info_mail_address = $app_info_mail_address;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->from('info@kakky-blog.com')
+        return $this->from($this->app_info_mail_address)
         ->subject('お問い合わせについて')
         ->text(
             'info.contact_mail.mail_template',

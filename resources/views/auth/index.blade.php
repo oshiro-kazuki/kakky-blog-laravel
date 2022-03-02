@@ -21,7 +21,9 @@
         @include('common.header')
 
         <main>
-            <h1>{{$screen_title}}</h1>
+            @if(isset($screen_title))
+                <h1>{{$screen_title}}</h1>
+            @endif
             @yield('content')
         </main>
 
@@ -32,6 +34,8 @@
         <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/common/validation.js') }}"></script>
         <script src="{{ asset('js/component/contents/form.js') }}"></script>
-        <script src="{{ asset($script[0]) }}"></script>
+        @if(isset($script))
+            <script src="{{ asset($script[0]) }}"></script>
+        @endif
     </body>
 </html>
