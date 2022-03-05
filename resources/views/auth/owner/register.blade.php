@@ -1,7 +1,7 @@
 @extends('auth.index')
 @section('content')
 <article>
-    <form action="{{ route('ownerRegister') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('owner.register') }}" method="post" enctype="multipart/form-data">
         @csrf
         <section id="register_input" class="form_section">
             <h2>

@@ -1,8 +1,9 @@
 @extends('auth.index')
 @section('content')
 <article>
-    <form action="{{ route('ownerLogin') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('owner.login') }}" method="post" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="user_type" value="1">
         <section class="form_list">
             <label>メールアドレス</label>
             <input id="login_email" type="email" name="email" maxlength="{{config('const.MAX_LENGTH')}}" placeholder="メールアドレスを入力">

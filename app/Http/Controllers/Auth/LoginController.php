@@ -13,16 +13,17 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
     
-    protected $maxAttempts  = 5;                                // ログイン試行回数を5回に設定
-    protected $decayMinutes = 1440;                             // ログインロックタイムを24時間に設定1440
-    protected $redirectTo   = RouteServiceProvider::OWNERLOGIN; // リダイレクト先をオーナーログイン画面を設定
+    protected $maxAttempts      = 5;                                 // ログイン試行回数を5回に設定
+    protected $decayMinutes     = 1440;                              // ログインロックタイムを24時間に設定1440
+    protected $redirectToTop    = RouteServiceProvider::TOP;         // リダイレクト先をオーナーログイン画面を設定
+    protected $redirectToOwner  = RouteServiceProvider::OWNER_INDEX; // リダイレクト先をオーナーログイン画面を設定
 
     public function __construct()
     {
+        $this->middleware('guest:user')->except('logout');
+        $this->middleware('guest:owner')->except('logout');
         $this->max_length = config('const.MAX_LENGTH');
         $this->password_regex = config('const.PASSWORD_REGIX');
-        $this->middleware('guest')->except('logout');
-        $this->middleware('guest:owner')->except('ownerLogout');
     }
 
     // オーナーログイン画面表示
@@ -65,20 +66,11 @@ class LoginController extends Controller
             $this->authenticated($request);
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
-            return redirect()->intended($this->redirectTo);
+            $request->session()->push('user_type', $request->user_type);
+            return redirect()->intended($this->redirectToOwner);
         }
 
         return $this->loginFaild($request);
-    }
-
-    // オーナーログアウト
-    public function ownerLogout(Request $request)
-    {
-        Auth::guard('owner')->logout();
-        $this->authenticated($request);
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect($this->redirectTo);
     }
 
     // オーナーの認証処理

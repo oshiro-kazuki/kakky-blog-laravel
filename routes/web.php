@@ -1,13 +1,16 @@
 <?php
 
 Route::get('/', 'TopPageController@index');
+Route::get('/error', function(){
+    return view('error');
+});
 
 // info系へアクセス
 Route::prefix('/info')->group(function() {
     // お問い合わせメール画面
     Route::prefix('/contact_mail')->group(function() {
-        Route::get('/', 'MailSendController@index')->name('contact_mail.index');
-        Route::post('/send', 'MailSendController@mailSend')->name('contact_mail.send');
+        Route::get('/', 'MailSendController@showContactForm');
+        Route::post('/send', 'MailSendController@contactMailSend')->name('contact_mail.send');
     });
     // プロフィール画面
     Route::get('/profile', function () {
@@ -30,21 +33,19 @@ Route::prefix('/news')->group(function() {
     Route::get('/', 'NewsController@index');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 // オーナー用画面
 Route::prefix('/owner')->group(function() {
-    // ログイン画面表示
-    Route::get('/login', 'Auth\LoginController@showOwnerLoginForm');
+    // 画面表示
     Route::get('/register', 'Auth\RegisterController@showOwnerRegisterForm');
-    Route::get('/logout', 'Auth\LoginController@ownerLogout');
+    Route::get('/login', 'Auth\LoginController@showOwnerLoginForm');
+    Route::get('/logout', 'Auth\LoginController@logout');
     // 送信処理
-    Route::post('/login', 'Auth\LoginController@ownerLogin')->name('ownerLogin');
-    Route::post('/register', 'Auth\RegisterController@createOwner')->name('ownerRegister');
+    Route::post('/register', 'Auth\RegisterController@createOwner')->name('owner.register');
+    Route::post('/login', 'Auth\LoginController@ownerLogin')->name('owner.login');
     // 認証後処理
-    Route::middleware('auth:owner')->group(function(){
-        Route::get('/', 'OwnerController@index');
-    });
+    Route::get('/', 'OwnerController@index')->middleware('verified');
 });
