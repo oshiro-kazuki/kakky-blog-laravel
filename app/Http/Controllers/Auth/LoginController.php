@@ -26,6 +26,28 @@ class LoginController extends Controller
         $this->password_regex = config('const.PASSWORD_REGIX');
     }
 
+    // ユーザーログイン処理
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        if ($this->attemptLogin($request)) {
+            $request->session()->push('user_type', $request->user_type);
+            return $this->sendLoginResponse($request);
+        }
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
     // オーナーログイン画面表示
     public function showOwnerLoginForm()
     {

@@ -3,7 +3,7 @@
 <article>
     <form action="{{ route('owner.login') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="user_type" value="1">
+        <input type="hidden" name="user_type" value="owner">
         <section class="form_list">
             <label>メールアドレス</label>
             <input id="login_email" type="email" name="email" maxlength="{{config('const.MAX_LENGTH')}}" placeholder="メールアドレスを入力">

@@ -13,7 +13,7 @@ class VerificationController extends Controller
 {
     use VerifiesEmails;
 
-    protected $guard;
+    private $guard;
 
     public function __construct()
     {
@@ -23,12 +23,17 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
+    // メール認証画面表示
     public function show(Request $request)
     {
+        if($request->session()->has('user_type')){
+            $this->guard = $request->session()->pull('user_type', 'default')[0];
+        }
+
         if ($request->user($this->guard)->hasVerifiedEmail()) {
             return redirect($this->redirectPath());
         }else{
-            $request->user($this->guard)->sendEmailVerificationNotification();
+            $request->user($this->guard)->sendEmailVerificationNotification(); // メール送信処理
             return view('auth.verify',
                 [
                     'screen_title'  => 'メール認証画面',
@@ -38,8 +43,24 @@ class VerificationController extends Controller
         }
     }
 
+    // 再送信処理
+    public function resend(Request $request)
+    {
+        $this->getReqestUserType($request->user_type); //ユーザータイプをガードに格納
+
+        if ($request->user($this->guard)->hasVerifiedEmail()) {
+            return redirect($this->redirectPath());
+        }
+
+        $request->session()->push('user_type', $this->guard);
+        return back()->with('resent', true);
+    }
+
+    // 認証メール受信処理
     public function verify(Request $request)
     {
+        $this->getReqestUserType($request->user_type); //ユーザータイプをガードに格納
+
         if (! hash_equals((string) $request->route('id'), (string) $request->user($this->guard)->getKey())) {
             throw new AuthorizationException;
         }
@@ -59,32 +80,9 @@ class VerificationController extends Controller
         return redirect($this->redirectPath())->with('verified', true);
     }
 
-    public function resend(Request $request)
+    // ユーザータイプチェック
+    private function getReqestUserType($user_type)
     {
-        if ($request->user($this->guard)->hasVerifiedEmail()) {
-            return redirect($this->redirectPath());
-        }
-        return back()->with('resent', true);
-    }
-
-    private function routeCheck($request)
-    {
-        if(isset($request->server()['HTTP_REFERER'])){
-            $refere = $request->server()['HTTP_REFERER'];
-            $domain = 'http://'.$request->server()['HTTP_HOST'];
-            $route = str_replace($domain , '', $refere);
-
-            if($request->session()->has('user_type')){
-                $user_type = $request->session()->pull('user_type', 'default');
-                if($route === '/owner/login' && $user_type[0] === '1'){
-                    return 'owner';
-                }
-            }else{
-                if($route === '/login'){
-                }
-            }
-        }
-        // return '';
-        return redirect('/');
+        if(isset($user_type)) $this->guard = $user_type;
     }
 }
