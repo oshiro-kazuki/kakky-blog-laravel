@@ -17,7 +17,7 @@ class MailSendController extends Controller
 
     public function showContactForm()
     {
-        return view('info.contact_mail.index');
+        return view('info.contact_mail');
     }
 
     public function contactMailSend(MailRequest $mailRequest){

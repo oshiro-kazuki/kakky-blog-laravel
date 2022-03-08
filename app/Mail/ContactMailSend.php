@@ -24,8 +24,8 @@ class ContactMailSend extends Mailable
     {
         return $this->from($this->app_info_mail_address)
         ->subject('お問い合わせについて')
-        ->text(
-            'info.contact_mail.mail_template',
+        ->view(
+            'mail.reception_to_user',
             [
                 'postData' => $this->postData
             ]

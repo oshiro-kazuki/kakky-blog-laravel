@@ -35,7 +35,7 @@ class VerifyEmailJapanese extends Notification
         // メール送信
         return (new MailMessage)
         ->subject(Lang::get('メールアドレスの検証'))
-        ->markdown('mail.index', ['url' => $verificationUrl]);
+        ->view('mail.verify', ['url' => $verificationUrl]);
     }
 
     // URL生成
