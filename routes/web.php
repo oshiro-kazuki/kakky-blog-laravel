@@ -34,11 +34,11 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 // オーナー用画面
 Route::prefix('/owner')->group(function() {
     // 画面表示
-    Route::get('/register', 'Auth\RegisterController@showOwnerRegisterForm');
+    Route::get('/register', 'Auth\RegisterController@showOwnerRegisterForm')->name('owner.register');
     Route::get('/login', 'Auth\LoginController@showOwnerLoginForm')->name('owner.login');
     Route::get('/logout', 'Auth\LoginController@logout');
     // 送信処理
-    Route::post('/register', 'Auth\RegisterController@createOwner')->name('owner.register');
+    Route::post('/register', 'Auth\RegisterController@createOwner');
     Route::post('/login', 'Auth\LoginController@login');
     // 認証後処理
     Route::get('/', 'OwnerController@index')->middleware('verified');
