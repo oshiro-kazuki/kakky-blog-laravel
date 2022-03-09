@@ -44,7 +44,7 @@ class RegisterController extends Controller
     protected function validatorOwner(Request $request)
     {
         return Validator::make($request->all(), [
-            'company_name'          => 'required|string|max:'.$this->max_length,
+            'company_name'          => 'required|string|max:'.$this->input_text,
             'address'               => 'required|string|max:'.$this->max_length.'|regex:'.$this->not_half_regex,
             'tel'                   => 'required|string|regex:'.$this->tel_regex,
             'email'                 => 'required|string|email|max:'.$this->max_length,

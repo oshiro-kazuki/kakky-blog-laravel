@@ -17,7 +17,7 @@ class CreateOwnersTable extends Migration
             $table->bigIncrements('id');
             $table->string('owner_id', 32)->unique();
             $table->timestamps();
-            $table->string('name', 191);
+            $table->string('name', 140);
             $table->string('address', 191);
             $table->string('tel', 11);
             $table->string('email', 191)->unique();

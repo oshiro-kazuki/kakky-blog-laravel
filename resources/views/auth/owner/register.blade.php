@@ -12,7 +12,7 @@
 
             <div class="form_list">
                 <label>会社または店舗名<span>(必須)</span></label>
-                <input id="input_name" type="text" name="company_name" maxlength="{{config('const.MAX_LENGTH')}}" value="{{ old('company_name') }}" placeholder="商号または屋号を入力">
+                <input id="input_name" type="text" name="company_name" maxlength="{{config('const.INPUT_TEXT_LENGTH')}}" value="{{ old('company_name') }}" placeholder="商号または屋号を入力">
                 <p id="form_name_error">@if ($errors->has('company_name'))
                         @foreach ($errors->get('company_name') as $detail_errors)
                             {{$detail_errors}}

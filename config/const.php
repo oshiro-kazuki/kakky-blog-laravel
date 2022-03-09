@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'APP_NAME'              => 'kazukie',
+    'APP_NAME'              => 'kakky-blog',
     'APP_INFO_MAIL_ADDRESS' => 'info@kakky-blog.com',
     'OWNER_MAIL_ADDRESS'    => 'ka.oo1213mi@gmail.com',
     // 共通文字数指定
