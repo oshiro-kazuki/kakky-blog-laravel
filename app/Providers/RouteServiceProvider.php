@@ -25,7 +25,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME            = '/home';
     public const USER_REGISTER   = '/register';
     public const USER_LOGIN      = '/login';
-    public const OWNER_INDEX     = '/owner';
+    public const OWNER           = '/owner';
     public const OWNER_REGISTER  = '/owner/register';
     public const OWNER_LOGIN     = '/owner/login';
 

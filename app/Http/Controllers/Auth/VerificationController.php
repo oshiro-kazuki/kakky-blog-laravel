@@ -17,8 +17,6 @@ class VerificationController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('auth');
-        // $this->middleware('auth:owner');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
@@ -28,6 +26,8 @@ class VerificationController extends Controller
     {
         if($request->session()->has('user_type')){
             $this->guard = $request->session()->pull('user_type', 'default')[0];
+        }else{
+            return redirect('/error');
         }
 
         if ($request->user($this->guard)->hasVerifiedEmail()) {

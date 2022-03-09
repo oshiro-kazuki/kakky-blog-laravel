@@ -13,10 +13,10 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
     
-    protected $maxAttempts      = 5;                                 // ログイン試行回数を5回に設定
-    protected $decayMinutes     = 1440;                              // ログインロックタイムを24時間に設定1440
-    protected $redirectToTop    = RouteServiceProvider::TOP;         // リダイレクト先をオーナーログイン画面を設定
-    protected $redirectToOwner  = RouteServiceProvider::OWNER_INDEX; // リダイレクト先をオーナーログイン画面を設定
+    protected $maxAttempts      = 5;                           // ログイン試行回数を5回に設定
+    protected $decayMinutes     = 1440;                        // ログインロックタイムを24時間に設定1440
+    protected $redirectToTop    = RouteServiceProvider::TOP;   // リダイレクト先をオーナーログイン画面を設定
+    protected $redirectToOwner  = RouteServiceProvider::OWNER; // リダイレクト先をオーナーログイン画面を設定
 
     public function __construct()
     {
@@ -24,28 +24,6 @@ class LoginController extends Controller
         $this->middleware('guest:owner')->except('logout');
         $this->max_length = config('const.MAX_LENGTH');
         $this->password_regex = config('const.PASSWORD_REGIX');
-    }
-
-    // ユーザーログイン処理
-    public function login(Request $request)
-    {
-        $this->validateLogin($request);
-
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
-        }
-
-        if ($this->attemptLogin($request)) {
-            $request->session()->push('user_type', $request->user_type);
-            return $this->sendLoginResponse($request);
-        }
-
-        $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
     }
 
     // オーナーログイン画面表示
@@ -65,8 +43,8 @@ class LoginController extends Controller
         );
     }
 
-    //オーナーログイン
-    public function ownerLogin(Request $request)
+    // ログイン処理
+    public function login(Request $request)
     {
         // 失敗数をチェック
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
@@ -89,16 +67,18 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
             $request->session()->push('user_type', $request->user_type);
-            return redirect()->intended($this->redirectToOwner);
+            return $this->sendFailedLoginResponse($request);
         }
 
+        // 認証失敗
         return $this->loginFaild($request);
     }
 
     // オーナーの認証処理
     private function attemptLoginOwner(Request $request)
     {
-        return Auth::guard('owner')->attempt(
+        $user_type = $request->user_type;
+        return Auth::guard($user_type)->attempt(
             $this->credentials($request), $request->filled('remember')
         );
     }

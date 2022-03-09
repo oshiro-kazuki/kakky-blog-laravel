@@ -22,12 +22,6 @@ Route::prefix('/info')->group(function() {
     });
 });
 
-// ニュース入力画面
-Route::prefix('/news_input')->group(function() {
-    Route::get('/', 'NewsInputController@index');
-    Route::post('/post', 'NewsInputController@newsPost')->name('news_input.post');
-});
-
 // ニュース一覧画面
 Route::prefix('/news')->group(function() {
     Route::get('/', 'NewsController@index');
@@ -41,11 +35,16 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 Route::prefix('/owner')->group(function() {
     // 画面表示
     Route::get('/register', 'Auth\RegisterController@showOwnerRegisterForm');
-    Route::get('/login', 'Auth\LoginController@showOwnerLoginForm');
+    Route::get('/login', 'Auth\LoginController@showOwnerLoginForm')->name('owner.login');
     Route::get('/logout', 'Auth\LoginController@logout');
     // 送信処理
     Route::post('/register', 'Auth\RegisterController@createOwner')->name('owner.register');
-    Route::post('/login', 'Auth\LoginController@ownerLogin')->name('owner.login');
+    Route::post('/login', 'Auth\LoginController@login');
     // 認証後処理
     Route::get('/', 'OwnerController@index')->middleware('verified');
+    // ニュース入力画面
+    Route::prefix('/news_input')->group(function() {
+        Route::get('/', 'NewsInputController@index');
+        Route::post('/post', 'NewsInputController@newsPost')->name('news_input.post');
+    });
 });
