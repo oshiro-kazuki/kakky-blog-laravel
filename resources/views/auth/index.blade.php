@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{config('const.APP_NAME')}} : オーナー様</title>
+        <title>{{config('const.APP_NAME')}}</title>
 
         <!-- fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -21,7 +21,9 @@
         @include('common.header')
 
         <main>
-            <h1>{{$screen_title}}</h1>
+            @if(isset($screen_title))
+                <h1>{{$screen_title}}</h1>
+            @endif
             @yield('content')
         </main>
 
@@ -32,6 +34,8 @@
         <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/common/validation.js') }}"></script>
         <script src="{{ asset('js/component/contents/form.js') }}"></script>
-        <script src="{{ asset($script[0]) }}"></script>
+        @if(isset($script))
+            <script src="{{ asset($script[0]) }}"></script>
+        @endif
     </body>
 </html>
