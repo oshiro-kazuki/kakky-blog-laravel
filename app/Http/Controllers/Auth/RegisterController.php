@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
-use App\Model\Owners;
+use App\Model\User;
+use App\Model\Owner;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +16,8 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectToReg   = RouteServiceProvider::OWNERREGISTER;  // リダイレクト先をオーナー登録画面を設定
-    protected $redirectToLog   = RouteServiceProvider::OWNERLOGIN;     // リダイレクト先をオーナーログイン画面を設定
+    protected $redirectToReg   = RouteServiceProvider::OWNER_REGISTER;  // リダイレクト先をオーナー登録画面を設定
+    protected $redirectToLog   = RouteServiceProvider::OWNER_LOGIN;     // リダイレクト先をオーナーログイン画面を設定
 
     public function __construct()
     {
@@ -30,7 +30,18 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    protected function validator(Request $request)
+    // ユーザー用登録バリデーション
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
+    // オーナー用登録バリデーション
+    protected function validatorOwner(Request $request)
     {
         return Validator::make($request->all(), [
             'company_name'          => 'required|string|max:'.$this->max_length,
@@ -44,6 +55,7 @@ class RegisterController extends Controller
         ]);
     }
 
+    // ユーザー登録
     protected function create(array $data)
     {
         return User::create([
@@ -53,6 +65,7 @@ class RegisterController extends Controller
         ]);
     }
 
+    // オーナー登録画面表示
     public function showOwnerRegisterForm()
     {
         $script = [
@@ -68,9 +81,10 @@ class RegisterController extends Controller
         );
     }
 
+    // オーナー登録
     protected function createOwner(Request $request)
     {
-        $validator = $this->validator($request);
+        $validator = $this->validatorOwner($request);
         if($validator->fails()){
             return redirect($this->redirectToReg)->withErrors($validator)->withInput();
         }
@@ -82,7 +96,7 @@ class RegisterController extends Controller
             $file = $request['image'];
             $this->createOwnerProfileImage($file);
         }
-        Owners::insertGetId([
+        Owner::insertGetId([
             'owner_id'          => Str::random(32),
             'created_at'        => now(),
             'name'              => $request['company_name'],
@@ -96,9 +110,10 @@ class RegisterController extends Controller
         return redirect()->intended($this->redirectToLog);
     }
 
+    // オーナープロフィール画像保存処理
     private function createOwnerProfileImage($file)
     {
-        $insert_id = Owners::max('id') + 1;
+        $insert_id = Owner::max('id') + 1;
         $profile_image_path = public_path($this->image_upload_path.$insert_id);
         $file_name = 'pfrofile_img.jpg';
         $file->move($profile_image_path,$file_name);
