@@ -9,19 +9,27 @@ use App\Mail\ContactMailSend;
 
 class MailSendController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('info.contact_mail.index');
+        $this->app_info_mail_address = config('const.APP_INFO_MAIL_ADDRESS');
+        $this->owner_mail_address    = config('const.OWNER_MAIL_ADDRESS');
     }
 
-    public function mailSend(MailRequest $mailRequest){
+    public function showContactForm()
+    {
+        return view('info.contact_mail');
+    }
+
+    public function contactMailSend(MailRequest $mailRequest){
         $postData = $mailRequest->all();
-    
         // 管理者へメール送信
-        Mail::to('ka.oo1213mi@gmail.com')->send(new ContactMailOwner($postData));
+        Mail::to($this->owner_mail_address)->send(
+            new ContactMailOwner($postData)
+        );
         // ユーザーへメール送信
-        Mail::to($postData['contact_mail_email'])->send(new ContactMailSend($postData));
-        
+        Mail::to($postData['contact_mail_email'])->send(
+            new ContactMailSend($postData, $this->app_info_mail_address)
+        );
         return redirect('/');
     }
 }

@@ -8,23 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
-     * @return mixed
-     */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($guard == "owner" && Auth::guard($guard)->check()) {
-            return redirect('/owner');
-        }
-        if (Auth::guard($guard)->check()) {
+        if ($guard === 'owner' && Auth::guard($guard)->check()) {
+            return redirect(RouteServiceProvider::OWNER);
+        }else if($guard === 'user' && Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }
-
         return $next($request);
     }
 }

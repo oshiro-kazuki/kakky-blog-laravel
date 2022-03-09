@@ -30,8 +30,8 @@ class ContactMailOwner extends Mailable
     {
         return $this->from('info@kakky-blog.com')
         ->subject('お問い合わせの受付')
-        ->text(
-            'owner.contact_mail.mail_template',
+        ->view(
+            'mail.contact_to_owner',
             [
                 'postData' => $this->postData
             ]

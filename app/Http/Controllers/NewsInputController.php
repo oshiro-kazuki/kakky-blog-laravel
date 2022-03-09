@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class NewsInputController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:owner');
+    }
+    
     public function index()
     {
         return view('/owner/news/news_input');
