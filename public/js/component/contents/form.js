@@ -59,6 +59,32 @@ const requireEmail = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
     }
 }
 
+// 必須項目のselect
+const requireSubject = (input_ele, err_ele, conf_ele, init_ele, target_flg, index, conf_btn, submit_btn) => {
+    const gea = setElementArray(input_ele, err_ele, conf_ele);
+    const init = get_tag_byId(init_ele);
+    const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+    if(!gfa.val_flg && gfa.text_flg){
+        returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
+    }else{
+        gea.in.addEventListener('change', (e) => {
+            const intValue = Number(e.target.value);
+            getText(init, e.target[intValue].textContent);
+            init.style.color = 'black';
+            const result = selectCheck(intValue, gea.er);
+            confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+            for(let i = 0;i < gea.in.options.length; i++){
+                if(intValue === i){
+                    gea.in.options[i].setAttribute('selected', 'selected')
+                }else{
+                    gea.in.options[i].removeAttribute('selected')
+                }
+            }
+            getText(gea.co, e.target[intValue].textContent);
+        });
+    }
+}
+
 // 必須項目のパスワード
 const requirePassword = (input_ele, err_ele, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, false);

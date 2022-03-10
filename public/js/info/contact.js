@@ -1,135 +1,17 @@
 'use strict';
-// 件名リスト
-const subject_lists = [
-    '- 選択してください -',
-    'ご相談',
-    'その他',
-];
-
-// 送信ボタン制御管理フラグ
-const submit_flg = [
-    true, //お名前
-    true, //メールアドレス
-    true, //件名
-    true, //お問い合わせ内容
-];
-
-// お問い合わせ入力フォーム
-// お名前nullチェック
-const contact_mail_name = get_tag_byId('contact_mail_name');
-const contact_mail_name_confirm_text = get_tag_byId('contact_mail_name_confirm_text');
-contact_mail_name.addEventListener('input', (e) => {
-    const contact_mail_name_error = get_tag_byId('contact_mail_name_error');
-    const null_result = nullCheck(e, contact_mail_name_error);
-    contact_mail_confirm_check(0, null_result);
-    contact_mail_submit_check(0, null_result);
-    get_text(contact_mail_name_confirm_text, e);
-});
-
-//　メールアドレスnullチェック
-const contact_mail_email = get_tag_byId('contact_mail_email');
-const contact_mail_email_confirm_text = get_tag_byId('contact_mail_email_confirm_text');
-contact_mail_email.addEventListener('input', (e) => {
-    const contact_mail_email_error = get_tag_byId('contact_mail_email_error');
-    const null_result = nullCheck(e, contact_mail_email_error);
-    if(!null_result) {
-        const email_format_result = emailCheck(e, contact_mail_email_error);
-        contact_mail_confirm_check(1, email_format_result);
-        contact_mail_submit_check(1, email_format_result);
-        get_text(contact_mail_email_confirm_text, e);
-    }
-});
-
-
-const contact_mail_subject = get_tag_byId('contact_mail_subject');
-const contact_mail_subject_confirm_text = get_tag_byId('contact_mail_subject_confirm_text');
-const contact_mail_subject_list = get_tag_byId('contact_mail_subject_list');
-
-// optionタグ生成
-subject_lists.forEach((list, index) => {
-    create_tag('option', contact_mail_subject, list, false, false, 'value', index);
-});
-
-// optionタグ選択文字表示・件名選択チェック
-contact_mail_subject.addEventListener('change', (e) => {
-    const contact_mail_subject_init = get_tag_byId('contact_mail_subject_init');
-    const contact_mail_subject_error = get_tag_byId('contact_mail_subject_error');
-    const index = e.target.value;
-    contact_mail_subject_init.textContent = subject_lists[index];
-    const check_result = selectCheck(index, contact_mail_subject_error);
-    contact_mail_confirm_check(2, check_result);
-    contact_mail_submit_check(2, check_result);
-    get_select(contact_mail_subject_confirm_text, e);
-    // 件名テキストセット
-    contact_mail_subject_list.setAttribute('value', subject_lists[index]);
-});
-
-// お問い合わせ内容nullチェック
-const contact_mail_content = get_tag_byId('contact_mail_content');
-const contact_mail_content_confirm_text = get_tag_byId('contact_mail_content_confirm_text');
-contact_mail_content.addEventListener('input', (e) => {
-    const contact_mail_content_error = get_tag_byId('contact_mail_content_error');
-    const check_result = nullCheck(e, contact_mail_content_error);
-    contact_mail_confirm_check(3, check_result);
-    contact_mail_submit_check(3, check_result);
-    get_text(contact_mail_content_confirm_text, e);
-});
-
-// 確認するボタン制御
-const contact_mail_input_submit_btn = get_tag_byId('contact_mail_input_submit_btn');
-const contact_mail_confirm_check = (index ,flg) => {
-    submit_flg[index] = flg;
-    // 制御項目が全て入力されているか判定
-    const submit_flg_result = submit_flg.some(element => element === true);
-    if(submit_flg_result) {
-        cla_add(contact_mail_input_submit_btn, 'hidden');
-    } else {
-        cla_remove(contact_mail_input_submit_btn, 'hidden');
-    }
+// 必須項目入力管理フラグ
+{
+    const submit_flg = [true,true,true,true];
+    const max_len = 191;
+    const text_len = 140;
+    
+    window.addEventListener('load', () => {
+        requireText('input_name', 'form_name_error', 'conf_name', text_len, submit_flg, 0, 'contact_input_conf_btn', 'submit_btn');
+        requireEmail('input_email', 'form_email_error', 'conf_email', max_len, submit_flg, 1, 'contact_input_conf_btn', 'submit_btn');
+        requireSubject('input_subject','form_subject_error', 'conf_subject', 'input_subject_init', submit_flg, 2, 'contact_input_conf_btn', 'submit_btn');
+        requireText('input_content', 'form_content_error', 'conf_content', text_len, submit_flg, 3, 'contact_input_conf_btn', 'submit_btn');
+        
+        sectionChange('contact_input', 'contact_conf', 'contact_input_conf_btn');
+        returnClick('contact_input' ,'contact_conf', 'form_return_btn');
+    });
 }
-
-// お問い合わせ確認フォームにテキスト設定
-const get_text = (element, event) => {
-    element.textContent = event.target.value;
-}
-
-// お問い合わせ確認フォームに件名で選択したテキスト設定
-const get_select = (element, event) => {
-    element.textContent = subject_lists[event.target.value];
-}
-
-// 送信するボタン制御
-const contact_mail_submit_check = (index ,flg) => {
-    const contact_mail_submit_btn = get_tag_byId('contact_mail_submit_btn');
-    submit_flg[index] = flg;
-    // 制御項目が全て入力されているか判定
-    const submit_flg_result = submit_flg.some(element => element === true);
-    contact_mail_submit_btn.disabled = submit_flg_result;
-}
-
-// 入力フォームと確認画面表示切り替え
-const contact_mail_form_input = get_tag_byId('contact_mail_form_input');
-const contact_mail_form_confirm = get_tag_byId('contact_mail_form_confirm');
-let contact_mail_screen_flg = true;
-
-contact_mail_input_submit_btn.addEventListener('click', () => {
-    if(contact_mail_screen_flg) {
-        contact_mail_screen_flg = false;
-        cla_add(contact_mail_form_input, 'hidden');
-        cla_remove(contact_mail_form_confirm, 'hidden');
-    } else {
-        contact_mail_screen_flg = true;
-        cla_remove(contact_mail_form_input, 'hidden');
-        cla_add(contact_mail_form_confirm, 'hidden');
-    }
-    location.href = '#';
-});
-
-// 戻るボタン
-const contact_mail_return_btn = get_tag_byId('contact_mail_return_btn');
-contact_mail_return_btn.addEventListener('click', () => {
-    contact_mail_screen_flg = true;
-    cla_remove(contact_mail_form_input, 'hidden');
-    cla_add(contact_mail_form_confirm, 'hidden');
-    location.href = '#';
-});

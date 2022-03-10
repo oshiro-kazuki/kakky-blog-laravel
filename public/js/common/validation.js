@@ -48,8 +48,8 @@ const tellCheck = (e, element) => {
 }
 
 // 選択有無チェック
-const selectCheck = (index, element) => {
-    if(index === '0'){
+const selectCheck = (value, element) => {
+    if(value === 0){
         selectNoneText(element);
         return true;
     }
