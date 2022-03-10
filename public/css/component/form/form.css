@@ -29,7 +29,8 @@
     margin-left: 5px;
 }
 .form_list > input,
-.form_list > textarea{
+.form_list > textarea,
+.form_select_area{
     width: 100%;
     height: 50px;
     margin-top: 10px;
@@ -42,11 +43,30 @@
     height: 50px;
     padding: 0 10px;
 }
+.form_select_area{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    background-color: rgb(250, 250, 250);
+}
+.form_list select{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    z-index: 2;
+}
+.form_select_text{
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    color: #808080;
+}
 .form_list > textarea{
     height: 200px;
     padding: 10px;
 }
-.form_list p{
+.form_list > p{
     height: 35px;
     margin-top: 5px;
     font-size: 17px;
