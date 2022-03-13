@@ -83,7 +83,7 @@ header a{
 }
 .header_menubar{
     min-height: calc(100vh - 60px);
-    width: 85%;
+    width: 270px;
     background-color: white;
     margin-left: auto;
     padding: 30px 20px;
@@ -120,4 +120,9 @@ header a{
 }
 .header_menubar li span{
     color: #ff7f50;
+}
+@media screen and (min-width: 500px){
+    .header_right span{
+        cursor: pointer;
+    }
 }
