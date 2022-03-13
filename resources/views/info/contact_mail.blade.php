@@ -15,12 +15,9 @@
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/component/form/form.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/info/contact.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/component/button/top_page_btn.css') }}">
     </head>
     <body>
-        @include('common.header')
-
+        @include('include.common.header')
         <main>
             <form action="{{ route('contact_mail.send') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -81,9 +78,7 @@
                             @endif
                         </p>
                     </div>
-                    <div class="form_conf_submit">
-                        <a id="contact_input_conf_btn" href="javascript:void(0)" class="form_conf_submit_btn hidden">確認</a>
-                    </div>
+                    <div id="form_conf_btn" class="form_conf_btn hidden">確認</div>
                 </section>
                 <section id="contact_conf" class="form_section hidden">
                     <h2>
@@ -107,27 +102,18 @@
                         <label>お問い合わせ内容</label>
                         <p id="conf_content"></p>
                     </div>
-                    <div class="form_submit">
-                        <button id="submit_btn" type="submit" class="form_submit_btn" disabled>送信</button>
-                    </div>
-                    <div class="form_return">
-                        <a id="form_return_btn" href="javascript:void(0)">戻る</a>
-                    </div>
+                    <button id="submit_btn" type="submit" class="form_submit_btn" disabled>送信</button>
+                    <div id="form_return_btn" class="form_return_btn">戻る</div>
                 </section>
             </form>
+            @include('include.button.top_btn')
         </main>
-        <aside>
-            <div id="top_page_btn"></div>
-        </aside>
-
-        @include('common.footer')
-
+        @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
         <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/common/validation.js') }}"></script>
         <script src="{{ asset('js/component/contents/form.js') }}"></script>
         <script src="{{ asset('js/info/contact.js') }}"></script>
-        <script src="{{ asset('js/component/button/top_page_btn.js') }}"></script>
     </body>
 </html>
