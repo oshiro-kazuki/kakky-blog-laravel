@@ -18,14 +18,12 @@
         <link rel="stylesheet" href="{{ asset('css/include/news/top_page.css') }}">
     </head>
     <body>
-        @include('common.header')
-
-        <div id="top_image"></div>
-
-        @include('include.news.top_page')
-
-        @include('common.footer')
-
+        @include('include.common.header')
+        <main>
+            <section id="top_image" class="top_image"></section>
+            @include('include.news.top_page')
+        </main>
+        @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
         <script src="{{ asset('js/common/footer.js') }}"></script>

@@ -126,3 +126,8 @@
     z-index: 1;
     background-color: rgba(0, 0, 0, .5);
 }
+@media screen and (min-width: 500px){
+    .news_item_none {
+        margin: 20px 0;
+    }
+}
