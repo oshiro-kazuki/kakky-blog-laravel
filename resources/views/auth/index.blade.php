@@ -18,17 +18,14 @@
         <link rel="stylesheet" href="{{ asset('css/auth/index.css') }}">
     </head>
     <body>
-        @include('common.header')
-
+        @include('include.common.header')
         <main>
             @if(isset($screen_title))
                 <h1>{{$screen_title}}</h1>
             @endif
             @yield('content')
         </main>
-
-        @include('common.footer')
-
+        @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
         <script src="{{ asset('js/common/footer.js') }}"></script>

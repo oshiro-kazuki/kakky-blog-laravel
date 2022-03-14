@@ -232,15 +232,17 @@ const delImgClick = (del_btn, tag_conf, tag_input, conf_ele) => {
 }
 
 // 入力フォームと確認フォーム切り替え
-const sectionChange = (input_sec, conf_sec, input_btn) => {
+const sectionChange = (input_sec, conf_sec, conf_btn) => {
     const input_section = get_tag_byId(input_sec);
     const conf_section = get_tag_byId(conf_sec);
-    const btn = get_tag_byId(input_btn);
+    const btn = get_tag_byId(conf_btn);
+    const reg = /hidden/;
+
     btn.addEventListener('click', () => {
-        const reg = /hidden/;
-        const is = reg.test(input_section.className);
-        const cs = reg.test(conf_section.className);
-        if(cs){
+        const btn_class = reg.test(btn.className);
+        if(btn_class)return; // hiddenがついていたらクリックできない
+        const cs_class = reg.test(conf_section.className);
+        if(cs_class){
             cla_add(input_section, 'hidden');
             cla_remove(conf_section, 'hidden');
         }else{
