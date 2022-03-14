@@ -6,14 +6,14 @@
             @if (session('resent'))
                 新しい認証用メールを送信しました。
             @else
-                ご登録されたメールアドレスを確認します。
+                ご登録されたメールアドレスへ認証用メールを送信しました。
             @endif
             <br>記載しているリンクへアクセスしてください。
         </h6>
     </section>
     
     <section class="mail_none">
-        <p>下のボタンを押してメール送信してください。</p>
+        <p>届いてない場合は、下のボタンを押してメール送信してください。</p>
     </section>
     <section class="form_submit">
         <form method="POST" action="{{ route('verification.resend') }}">
