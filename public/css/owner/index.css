@@ -1,19 +1,32 @@
-.logout{
-    height: 50px;
-    width: 300px;
-    margin: 30px auto;
+h1{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
 }
+.owner_link_area{
+    padding: 20px 0;
+}
+.news_input_btn,
 .logout_btn{
     display: block;
     height: 100%;
     width: 100%;
-    font-weight: 800;
-    text-align: center;
-    line-height: 50px;
-    color: white;
-    background-color: tomato;
+    height: 50px;
+    width: 300px;
+    margin: 30px auto;
     border-radius: 8px;
     border: 1px solid #ccc;
     box-shadow: 2px 2px 4px #ccc;
     font-size: 20px;
+    font-weight: 800;
+    line-height: 50px;
+    text-align: center;
+}
+.news_input_btn{
+    color: white;
+    background-color: limegreen;
+}
+.logout_btn{
+    color: white;
+    background-color: red;
 }
