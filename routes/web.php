@@ -1,9 +1,6 @@
 <?php
 
 Route::get('/', 'TopPageController@index');
-Route::get('/error', function(){
-    return view('error');
-});
 
 // info系へアクセス
 Route::prefix('/info')->group(function() {

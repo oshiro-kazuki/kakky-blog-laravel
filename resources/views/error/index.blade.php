@@ -14,16 +14,15 @@
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/auth/index.css') }}">
     </head>
     <body>
-        @include('common.header')
-
+        @include('include.common.header')
         <main>
-            <h6>エラー</h6>
+            <h1>エラー画面</h1>
+            @yield('content')
         </main>
-
-        @include('common.footer')
-
+        @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/common/header.js') }}"></script>
         <script src="{{ asset('js/common/footer.js') }}"></script>

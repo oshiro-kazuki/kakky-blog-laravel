@@ -27,7 +27,8 @@ class VerificationController extends Controller
         if($request->session()->has('user_type')){
             $this->guard = $request->session()->pull('user_type', 'default')[0];
         }else{
-            return redirect('/error');
+            $request->session()->flush();
+            return view('error.unauthorized_access');
         }
 
         if ($request->user($this->guard)->hasVerifiedEmail()) {

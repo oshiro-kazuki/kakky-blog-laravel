@@ -13,10 +13,18 @@ h1{
     margin: 20px 20px 40px;
     font-size: 20px;
 }
+.unauthorized_access{
+    margin: 30px 0;
+    font-size: 20px;
+    text-align: center;
+}
 @media screen and (min-width: 500px){
     .mail_announcement,
     .mail_none{
         width: 500px;
         margin: 0 auto;
+    }
+    .unauthorized_access{
+        margin: 40px 0;
     }
 }
