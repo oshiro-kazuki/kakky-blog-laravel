@@ -15,13 +15,15 @@
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/include/news/top_page.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/news/news_list.css') }}">
     </head>
     <body>
         @include('include.common.header')
         <main>
             <section id="top_image" class="top_image"></section>
-            @include('include.news.top_page')
+            @if(count($news_lists) > 0)
+                @include('include.news.news_list')
+            @endif
         </main>
         @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>

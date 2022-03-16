@@ -28,8 +28,8 @@
         </section>
     @endif
     @if(count($news_lists) > 0)
-        <aside id="news_index_btn">
+        <section id="news_index_btn">
             <a href="/news">NEWS一覧へ</a>  
-        </aside>
+        </section>
     @endif
 </article>
