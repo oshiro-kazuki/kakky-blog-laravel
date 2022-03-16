@@ -8,6 +8,7 @@ return [
     'MAX_LENGTH'        => 191,
     'PASSWORD_LENGTH'   => 20,
     'TEL_LENGTH'        => 11,
+    'TITLE_LENGTH'      => 20,
     // 表示用文字指定
     'CONTENT_LENGTH_TEMPLATE' => 35,
     // 入力用文字指定

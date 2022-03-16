@@ -156,6 +156,7 @@ return [
         'profile_image'         => '画像',
         'password'              => 'パスワード',
         'password_confirmation' => '確認用パスワード',
+        'title'                 => 'タイトル',
     ],
 
 ];
