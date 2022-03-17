@@ -17,7 +17,14 @@ class NewsInputController extends Controller
     
     public function index()
     {
-        return view('.owner.news_input');
+        $script = [
+            'js/owner/news_input.js',
+        ];
+        return view('.owner.news_input',
+        [
+            'screen_title'  => 'ニュース投稿画面',
+            'script'        => $script
+        ]);
     }
 
     public function newsPost(Request $request)
