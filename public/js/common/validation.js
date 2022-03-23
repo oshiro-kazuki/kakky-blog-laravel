@@ -135,7 +135,7 @@ const tellFormatText = (element) => {
 
 // 選択なしの場合メッセージ表示
 const selectNoneText = (element) => {
-    element.textContent = '件名を選択してください。';
+    element.textContent = '選択してください。';
 }
 
 // 最大文字数超過の場合メッセージ表示

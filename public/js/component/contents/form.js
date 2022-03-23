@@ -60,28 +60,30 @@ const requireEmail = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 }
 
 // 必須項目のselect
-const requireSubject = (input_ele, err_ele, conf_ele, init_ele, target_flg, index, conf_btn, submit_btn) => {
+const requireSelect = (input_ele, err_ele, conf_ele, init_ele, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
     const init = get_tag_byId(init_ele);
     const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+
+    gea.in.addEventListener('change', (e) => {
+        const intValue = Number(e.target.value);
+        getText(init, e.target[intValue].textContent);
+        init.style.color = 'black';
+        const result = selectCheck(intValue, gea.er);
+        confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+        for(let i = 0;i < gea.in.options.length; i++){
+            if(intValue === i){
+                gea.in.options[i].setAttribute('selected', 'selected')
+            }else{
+                gea.in.options[i].removeAttribute('selected')
+            }
+        }
+        getText(gea.co, e.target[intValue].textContent);
+        return;
+    });
+
     if(!gfa.val_flg && gfa.text_flg){
         returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
-    }else{
-        gea.in.addEventListener('change', (e) => {
-            const intValue = Number(e.target.value);
-            getText(init, e.target[intValue].textContent);
-            init.style.color = 'black';
-            const result = selectCheck(intValue, gea.er);
-            confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-            for(let i = 0;i < gea.in.options.length; i++){
-                if(intValue === i){
-                    gea.in.options[i].setAttribute('selected', 'selected')
-                }else{
-                    gea.in.options[i].removeAttribute('selected')
-                }
-            }
-            getText(gea.co, e.target[intValue].textContent);
-        });
     }
 }
 
@@ -114,20 +116,21 @@ const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 }
 
 // 必須項目でない画像
-const nullableImage = (input_ele, err_ele, conf_ele, del_ele, target_flg, index, conf_btn, submit_btn) => {
-    const gea = setElementArray(input_ele, err_ele, conf_ele, del_ele);
+const nullableImage = (text_ele, input_ele, view_ele, edit_ele, del_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn) => {
+    const gea = setElementArray(input_ele, err_ele, conf_ele, edit_ele, del_ele, text_ele, view_ele);
     gea.in.addEventListener('change', (e) => {
-        const tag_text = get_tag_query(`#${conf_ele} p`);
-        const get_image = get_tag_query(`#${conf_ele} img`);
-        if(get_image === null){
-            create_img_tag(gea.co);
-            tag_text.remove();
-            cla_remove(gea.de, 'hidden');
+        if(gea.in.value === ''){
+            return;
         }
         const result = extensionFileSizeCheck(e, gea.er);
         confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-        setImage(conf_ele, e.target.files[0]);
-        delImgClick(gea.de, gea.co, gea.in, conf_ele);
+        setImage(view_ele, conf_ele, e.target.files[0]);
+        cla_add(gea.te, 'hidden');
+        cla_add(gea.in, 'hidden');
+        cla_remove(gea.vi, 'hidden');
+        cla_remove(gea.ed, 'hidden');
+        cla_remove(gea.de, 'hidden');
+        delImgClick(gea.in, gea.co, gea.te, gea.ed, gea.de, gea.vi);
     });
 }
 
@@ -141,19 +144,19 @@ const loginText = (input_ele, err_ele, target_flg, index, submit_btn) => {
 }
 
 // 入力、エラー、確認の要素取得
-const setElementArray = (input_ele, err_ele, conf_ele = false, del_ele = false) => {
+const setElementArray = (input_ele, err_ele, conf_ele = false, edit_ele = false, del_ele = false, text_ele = false, view_ele = false) => {
     const input_tag = get_tag_byId(input_ele);
     const err_tag = get_tag_byId(err_ele);
-    if(conf_ele && !del_ele){
+    if(conf_ele && !del_ele && !text_ele && !view_ele && !edit_ele){
         const conf_tag = get_tag_byId(conf_ele);
         return {in : input_tag,er : err_tag,co : conf_tag};
-    }else if(del_ele && !conf_ele){
-        const del_tag = get_tag_byId(del_ele);
-        return {in : input_tag,er : err_tag,de : del_tag};
-    }else if(conf_ele && del_ele){
+    }else if(conf_ele && del_ele && text_ele && view_ele && edit_ele){
         const conf_tag = get_tag_byId(conf_ele);
+        const edi_tag = get_tag_byId(edit_ele);
         const del_tag = get_tag_byId(del_ele);
-        return {in : input_tag,er : err_tag,co : conf_tag,de : del_tag};
+        const tex_tag = get_tag_byId(text_ele);
+        const vie_tag = get_tag_byId(view_ele);
+        return {in : input_tag,er : err_tag,co : conf_tag,ed : edi_tag,de : del_tag,te: tex_tag,vi: vie_tag};
     }
     return {in:input_tag,er:err_tag};
 }
@@ -206,27 +209,31 @@ const getText = (element, text_val) => {
 }
 
 // 確認フォームに画像設定
-const setImage = (conf_ele, val) => {
-    const target = get_tag_query(`#${conf_ele} img`);
+const setImage = (view_ele, conf_ele, val) => {
+    const view_tag = get_tag_byId(view_ele);
+    const conf_tqg = get_tag_byId(conf_ele);
     const file_reader = new FileReader();
     file_reader.onload = function(){
-        target.setAttribute('src', file_reader.result);
+        view_tag.setAttribute('src', file_reader.result);
+        conf_tqg.setAttribute('src', file_reader.result);
     }
     file_reader.readAsDataURL(val);
 }
 
 // 画像削除ボタンクリックイベント
-const delImgClick = (del_btn, tag_conf, tag_input, conf_ele) => {
-    del_btn.addEventListener('click', () => {
-        const tag_img = get_tag_query(`#${conf_ele} img`);
-        if(tag_img === null){
+const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele) => {
+    del_ele.addEventListener('click', () => {
+        if(input_ele.value === ''){
             return;
         }
         if(confirm('削除してもよろしいですか？')){
-            tag_img.remove();
-            create_tag('p', tag_conf, '-');
-            tag_input.value = '';
-            cla_add(del_btn, 'hidden');
+            input_ele.value = '';
+            conf_ele.src = '/img/nophoto.png';
+            cla_remove(text_ele, 'hidden');
+            cla_remove(input_ele, 'hidden');
+            cla_add(view_ele, 'hidden');
+            cla_add(edi_ele, 'hidden');
+            cla_add(del_ele, 'hidden');
         }
     });
 }

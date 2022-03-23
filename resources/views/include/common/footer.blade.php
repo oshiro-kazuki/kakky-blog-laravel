@@ -25,7 +25,7 @@
         <nav>
             <ul id="footer_sns">
                 @foreach ($footer_sns_list as $list)
-                <li><a href="{{$list['link']}}"><img src="{{$list['logo']}}" class="footer_sns_logo" alt="snsのロゴ画像"></a></li>
+                <li><a href="{{$list['link']}}"><img src="{{$list['logo']}}" class="footer_sns_logo" alt="snsのロゴ画像" loading="lazy"></a></li>
                 @endforeach
             </ul>
         </nav>

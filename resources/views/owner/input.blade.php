@@ -15,6 +15,9 @@
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/component/form/form.css') }}">
+        @if(isset($style))
+            <link rel="stylesheet" href="{{ asset($style[0]) }}">
+        @endif
     </head>
     <body>
         @include('include.common.header')

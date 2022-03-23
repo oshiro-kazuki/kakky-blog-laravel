@@ -26,7 +26,7 @@ class RegisterController extends Controller
         $this->not_half_regex       = config('const.NOT_HALF_REGIX');
         $this->tel_regex            = config('const.TELL_REGIX');
         $this->input_text           = config('const.INPUT_TEXT_LENGTH');
-        $this->image_upload_path    = config('const.IMAGE_PATH');
+        $this->image_upload_path    = config('const.OWNER_IMAGE_PATH');
         $this->middleware('guest');
     }
 

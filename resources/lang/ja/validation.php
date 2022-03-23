@@ -157,6 +157,13 @@ return [
         'password'              => 'パスワード',
         'password_confirmation' => '確認用パスワード',
         'title'                 => 'タイトル',
+        'origin_title'          => '見出し1',
+        'accepted_title'        => '見出し2',
+        'but_title'             => '見出し3',
+        'conclusion_title'      => '見出し4',
+        'origin_text'           => '本文1',
+        'accepted_text'         => '本文2',
+        'but_text'              => '本文3',
+        'conclusion_text'       => '本文4',
     ],
-
 ];
