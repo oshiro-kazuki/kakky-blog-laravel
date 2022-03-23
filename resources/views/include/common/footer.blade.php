@@ -7,7 +7,6 @@
 
     $footer_sns_list = array(
         ['logo'=> '/img/sns/twitter_logo.png'   , 'link'=> 'https://twitter.com/kazzzzk19'],
-        ['logo'=> '/img/sns/facebook_logo.png'  , 'link'=> 'https://www.facebook.com/kazzzzk19'],
     );
 ?>
 

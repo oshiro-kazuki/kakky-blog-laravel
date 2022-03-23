@@ -56,11 +56,14 @@
             </div>
             <div class="form_list">
                 <label>プロフィール画像<span>(3MB以内)</span></label>
-                <div class="form_image_btn">画像を選択
-                    <input id="input_profile_image" class="form_image" type="file" name="image">
+                <div class="image_area">
+                    <p id="text_image" class="text_image">画像を選択</p>
+                    <input id="image" class="form_image" type="file" name="image">
+                    <img id="view_image" class="view_image hidden">
+                    <div id="edit_image_btn" class="form_edit_image_btn hidden">選択</div>
+                    <div id="del_image_btn" class="form_del_image_btn hidden">削除</div>
                 </div>
-                <div id="form_del_image_btn" class="form_del_image_btn hidden">画像を削除</div>
-                <p id="form_profile_image_error">@if ($errors->has('image'))
+                <p id="image_error">@if ($errors->has('image'))
                         @foreach ($errors->get('image') as $detail_errors)
                             {{$detail_errors}}
                         @endforeach
@@ -112,9 +115,11 @@
                 <label>プロフィール、コメント</label>
                 <p id="conf_profile">-</p>
             </div>
-            <div class="conf_list" id="conf_image">
+            <div class="conf_list">
                 <label>プロフィール画像</label>
-                <p>-</p>
+                <div class="image_area">
+                    <img id="image_conf" class="view_image" src="/img/nophoto.png" loading="lazy">
+                </div>
             </div>
             <div class="conf_list">
                 <label>パスワード</label>
