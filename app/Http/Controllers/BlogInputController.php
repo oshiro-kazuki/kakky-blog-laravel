@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Model\Blogs;
 use App\Libs\Blog;
 
 class BlogInputController extends Controller
@@ -43,32 +42,19 @@ class BlogInputController extends Controller
             return redirect('/owner/blog_input')->withErrors($validator)->withInput();
         }
 
-        $image_flg = false;
-
         $postData = $request->all();
+        
+        $postData['image_flg'] = false;
 
         if(!is_null($request['image'])){
-            $image_flg = true;
+            $postData['image_flg'] = true;
             $file = $request['image'];
             $this->imageStock($file);
         }
 
-        Blogs::insertGetId(
-            [
-                'created_at'        => date('Y-m-d H:i:s'),
-                'title'             => $postData['title'],
-                'image_flg'         => $image_flg,
-                'category'          => $postData['category'],
-                'origin_title'      => $postData['origin_title'],
-                'origin_text'       => $postData['origin_text'],
-                'accepted_title'    => $postData['accepted_title'],
-                'accepted_text'     => $postData['accepted_text'],
-                'but_title'         => $postData['but_title'],
-                'but_text'          => $postData['but_text'],
-                'conclusion_title'  => $postData['conclusion_title'],
-                'conclusion_text'   => $postData['conclusion_text'],
-            ]
-        );
+        $blog = new Blog();
+        $blog->blogInsert($postData);
+
         return redirect('/owner');
     }
 
@@ -78,14 +64,14 @@ class BlogInputController extends Controller
             'title'             => 'required|string|max:'.$this->title_length,
             'image'             => 'bail|file|max:3000|image|mimes:jpeg,png,jpg',
             'category'          => 'not_in:0',
-            'origin_title'      => 'required|string|max:'.$this->title_length,
-            'accepted_title'    => 'required|string|max:'.$this->title_length,
-            'but_title'         => 'required|string|max:'.$this->title_length,
-            'conclusion_title'  => 'required|string|max:'.$this->title_length,
-            'origin_text'       => 'required|string|max:'.$this->text_length,
-            'accepted_text'     => 'required|string|max:'.$this->text_length,
-            'but_text'          => 'required|string|max:'.$this->text_length,
-            'conclusion_text'   => 'required|string|max:'.$this->text_length,
+            'origin_title'      => 'nullable|string|max:'.$this->title_length,
+            'accepted_title'    => 'nullable|string|max:'.$this->title_length,
+            'but_title'         => 'nullable|string|max:'.$this->title_length,
+            'conclusion_title'  => 'nullable|string|max:'.$this->title_length,
+            'origin_text'       => 'nullable|string|max:'.$this->text_length,
+            'accepted_text'     => 'nullable|string|max:'.$this->text_length,
+            'but_text'          => 'nullable|string|max:'.$this->text_length,
+            'conclusion_text'   => 'nullable|string|max:'.$this->text_length,
         ]);
     }
 
@@ -97,7 +83,8 @@ class BlogInputController extends Controller
 
     private function imageStock($file)
     {
-        $max_id = Blogs::max('id');
+        $blog = new Blog();
+        $max_id = $blog->getBlogMaxId();
         $insert_id = isset($max_id) ? $max_id + 1 : 1;
         $image_path = public_path($this->image_upload_path.$insert_id);
         $file_name = 'blog_img.jpg';
