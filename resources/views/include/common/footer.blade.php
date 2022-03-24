@@ -6,7 +6,7 @@
     );
 
     $footer_sns_list = array(
-        ['logo'=> '/img/sns/twitter_logo.png'   , 'link'=> 'https://twitter.com/kazzzzk19'],
+        ['logo'=> '/img/sns/twitter_logo.png'   , 'link'=> 'https://twitter.com/okkk_19'],
     );
 ?>
 

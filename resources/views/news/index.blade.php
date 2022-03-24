@@ -12,39 +12,34 @@
 
         <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/component/button/top_page_btn.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/news/news.css') }}">
     </head>
     <body>
-        @include('common.header')
-
-        <article class="news_list">
+        @include('include.common.header')
+        <main>
             <h1>ニュース一覧画面</h1>
-            @if(count($news_lists) > 0)
-                @foreach ($news_lists as $news_list)
-                    <section class="news_item" id="{{$news_list->id}}">
-                        <h6>{{$news_list->created_at_date}}</h6>
-                        <h3>{{$news_list->title}}</h3>
-                        <p>{{$news_list->content}}</p>
+            <article>
+                @if(count($news_lists) > 0)
+                    @foreach ($news_lists as $news_list)
+                        <section class="news_item" id="{{$news_list->id}}">
+                            <h6>{{$news_list->created_at_date}}</h6>
+                            <h3>{{$news_list->title}}</h3>
+                            <p>{{$news_list->content}}</p>
+                        </section>
+                    @endforeach
+                @else
+                    <section class="news_item_none">
+                        <h6>現在ニュースはありません。</h6>
                     </section>
-                @endforeach
-            @else
-                <section class="news_item_none">
-                    <h6>現在ニュースはありません。</h6>
-                </section>
-            @endif
-        </article>
-        <aside>
-            <div id="top_page_btn"></div>
-        </aside>
-
-        @include('common.footer')
-
+                @endif
+            </article>
+            @include('include.button.top_btn')
+        </main>
+        @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
-        <script src="{{ asset('js/common/header.js') }}"></script>
-        <script src="{{ asset('js/common/footer.js') }}"></script>
-        <script src="{{ asset('js/component/button/top_page_btn.js') }}"></script>
+        <script src="{{ asset('js/include/common/header.js') }}"></script>
+        <script src="{{ asset('js/include/common/footer.js') }}"></script>
     </body>
 </html>

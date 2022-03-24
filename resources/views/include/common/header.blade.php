@@ -8,7 +8,7 @@
 
 <header>
     <a href="/" class="header_left">
-        <img src="/img/logo.png" alt="ロゴ画像">
+        <img src="/img/logo.jpg" alt="ロゴ画像">
     </a>
     <div class="header_center">
         <a href="/" id="header_center_title">{{config('const.APP_NAME')}}</a>

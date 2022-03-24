@@ -149,7 +149,7 @@
             <div class="conf_list">
                 <label>トップ画像</label>
                 <div class="image_area">
-                    <img id="image_conf" class="view_image" src="/img/nophoto.png" loading="lazy">
+                    <img id="image_conf" class="view_image" src="/img/nophoto.png">
                 </div>
             </div>
 

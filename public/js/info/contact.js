@@ -1,6 +1,6 @@
-'use strict';
-// 必須項目入力管理フラグ
 {
+    'use strict';
+    // 必須項目入力管理フラグ
     const submit_flg = [true,true,true,true];
     const max_len = 191;
     const text_len = 140;

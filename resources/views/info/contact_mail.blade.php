@@ -12,9 +12,9 @@
 
         <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/component/form/form.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/form.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
     </head>
     <body>
         @include('include.common.header')
@@ -110,10 +110,10 @@
         </main>
         @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
-        <script src="{{ asset('js/common/header.js') }}"></script>
-        <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/common/validation.js') }}"></script>
-        <script src="{{ asset('js/component/contents/form.js') }}"></script>
+        <script src="{{ asset('js/common/form.js') }}"></script>
+        <script src="{{ asset('js/include/common/header.js') }}"></script>
+        <script src="{{ asset('js/include/common/footer.js') }}"></script>
         <script src="{{ asset('js/info/contact.js') }}"></script>
     </body>
 </html>
