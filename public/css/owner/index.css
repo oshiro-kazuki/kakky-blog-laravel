@@ -6,7 +6,7 @@ h1{
 .owner_link_area{
     padding: 20px 0;
 }
-.news_input_btn,
+.owner_content_btn,
 .logout_btn{
     display: block;
     height: 100%;
@@ -22,7 +22,7 @@ h1{
     line-height: 50px;
     text-align: center;
 }
-.news_input_btn{
+.owner_content_btn{
     color: white;
     background-color: limegreen;
 }
