@@ -22,7 +22,8 @@ class LoginController extends Controller
     {
         $this->middleware('guest:user')->except('logout');
         $this->middleware('guest:owner')->except('logout');
-        $this->max_length = config('const.MAX_LENGTH');
+        $this->max_length = config('const.TEXT_LENGTH191');
+        $this->pw_length = config('const.PASSWORD_LENGTH');
         $this->password_regex = config('const.PASSWORD_REGIX');
     }
 
@@ -36,9 +37,11 @@ class LoginController extends Controller
         return view(
             'auth.owner.login',
             [
-                'authgroup'     => 'owner',
-                'screen_title'  => 'ログイン画面',
-                'script'        => $script
+                'authgroup'    => 'owner',
+                'screen_title' => 'ログイン画面',
+                'script'       => $script,
+                'max_length'   => $this->max_length,
+                'pw_length'    => $this->pw_length,
             ]
         );
     }

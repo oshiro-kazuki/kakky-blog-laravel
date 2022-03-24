@@ -29,7 +29,7 @@
                     </h2>
                     <div class="form_list">
                         <label>お名前</label>
-                        <input id="input_name" type="text" name="name" maxlength="{{config('const.INPUT_TEXT_LENGTH')}}" value="{{ old('name') }}" placeholder="お名前を入力">
+                        <input id="input_name" type="text" name="name" maxlength="{{$text_length}}" value="{{ old('name') }}" placeholder="お名前を入力">
                         <p id="form_name_error">
                             @if ($errors->has('name'))
                                 @foreach ($errors->get('name') as $detail_errors)
@@ -40,7 +40,7 @@
                     </div>
                     <div class="form_list">
                         <label>メールアドレス</label>
-                        <input id="input_email" type="email" name="email" maxlength="{{config('const.MAX_LENGTH')}}" value="{{ old('email') }}" placeholder="メールアドレスを入力">
+                        <input id="input_email" type="email" name="email" maxlength="{{$max_length}}" value="{{ old('email') }}" placeholder="メールアドレスを入力">
                         <p id="form_email_error">
                             @if ($errors->has('email'))
                                 @foreach ($errors->get('email') as $detail_errors)
@@ -69,7 +69,7 @@
                     </div>
                     <div class="form_list">
                         <label>お問い合わせ内容</label>
-                        <textarea id="input_content" name="content" cols="30" rows="10" maxlength="{{config('const.INPUT_TEXT_LENGTH')}}" placeholder="お問い合わせ内容を入力">{{ old('content') }}</textarea>
+                        <textarea id="input_content" name="content" cols="30" rows="10" maxlength="{{$text_length}}" placeholder="お問い合わせ内容を入力">{{ old('content') }}</textarea>
                         <p id="form_content_error">
                             @if ($errors->has('content'))
                                 @foreach ($errors->get('content') as $detail_errors)

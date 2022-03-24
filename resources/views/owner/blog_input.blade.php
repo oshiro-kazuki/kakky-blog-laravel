@@ -12,7 +12,7 @@
             <!-- メインタイトル -->
             <div class="form_list">
                 <label>ブログタイトル<span>必須</span></label>
-                <input id="title" type="text" name="title" maxlength="{{config('const.TITLE_LENGTH')}}" value="{{ old('title') }}" placeholder="タイトルを入力(最大{{config('const.TITLE_LENGTH')}}文字)">
+                <input id="title" type="text" name="title" maxlength="{{$title_length}}" value="{{ old('title') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
                 <p id="title_err">
                     @if ($errors->has('title'))
                         @foreach ($errors->get('title') as $detail_errors)
@@ -58,7 +58,7 @@
             <section class="blog_container">
                 <div class="form_list">
                     <label>見出し1</label>
-                    <input id="origin_title" type="text" name="origin_title" maxlength="{{ config('const.TITLE_LENGTH') }}" value="{{ old('origin_title') }}" placeholder="タイトルを入力(最大{{ config('const.TITLE_LENGTH') }}文字)">
+                    <input id="origin_title" type="text" name="origin_title" maxlength="{{$title_length}}" value="{{ old('origin_title') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
                     <p id="origin_title_err">@if ($errors->has('origin_title'))
                             @foreach ($errors->get('origin_title') as $detail_errors)
                                 {{ $detail_errors }}
@@ -67,7 +67,7 @@
                 </div>
                 <div class="form_list">
                     <label>本文1</label>
-                    <textarea id="origin_text" name="origin_text" maxlength="{{ config('const.BLOG_TEXT_LENGTH') }}" placeholder="本文を入力(最大{{ config('const.BLOG_TEXT_LENGTH') }}文字)">{{ old('origin_text') }}</textarea>
+                    <textarea id="origin_text" name="origin_text" maxlength="{{$text_length}}" placeholder="本文を入力(最大{{$text_length}}文字)">{{ old('origin_text') }}</textarea>
                     <p id="origin_text_err">@if ($errors->has('origin_text'))
                             @foreach ($errors->get('origin_text') as $detail_errors)
                                 {{ $detail_errors }}
@@ -76,7 +76,7 @@
                 </div>
                 <div class="form_list">
                     <label>見出し2</label>
-                    <input id="accepted_title" type="text" name="accepted_title" maxlength="{{ config('const.TITLE_LENGTH') }}" value="{{ old('accepted_title') }}" placeholder="タイトルを入力(最大{{ config('const.TITLE_LENGTH') }}文字)">
+                    <input id="accepted_title" type="text" name="accepted_title" maxlength="{{$title_length}}" value="{{ old('accepted_title') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
                     <p id="accepted_title_err">@if ($errors->has('accepted_title'))
                             @foreach ($errors->get('accepted_title') as $detail_errors)
                                 {{ $detail_errors }}
@@ -85,7 +85,7 @@
                 </div>
                 <div class="form_list">
                     <label>本文2</label>
-                    <textarea id="accepted_text" name="accepted_text" maxlength="{{ config('const.BLOG_TEXT_LENGTH') }}" placeholder="本文を入力(最大{{ config('const.BLOG_TEXT_LENGTH') }}文字)">{{ old('accepted_text') }}</textarea>
+                    <textarea id="accepted_text" name="accepted_text" maxlength="{{$text_length}}" placeholder="本文を入力(最大{{$text_length}}文字)">{{ old('accepted_text') }}</textarea>
                     <p id="accepted_text_err">@if ($errors->has('accepted_text'))
                             @foreach ($errors->get('accepted_text') as $detail_errors)
                                 {{ $detail_errors }}
@@ -94,7 +94,7 @@
                 </div>
                 <div class="form_list">
                     <label>見出し3</label>
-                    <input id="but_title" type="text" name="but_title" maxlength="{{ config('const.TITLE_LENGTH') }}" value="{{ old('but_title') }}" placeholder="タイトルを入力(最大{{ config('const.TITLE_LENGTH') }}文字)">
+                    <input id="but_title" type="text" name="but_title" maxlength="{{$title_length}}" value="{{ old('but_title') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
                     <p id="but_title_err">@if ($errors->has('but_title'))
                             @foreach ($errors->get('but_title') as $detail_errors)
                                 {{ $detail_errors }}
@@ -103,7 +103,7 @@
                 </div>
                 <div class="form_list">
                     <label>本文3</label>
-                    <textarea id="but_text" name="but_text" maxlength="{{ config('const.BLOG_TEXT_LENGTH') }}" placeholder="本文を入力(最大{{ config('const.BLOG_TEXT_LENGTH') }}文字)">{{ old('but_text') }}</textarea>
+                    <textarea id="but_text" name="but_text" maxlength="{{$text_length}}" placeholder="本文を入力(最大{{$text_length}}文字)">{{ old('but_text') }}</textarea>
                     <p id="but_text_err">@if ($errors->has('but_text'))
                             @foreach ($errors->get('but_text') as $detail_errors)
                                 {{ $detail_errors }}
@@ -112,7 +112,7 @@
                 </div>
                 <div class="form_list">
                     <label>見出し4</label>
-                    <input id="conclusion_title" type="text" name="conclusion_title" maxlength="{{ config('const.TITLE_LENGTH') }}" value="{{ old('conclusion_title') }}" placeholder="タイトルを入力(最大{{ config('const.TITLE_LENGTH') }}文字)">
+                    <input id="conclusion_title" type="text" name="conclusion_title" maxlength="{{$title_length}}" value="{{ old('conclusion_title') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
                     <p id="conclusion_title_err">@if ($errors->has('conclusion_title'))
                             @foreach ($errors->get('conclusion_title') as $detail_errors)
                                 {{ $detail_errors }}
@@ -121,7 +121,7 @@
                 </div>
                 <div class="form_list">
                     <label>本文4</label>
-                    <textarea id="conclusion_text" name="conclusion_text" maxlength="{{ config('const.BLOG_TEXT_LENGTH') }}" placeholder="本文を入力(最大{{ config('const.BLOG_TEXT_LENGTH') }}文字)">{{ old('conclusion_text') }}</textarea>
+                    <textarea id="conclusion_text" name="conclusion_text" maxlength="{{$text_length}}" placeholder="本文を入力(最大{{$text_length}}文字)">{{ old('conclusion_text') }}</textarea>
                     <p id="conclusion_text_err">@if ($errors->has('conclusion_text'))
                             @foreach ($errors->get('conclusion_text') as $detail_errors)
                                 {{ $detail_errors }}

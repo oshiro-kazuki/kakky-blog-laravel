@@ -10,8 +10,8 @@ class BlogInputController extends Controller
 {
     public function __construct()
     {
-        $this->title_length      = config('const.TITLE_LENGTH');
-        $this->text_length       = config('const.BLOG_TEXT_LENGTH');
+        $this->title_length      = config('const.TEXT_LENGTH20');
+        $this->text_length       = config('const.TEXT_LENGTH1000');
         $this->image_upload_path = config('const.BLOG_IMAGE_PATH');
         $this->middleware('auth:owner');
     }
@@ -28,8 +28,10 @@ class BlogInputController extends Controller
         [
             'screen_title'  => 'ブログ投稿画面',
             'category_list' => $this->set_category(),
-            'style'        => $style,
+            'style'         => $style,
             'script'        => $script,
+            'title_length'  => $this->title_length,
+            'text_length'   => $this->text_length,
         ]);
     }
 

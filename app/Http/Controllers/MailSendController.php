@@ -19,22 +19,29 @@ class MailSendController extends Controller
         );
         $this->app_info_mail_address = config('const.APP_INFO_MAIL_ADDRESS');
         $this->owner_mail_address    = config('const.OWNER_MAIL_ADDRESS');
-        $this->max_length            = config('const.MAX_LENGTH');
-        $this->input_text            = config('const.INPUT_TEXT_LENGTH');
+        $this->max_length            = config('const.TEXT_LENGTH191');
+        $this->text_length            = config('const.TEXT_LENGTH140');
     }
 
     public function showContactForm()
     {
-        return view('info.contact_mail', ['subject_list' => $this->subject_list]);
+        return view(
+            'info.contact_mail', 
+            [
+                'subject_list' => $this->subject_list,
+                'max_length'   => $this->max_length,
+                'text_length'  => $this->text_length,
+            ]
+        );
     }
 
     protected function validator(Request $request)
     {
         return Validator::make($request->all(), [
-            'name'      => 'required|string|max:'.$this->input_text,
+            'name'      => 'required|string|max:'.$this->text_length,
             'email'     => 'required|string|email|max:'.$this->max_length,
             'subject'   => 'not_in:0',
-            'content'   => 'required|string|max:'.$this->input_text,
+            'content'   => 'required|string|max:'.$this->text_length,
         ]);
     }
 

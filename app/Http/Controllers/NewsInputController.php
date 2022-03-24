@@ -10,8 +10,8 @@ class NewsInputController extends Controller
 {
     public function __construct()
     {
-        $this->title_length = config('const.TITLE_LENGTH');
-        $this->text_length  = config('const.INPUT_TEXT_LENGTH');
+        $this->title_length = config('const.TEXT_LENGTH20');
+        $this->text_length  = config('const.TEXT_LENGTH140');
         $this->middleware('auth:owner');
     }
     
@@ -23,7 +23,9 @@ class NewsInputController extends Controller
         return view('.owner.news_input',
         [
             'screen_title'  => 'ニュース投稿画面',
-            'script'        => $script
+            'script'        => $script,
+            'title_length'  => $this->title_length,
+            'text_length'   => $this->text_length,
         ]);
     }
 

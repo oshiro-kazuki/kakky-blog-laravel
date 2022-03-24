@@ -11,7 +11,7 @@
             </h2>
             <div class="form_list">
                 <label>タイトル</label>
-                <input id="input_title" type="text" name="title" maxlength="20" value="{{ old('title') }}" placeholder="タイトルを入力(最大20文字)">
+                <input id="input_title" type="text" name="title" maxlength="{{$title_length}}" value="{{ old('title') }}" placeholder="タイトルを入力(最大20文字)">
                 <p id="title_error">
                     @if ($errors->has('title'))
                         @foreach ($errors->get('title') as $detail_errors)
@@ -22,7 +22,7 @@
             </div>
             <div class="form_list">
                 <label>本文</label>
-                <textarea id="input_content" type="text" name="content" maxlength="140" size="140" cols="30" rows="10" placeholder="本文を入力(最大140文字)">{{ old('content') }}</textarea>
+                <textarea id="input_content" type="text" name="content" maxlength="{{$text_length}}" cols="30" rows="10" placeholder="本文を入力(最大140文字)">{{ old('content') }}</textarea>
                 <p id="content_error">
                     @if ($errors->has('content'))
                         @foreach ($errors->get('content') as $detail_errors)
