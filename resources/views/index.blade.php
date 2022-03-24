@@ -24,6 +24,9 @@
             <!-- @if(count($news_lists) > 0)
                 @include('include.contents.news')
             @endif -->
+            @if(count($blog_lists) > 0)
+                @include('include.contents.blog')
+            @endif
         </main>
         @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
