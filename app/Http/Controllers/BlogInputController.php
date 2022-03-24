@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Model\Blogs;
+use App\Libs\Blog;
 
 class BlogInputController extends Controller
 {
@@ -27,7 +28,7 @@ class BlogInputController extends Controller
         return view('.owner.blog_input',
         [
             'screen_title'  => 'ブログ投稿画面',
-            'category_list' => $this->set_category(),
+            'category_list' => $this->get_category(),
             'style'         => $style,
             'script'        => $script,
             'title_length'  => $this->title_length,
@@ -88,15 +89,10 @@ class BlogInputController extends Controller
         ]);
     }
 
-    private function set_category()
+    private function get_category()
     {
-        $count = 0;
-        return array(
-            '選択'      => $count,
-            '日常'      => ++$count,
-            'コード'    => ++$count,
-            '観光'      => ++$count,
-        );
+        $blog = new Blog;
+        return $blog->set_category();
     }
 
     private function imageStock($file)

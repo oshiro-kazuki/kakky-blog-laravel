@@ -15,5 +15,17 @@ class Blog
 
         return $blog_lists;
     }
+
+    // カテゴリーセット
+    public function set_category()
+    {
+        $count = 0;
+        return array(
+            '選択'  => $count,
+            '日常'  => ++$count,
+            'コード' => ++$count,
+            '観光'  => ++$count,
+        );
+    }
 }
 ?>

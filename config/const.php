@@ -19,4 +19,6 @@ return [
     // パス指定
     'OWNER_IMAGE_PATH' => '/storage/owner/profile/',
     'BLOG_IMAGE_PATH'  => '/storage/blog/',
+    // ファイル系
+    'NOPHOTO'  => '/img/nophoto.png',
 ];

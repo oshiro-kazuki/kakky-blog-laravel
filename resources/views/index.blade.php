@@ -16,14 +16,17 @@
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
         <!-- <link rel="stylesheet" href="{{ asset('css/include/contents/news.css') }}"> -->
+        <link rel="stylesheet" href="{{ asset('css/include/contents/blog.css') }}">
     </head>
     <body>
         @include('include.common.header')
         <main>
             <section id="top_image" class="top_image"></section>
-            <!-- @if(count($news_lists) > 0)
+            
+            @if(count($news_lists) > 0)
                 @include('include.contents.news')
-            @endif -->
+            @endif
+
             @if(count($blog_lists) > 0)
                 @include('include.contents.blog')
             @endif

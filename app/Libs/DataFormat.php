@@ -14,7 +14,7 @@ class DataFormat
         return $date;
     }
 
-    // 内容を指定した文字列に切り出し
+    // 文字列の切り出し
     public function formatLenthgCut(string $text, int $length)
     {
         $content = $text;
@@ -22,6 +22,18 @@ class DataFormat
             $content = mb_substr($text, 0, $length). '...';
         }
         return $content;
+    }
+
+    // 選択値をセット
+    public function formatSelect(int $value, array $category_arr)
+    {
+        $format = '';
+        foreach($category_arr as $key => $num){
+            if($value === $num){
+                $format = $key;
+            }
+        }
+        return $format;
     }
 }
 ?>
