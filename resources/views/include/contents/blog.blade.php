@@ -1,6 +1,6 @@
 <article>
     <h3>BLOG</h3>
-    <section class="blog_container">
+    <section>
         <ul>
             @foreach ($blog_lists as $blog_list)
                 <li class="blog_item">

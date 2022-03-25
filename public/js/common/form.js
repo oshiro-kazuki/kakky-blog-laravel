@@ -2,68 +2,64 @@
 // 必須項目のテキスト
 const requireText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
-    const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+    const gfa = setFlgArray(gea.in, gea.er.textContent);
     if(!gfa.val_flg && gfa.text_flg){
         returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
-    }else{
-        gea.in.addEventListener('input', (e) => {
-            const result = nullMaxCheck(e, gea.er, max);
-            confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-            getText(gea.co, e.target.value);
-        });
     }
+    gea.in.addEventListener('input', (e) => {
+        const result = nullMaxCheck(e, gea.er, max);
+        confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+        getText(gea.co, e.target.value);
+    });
 }
 
 // 必須項目の全角
 const requireFullWidth = (input_ele, err_ele, conf_ele, max, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
-    const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+    const gfa = setFlgArray(gea.in, gea.er.textContent);
     if(!gfa.val_flg && gfa.text_flg){
         returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
-    }else{
-        gea.in.addEventListener('input', (e) => {
-            const result = nullMaxFullWidthCheck(e, gea.er, max);
-            confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-            getText(gea.co, e.target.value);
-        });
     }
+    gea.in.addEventListener('input', (e) => {
+        const result = nullMaxFullWidthCheck(e, gea.er, max);
+        confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+        getText(gea.co, e.target.value);
+    });
 }
 
 // 必須項目の電話番号
 const requireTell = (input_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
-    const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+    const gfa = setFlgArray(gea.in, gea.er.textContent);
     if(!gfa.val_flg && gfa.text_flg){
         returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
-    }else{
-        gea.in.addEventListener('input', (e) => {
-            const result = nullMaxTellCheck(e, gea.er);
-            confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-            getText(gea.co, e.target.value);
-        });
     }
+    gea.in.addEventListener('input', (e) => {
+        const result = nullMaxTellCheck(e, gea.er);
+        confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+        getText(gea.co, e.target.value);
+    });
 }
 
 // 必須項目のEmail
 const requireEmail = (input_ele, err_ele, conf_ele, max, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
-    const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+    const gfa = setFlgArray(gea.in, gea.er.textContent);
     if(!gfa.val_flg && gfa.text_flg){
         returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
-    }else{
-        gea.in.addEventListener('input', (e) => {
-            const result = nullMaxEmailCheck(e, gea.er, max);
-            confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-            getText(gea.co, e.target.value);
-        });
     }
+    gea.in.addEventListener('input', (e) => {
+        const result = nullMaxEmailCheck(e, gea.er, max);
+        confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+        getText(gea.co, e.target.value);
+    });
 }
 
 // 必須項目のselect
 const requireSelect = (input_ele, err_ele, conf_ele, init_ele, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
     const init = get_tag_byId(init_ele);
-    const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+    const gfa = setFlgArray(gea.in, gea.er.textContent);
 
     gea.in.addEventListener('change', (e) => {
         const intValue = Number(e.target.value);
@@ -83,6 +79,9 @@ const requireSelect = (input_ele, err_ele, conf_ele, init_ele, target_flg, index
     });
 
     if(!gfa.val_flg && gfa.text_flg){
+        getText(init, gea.in.options[gea.in.value].textContent);
+        const intValue = Number(gea.in.options[gea.in.value].value);
+        if(intValue !== 0) init.style.color = 'black';
         returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
     }
 }
@@ -99,20 +98,25 @@ const requirePassword = (input_ele, err_ele, target_flg, index, conf_btn, submit
 // 必須項目でないテキスト
 const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf_btn, submit_btn) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
-    const gfa = setFlgArray(gea.in.value, gea.er.textContent);
+    const gfa = setFlgArray(gea.in, gea.er.textContent);
+
     if(!gfa.val_flg && gfa.text_flg){
         returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
-    }else{
-        gea.in.addEventListener('input', (e) => {
-            if(e.target.textLength > 0){
-                const result = maxLengthCheck(e, max, gea.er);
-                confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-                getText(gea.co, e.target.value);
-            }else{
-                gea.co.textContent = '-';
-            }
-        });
+    }else if(!gfa.text_flg){
+        confSubmitCheck(target_flg, index, true, conf_btn, submit_btn);
+    }else if(gfa.val_flg){
+        gea.co.textContent = '-';
     }
+
+    gea.in.addEventListener('input', (e) => {
+        if(e.target.textLength > 0 || e.target.value.length > 0){
+            const result = maxLengthCheck(e, max, gea.er);
+            confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+            getText(gea.co, e.target.value);
+        }else{
+            gea.co.textContent = '-';
+        }
+    });
 }
 
 // 必須項目でない画像
@@ -162,9 +166,10 @@ const setElementArray = (input_ele, err_ele, conf_ele = false, edit_ele = false,
 }
 
 // 入力、エラーの要素値の有無判定
-const setFlgArray = (in_val, err_text) => {
-    const val_flg = in_val === '' ? true : false;
+const setFlgArray = (in_ele, err_text) => {
+    const val_flg = in_ele.value === '' || in_ele.value === '0' ? true : false;
     const text_flg = err_text === '' ? true : false;
+    
     return {val_flg:val_flg,text_flg:text_flg};
 }
 

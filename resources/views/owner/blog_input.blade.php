@@ -13,13 +13,11 @@
             <div class="form_list">
                 <label>ブログタイトル<span>必須</span></label>
                 <input id="title" type="text" name="title" maxlength="{{$title_length}}" value="{{ old('title') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
-                <p id="title_err">
-                    @if ($errors->has('title'))
-                        @foreach ($errors->get('title') as $detail_errors)
-                            {{$detail_errors}}
-                        @endforeach
-                    @endif
-                </p>
+                <p id="title_err">@if ($errors->has('title'))
+                            @foreach ($errors->get('title') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
             </div>
             <!-- カテゴリ -->
             <div class="form_list">
@@ -27,7 +25,11 @@
                 <div class="form_select_area">
                     <select id="category" name="category">
                         @foreach ($category_list as $key => $value)
-                            <option value="{{$value}}">{{$key}}</option>
+                            @if(old('category') == $value)
+                                <option value="{{$value}}" selected>{{$key}}</option>
+                            @else
+                                <option value="{{$value}}">{{$key}}</option>
+                            @endif
                         @endforeach
                     </select>
                     <p id="category_init" class="form_select_text">選択</p>
@@ -57,7 +59,7 @@
 
             <section class="blog_container">
                 <div class="form_list">
-                    <label>見出し1</label>
+                    <label>見出し1<span>必須</span></label>
                     <input id="origin_title" type="text" name="origin_title" maxlength="{{$title_length}}" value="{{ old('origin_title') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
                     <p id="origin_title_err">@if ($errors->has('origin_title'))
                             @foreach ($errors->get('origin_title') as $detail_errors)
@@ -66,7 +68,7 @@
                         @endif</p>
                 </div>
                 <div class="form_list">
-                    <label>本文1</label>
+                    <label>本文1<span>必須</span></label>
                     <textarea id="origin_text" name="origin_text" maxlength="{{$text_length}}" placeholder="本文を入力(最大{{$text_length}}文字)">{{ old('origin_text') }}</textarea>
                     <p id="origin_text_err">@if ($errors->has('origin_text'))
                             @foreach ($errors->get('origin_text') as $detail_errors)
