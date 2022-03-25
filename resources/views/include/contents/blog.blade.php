@@ -1,7 +1,7 @@
 <article>
     <h3>BLOG</h3>
     <section>
-        <ul>
+        <ul class="item_container">
             @foreach ($blog_lists as $blog_list)
                 <li class="blog_item">
                     <a href="/blog/#{{$blog_list->id}}">
