@@ -13,7 +13,7 @@ class MailSendController extends Controller
     public function __construct()
     {
         $this->subject_list = array(
-            '要件を選択' => 0, // 選択なしを固定
+            '選択' => 0, // 選択なしを固定
             'ご相談'    => 1,
             'その他'    => 2, // 最後の連番にする
         );

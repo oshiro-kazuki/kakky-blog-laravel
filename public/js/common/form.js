@@ -80,9 +80,10 @@ const requireSelect = (input_ele, err_ele, conf_ele, init_ele, target_flg, index
 
     if(!gfa.val_flg && gfa.text_flg){
         getText(init, gea.in.options[gea.in.value].textContent);
+        // getText(gea.co, gea.in.options[gea.in.value].textContent);
         const intValue = Number(gea.in.options[gea.in.value].value);
         if(intValue !== 0) init.style.color = 'black';
-        returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.value);
+        returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.options[gea.in.value].textContent);
     }
 }
 
