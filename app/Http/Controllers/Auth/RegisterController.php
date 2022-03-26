@@ -21,12 +21,14 @@ class RegisterController extends Controller
 
     public function __construct()
     {
-        $this->max_length           = config('const.MAX_LENGTH');
+        $this->max_length           = config('const.TEXT_LENGTH191');
+        $this->tel_length           = config('const.TEL_LENGTH');
+        $this->pw_length            = config('const.PASSWORD_LENGTH');
         $this->password_regex       = config('const.PASSWORD_REGIX');
         $this->not_half_regex       = config('const.NOT_HALF_REGIX');
         $this->tel_regex            = config('const.TELL_REGIX');
-        $this->input_text           = config('const.INPUT_TEXT_LENGTH');
-        $this->image_upload_path    = config('const.IMAGE_PATH');
+        $this->text_length          = config('const.TEXT_LENGTH140');
+        $this->image_upload_path    = config('const.OWNER_IMAGE_PATH');
         $this->middleware('guest');
     }
 
@@ -44,11 +46,11 @@ class RegisterController extends Controller
     protected function validatorOwner(Request $request)
     {
         return Validator::make($request->all(), [
-            'company_name'          => 'required|string|max:'.$this->input_text,
+            'company_name'          => 'required|string|max:'.$this->text_length,
             'address'               => 'required|string|max:'.$this->max_length.'|regex:'.$this->not_half_regex,
             'tel'                   => 'required|string|regex:'.$this->tel_regex,
             'email'                 => 'required|string|email|max:'.$this->max_length,
-            'profile'               => 'string|nullable|max:'.$this->input_text,
+            'profile'               => 'string|nullable|max:'.$this->text_length,
             'image'                 => 'bail|file|max:3000|image|mimes:jpeg,png,jpg',
             'password'              => 'bail|required|string|confirmed|regex:'.$this->password_regex,
             'password_confirmation' => 'required|string|regex:'.$this->password_regex,
@@ -74,9 +76,13 @@ class RegisterController extends Controller
         return view(
             'auth.owner.register',
             [
-                'url'           => 'owner',
-                'screen_title'  => '新規登録画面',
-                'script'        => $script
+                'url'          => 'owner',
+                'screen_title' => '新規登録画面',
+                'script'       => $script,
+                'max_length'   => $this->max_length,
+                'text_length'  => $this->text_length,
+                'tel_length'   => $this->tel_length,
+                'pw_length'    => $this->pw_length,
             ]
         );
     }

@@ -7,29 +7,43 @@
         <title>{{config('const.APP_NAME')}}</title>
 
         <!-- fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/include/news/top_page.css') }}">
+        <!-- <link rel="stylesheet" href="{{ asset('css/include/contents/news.css') }}"> -->
+        @if(isset($blog_css))
+            <link rel="stylesheet" href="{{ asset($blog_css) }}">
+        @endif
     </head>
     <body>
-        @include('common.header')
+        @include('include.common.header')
+        <main>
+            <section id="top_image" class="top_image"></section>
+            
+            @if(count($news_lists) > 0)
+                @include('include.contents.news')
+            @endif
 
-        <div id="top_image"></div>
+            <!-- ブログ表示 -->
+            @if(count($blog_lists) > 0)
+                <article>
+                    <h3>BLOG</h3>
 
-        @include('include.news.top_page')
+                    @include('include.contents.blog')
 
-        @include('common.footer')
-
+                    @include('include.button.blog_list_btn')
+                </article>
+            @endif
+        </main>
+        @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
-        <script src="{{ asset('js/common/header.js') }}"></script>
-        <script src="{{ asset('js/common/footer.js') }}"></script>
+        <script src="{{ asset('js/include/common/header.js') }}"></script>
+        <script src="{{ asset('js/include/common/footer.js') }}"></script>
         <script src="{{ asset('js/top_image.js') }}"></script>
-        <script src="{{ asset('js/component/contents/carousel.js') }}"></script>
+        <!-- <script src="{{ asset('js/include/contents/carousel.js') }}"></script> -->
     </body>
 </html>

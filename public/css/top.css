@@ -1,13 +1,21 @@
 body{
-    min-height: 100vh;
-    width: 100%;
     position: relative;
 }
 body.fixed{
     position: fixed;
 }
+main{
+    padding: 0;
+}
+.wrapper{
+    max-width: 1000px;
+    margin: 0 auto;
+}
 #top_image{
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
 }
 .top_image1,
 .top_image2,
@@ -27,10 +35,6 @@ body.fixed{
     visibility: hidden;
     opacity: 0;
     position: fixed;
-}
-article{
-    margin: 50px 0; 
-    overflow: hidden;
 }
 article>h3{
     font-size: 24px;
