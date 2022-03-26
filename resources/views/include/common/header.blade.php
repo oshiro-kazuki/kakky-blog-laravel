@@ -1,8 +1,8 @@
 <?php
     $header_menu_list = array(
-        ['text'=> 'ブログ'     , 'link'=> 'https=>//kakky-blog.com', 'icon'=> 'article'],
-        ['text'=> 'お問い合わせ', 'link'=> '/info/contact_mail/'    , 'icon'=> 'email'],
-        ['text'=> 'プロフィール', 'link'=> '/info/profile/'         , 'icon'=> 'person'],
+        ['text'=> 'ブログ'     , 'link'=> '/blog'              , 'icon'=> 'article'],
+        ['text'=> 'お問い合わせ', 'link'=> '/info/contact_mail/', 'icon'=> 'email'],
+        ['text'=> 'プロフィール', 'link'=> '/info/profile/'     , 'icon'=> 'person'],
     );
 ?> 
 

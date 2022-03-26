@@ -24,6 +24,12 @@ Route::prefix('/news')->group(function() {
     Route::get('/', 'NewsController@index');
 });
 
+// ブログ
+Route::prefix('/blog')->group(function($id) {
+    Route::get('/', 'BlogController@list');
+    Route::get('/{id}', 'BlogController@detail');
+});
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
