@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/include/contents/news.css') }}">
+        <!-- <link rel="stylesheet" href="{{ asset('css/include/contents/news.css') }}"> -->
         @if(isset($blog_css))
             <link rel="stylesheet" href="{{ asset($blog_css) }}">
         @endif
@@ -24,7 +24,6 @@
         <main>
             <section id="top_image" class="top_image"></section>
             
-            <!-- ニュース表示 -->
             @if(count($news_lists) > 0)
                 @include('include.contents.news')
             @endif
@@ -45,6 +44,6 @@
         <script src="{{ asset('js/include/common/header.js') }}"></script>
         <script src="{{ asset('js/include/common/footer.js') }}"></script>
         <script src="{{ asset('js/top_image.js') }}"></script>
-        <script src="{{ asset('js/include/contents/carousel.js') }}"></script>
+        <!-- <script src="{{ asset('js/include/contents/carousel.js') }}"></script> -->
     </body>
 </html>
