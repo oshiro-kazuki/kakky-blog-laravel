@@ -7,7 +7,6 @@
         <title>{{config('const.APP_NAME')}} オーナー画面</title>
 
         <!-- fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- style -->
