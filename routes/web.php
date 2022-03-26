@@ -1,9 +1,6 @@
 <?php
 
 Route::get('/', 'TopPageController@index');
-Route::get('/error', function(){
-    return view('error');
-});
 
 // info系へアクセス
 Route::prefix('/info')->group(function() {
@@ -27,6 +24,12 @@ Route::prefix('/news')->group(function() {
     Route::get('/', 'NewsController@index');
 });
 
+// ブログ
+Route::prefix('/blog')->group(function($id) {
+    Route::get('/', 'BlogController@list');
+    Route::get('/{id}', 'BlogController@detail');
+});
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
@@ -46,5 +49,10 @@ Route::prefix('/owner')->group(function() {
     Route::prefix('/news_input')->group(function() {
         Route::get('/', 'NewsInputController@index');
         Route::post('/post', 'NewsInputController@newsPost')->name('news_input.post');
+    });
+    // ブログ入力画面
+    Route::prefix('/blog_input')->group(function() {
+        Route::get('/', 'BlogInputController@index');
+        Route::post('/post', 'BlogInputController@blogPost')->name('blog_input.post');
     });
 });

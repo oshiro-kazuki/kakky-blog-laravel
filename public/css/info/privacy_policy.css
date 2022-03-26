@@ -1,11 +1,6 @@
-main{
-    width: 90%;
-    margin: 30px auto;
-}
 main h1{
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 40px;
     text-align: center;
 }
 .text_link{
@@ -17,10 +12,12 @@ main h1{
     display: inline-block;
     margin: 10px;
 }
-article{
-    margin-top: 20px;
+section{
+    width: 100%;
+    padding: 20px;
+    margin: 0 auto;
 }
-article h3{
+section h3{
     font-size: 20px;
     font-weight: bold;
     display: block;
@@ -31,15 +28,20 @@ article h3{
     border-bottom: 3px solid #2e8b57;
     border-radius: 3px;
 }
-article li{
+section li{
     list-style: outside;
     margin-left: 20px;
     font-size: 18px;
     line-height: 1.6rem;
     padding: 5px;
 }
-article p{
+section p{
     margin: 10px 0;
     font-size: 19px;
     line-height: 1.5rem;
+}
+@media screen and (min-width: 700px){
+    section{
+        width: 650px;
+    }
 }

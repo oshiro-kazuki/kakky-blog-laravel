@@ -90,7 +90,7 @@ return [
         'string'  => ':attributeは、:min文字以上で指定してください。',
         'array'   => ':attributeは:min個以上指定してください。',
     ],
-    'not_in'               => '選択された:attributeは正しくありません。',
+    'not_in'               => '選択してください。',
     'not_regex'            => ':attributeの形式が正しくありません。',
     'numeric'              => ':attributeには、数字を指定してください。',
     'present'              => ':attributeが存在していません。',
@@ -146,6 +146,8 @@ return [
     */
 
     'attributes' => [
+        'name'                  => 'お名前',
+        'content'               => '内容',
         'company_name'          => '会社・店舗名',
         'address'               => '住所',
         'tel'                   => '電話番号',
@@ -154,6 +156,14 @@ return [
         'profile_image'         => '画像',
         'password'              => 'パスワード',
         'password_confirmation' => '確認用パスワード',
+        'title'                 => 'タイトル',
+        'origin_title'          => '見出し1',
+        'accepted_title'        => '見出し2',
+        'but_title'             => '見出し3',
+        'conclusion_title'      => '見出し4',
+        'origin_text'           => '本文1',
+        'accepted_text'         => '本文2',
+        'but_text'              => '本文3',
+        'conclusion_text'       => '本文4',
     ],
-
 ];

@@ -20,7 +20,6 @@ const top_image_array_roop = (pattern, array, count = false, positionX = false, 
 
             case 'slide' :
                 if(count === i) {
-                    // positionX += .5;
                     array[i].tag.style.backgroundPosition = `${positionX}% ${positionY}%`;
                 }
                 break;
@@ -49,7 +48,7 @@ window.addEventListener('DOMContentLoaded', function () {
     top_image_array_roop('init', top_image_array);
     
     // 画像高さ指定
-    const screenH = window.innerHeight - header.clientHeight;
+    const screenH = document.documentElement.clientHeight - header.clientHeight;
     top_image.style.height = `${screenH}px`;
     
     // 画像切り替え

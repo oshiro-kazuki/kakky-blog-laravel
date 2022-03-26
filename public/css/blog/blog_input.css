@@ -1,0 +1,5 @@
+.blog_container>.form_list>label,
+.blog_container>.conf_list>label{
+    font-weight: 800;
+    font-size: 1.2rem;
+}

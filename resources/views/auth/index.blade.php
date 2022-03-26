@@ -7,33 +7,29 @@
         <title>{{config('const.APP_NAME')}}</title>
 
         <!-- fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/component/form/form.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/form.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth/index.css') }}">
     </head>
     <body>
-        @include('common.header')
-
+        @include('include.common.header')
         <main>
             @if(isset($screen_title))
                 <h1>{{$screen_title}}</h1>
             @endif
             @yield('content')
         </main>
-
-        @include('common.footer')
-
+        @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
-        <script src="{{ asset('js/common/header.js') }}"></script>
-        <script src="{{ asset('js/common/footer.js') }}"></script>
         <script src="{{ asset('js/common/validation.js') }}"></script>
-        <script src="{{ asset('js/component/contents/form.js') }}"></script>
+        <script src="{{ asset('js/common/form.js') }}"></script>
+        <script src="{{ asset('js/include/common/header.js') }}"></script>
+        <script src="{{ asset('js/include/common/footer.js') }}"></script>
         @if(isset($script))
             <script src="{{ asset($script[0]) }}"></script>
         @endif
