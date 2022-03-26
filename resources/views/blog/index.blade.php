@@ -13,6 +13,9 @@
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
+        @if(isset($breadcrumb))
+            <link rel="stylesheet" href="{{ asset($breadcrumb) }}">
+        @endif
         @if(isset($blog_css))
             <link rel="stylesheet" href="{{ asset($blog_css) }}">
         @endif

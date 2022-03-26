@@ -9,6 +9,7 @@ return [
     'TEL_LENGTH'        => 11,
     'TEXT_LENGTH20'     => 20,
     'TEXT_LENGTH35'     => 35,
+    'TEXT_LENGTH90'     => 90,
     'TEXT_LENGTH140'    => 140,
     'TEXT_LENGTH191'    => 191,
     'TEXT_LENGTH1000'   => 1000,

@@ -7,9 +7,10 @@ use App\Libs\Blog;
 
 class BlogController extends Controller
 {    
+    // ブログ一覧画面表示
     public function list()
     {
-        $blog = $this->get_blog();
+        $blog = $this->getBlogList();
 
         return view('blog.list',
             [
@@ -19,10 +20,39 @@ class BlogController extends Controller
         );
     }
 
+    // ブログ詳細画面表示
+    public function detail($id)
+    {
+        $blog = $this->getBlogDetail($id);
+
+        if(!isset($blog['data'])){
+            return view('error.none_page');
+        }
+
+        foreach($blog as $key => $value){
+            
+        }
+
+        return view('blog.detail',
+            [
+                'blog_data'  => $blog['data'],
+                'blog_css'   => $blog['css'],
+                'breadcrumb' => 'css/common/breadcrumb.css',
+            ]
+        );
+    }
+
     // ブログカセット取得
-    private function get_blog()
+    private function getBlogList()
     {
         $blog = new Blog();
         return $blog->setBlogCassette();
+    }
+
+    // ブログ詳細データ取得
+    private function getBlogDetail($id)
+    {
+        $blog = new Blog();
+        return $blog->setBlogDetail($id);
     }
 }

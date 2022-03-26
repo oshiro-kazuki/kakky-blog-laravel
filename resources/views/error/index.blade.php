@@ -13,12 +13,11 @@
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/auth/index.css') }}">
     </head>
     <body>
         @include('include.common.header')
         <main>
-            <h1>エラー画面</h1>
+            <h1 style="text-align:center;font-weight:800;font-size:1.5rem;">エラー画面</h1>
             @yield('content')
         </main>
         @include('include.common.footer')
