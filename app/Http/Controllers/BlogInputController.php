@@ -19,12 +19,12 @@ class BlogInputController extends Controller
     public function index()
     {
         $style = [
-            '/css/blog/blog_input.css',
+            '/css/owner/blog_input.css',
         ];
         $script = [
             'js/owner/blog_input.js',
         ];
-        return view('.owner.blog_input',
+        return view('.owner.blog.blog_input',
         [
             'screen_title'  => 'ブログ投稿画面',
             'category_list' => $this->get_category(),
@@ -39,7 +39,7 @@ class BlogInputController extends Controller
     {
         $validator = $this->validator($request);
         if($validator->fails()){
-            return redirect('/owner/blog_input')->withErrors($validator)->withInput();
+            return redirect('/owner/blog/blog_input')->withErrors($validator)->withInput();
         }
 
         $postData = $request->all();

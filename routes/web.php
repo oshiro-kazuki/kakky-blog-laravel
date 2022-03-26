@@ -50,9 +50,13 @@ Route::prefix('/owner')->group(function() {
         Route::get('/', 'NewsInputController@index');
         Route::post('/post', 'NewsInputController@newsPost')->name('news_input.post');
     });
-    // ブログ入力画面
-    Route::prefix('/blog_input')->group(function() {
-        Route::get('/', 'BlogInputController@index');
-        Route::post('/post', 'BlogInputController@blogPost')->name('blog_input.post');
+    // ブログ画面
+    Route::prefix('/blog')->group(function() {
+        // ブログ入力画面
+        Route::prefix('/blog_input')->group(function() {
+            Route::get('/', 'BlogInputController@index');
+            Route::post('/post', 'BlogInputController@blogPost')->name('blog_input.post');
+        });
+
     });
 });
