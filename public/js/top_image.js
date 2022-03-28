@@ -67,9 +67,11 @@ window.addEventListener('DOMContentLoaded', function () {
         top_image_array_roop('swiching', top_image_array, image_count);
     }, 3000);
     
-    //　画像スライド
-    setInterval(() => {
-        positionX += .2;
-        top_image_array_roop('slide', top_image_array, image_count, positionX, positionY);
-    }, 100);
+    //　画像スライド 幅1000px以下はスライドしない
+    if(document.documentElement.clientWidth < 1000){
+        setInterval(() => {
+            positionX += .2;
+            top_image_array_roop('slide', top_image_array, image_count, positionX, positionY);
+        }, 100);
+    }
 });
