@@ -150,27 +150,19 @@ const loginText = (input_ele, err_ele, target_flg, index, submit_btn) => {
 }
 
 // 入力、エラー、確認の要素取得
-const setElementArray = (input_ele, err_ele, conf_ele = false, edit_ele = false, del_ele = false, text_ele = false, view_ele = false, image_flg = false) => {
+const setElementArray = (input_ele, err_ele, conf_ele = false, edit_ele = false, del_ele = false, text_ele = false, view_ele = false) => {
     const input_tag = get_tag_byId(input_ele);
     const err_tag = get_tag_byId(err_ele);
     if(conf_ele && !del_ele && !text_ele && !view_ele && !edit_ele){
         const conf_tag = get_tag_byId(conf_ele);
         return {in : input_tag,er : err_tag,co : conf_tag};
-    }else if(conf_ele && del_ele && text_ele && view_ele && edit_ele && !view_ele && !image_flg){
+    }else if(conf_ele && del_ele && text_ele && view_ele && edit_ele){
         const conf_tag = get_tag_byId(conf_ele);
         const edi_tag = get_tag_byId(edit_ele);
         const del_tag = get_tag_byId(del_ele);
         const tex_tag = get_tag_byId(text_ele);
         const vie_tag = get_tag_byId(view_ele);
         return {in : input_tag,er : err_tag,co : conf_tag,ed : edi_tag,de : del_tag,te: tex_tag,vi: vie_tag};
-    }else if(conf_ele && del_ele && text_ele && view_ele && edit_ele && view_ele && image_flg){
-        const conf_tag    = get_tag_byId(conf_ele);
-        const edi_tag     = get_tag_byId(edit_ele);
-        const del_tag     = get_tag_byId(del_ele);
-        const tex_tag     = get_tag_byId(text_ele);
-        const vie_tag     = get_tag_byId(view_ele);
-        const img_flg_tag = get_tag_byId(image_flg);
-        return {in : input_tag,er : err_tag,co : conf_tag,ed : edi_tag,de : del_tag,te: tex_tag,vi: vie_tag,img_flg: img_flg_tag};
     }
     return {in:input_tag,er:err_tag};
 }
@@ -236,7 +228,7 @@ const setImage = (view_ele, conf_ele, val) => {
 }
 
 // 画像削除ボタンクリックイベント
-const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele, img_flg_ele) => {
+const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele, img_flg_ele = false) => {
     del_ele.addEventListener('click', () => {
         if(confirm('削除してもよろしいですか？')){
             input_ele.value = '';
@@ -246,7 +238,10 @@ const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele, 
             cla_add(view_ele, 'hidden');
             cla_add(edi_ele, 'hidden');
             cla_add(del_ele, 'hidden');
-            img_flg_ele.value = false;
+            if(img_flg_ele){
+                get_tag_byId(img_flg_ele).value = false;
+                console.log(img_flg_ele.value)
+            }
         }
     });
 }
