@@ -7,7 +7,6 @@ use App\Libs\DataFormat;
 
 class Blog
 {
-    public $image_path = '/storage/blog/';
     public $image_file = 'blog_img.jpg';
 
     public function __construct()
@@ -25,30 +24,25 @@ class Blog
     // ブログ挿入処理
     public function blogInsert(array $postData){
         Blogs::insertGetId(
-            [
-                'created_at'        => date('Y-m-d H:i:s'),
-                'title'             => $postData['title'],
-                'image_flg'         => $postData['image_flg'],
-                'category'          => $postData['category'],
-                'origin_title'      => $postData['origin_title'],
-                'origin_text'       => $postData['origin_text'],
-                'accepted_title'    => $postData['accepted_title'],
-                'accepted_text'     => $postData['accepted_text'],
-                'but_title'         => $postData['but_title'],
-                'but_text'          => $postData['but_text'],
-                'conclusion_title'  => $postData['conclusion_title'],
-                'conclusion_text'   => $postData['conclusion_text'],
-            ]
+            $this->blogColumn($postData, true)
         );
     }
 
      // ブログ編集処理
-     public function blogUpdate(array $postData)
-     {
+    public function blogUpdate(array $postData)
+    {
         Blogs::where('id', $postData['id'])
         ->update(
-            [
-                'updated_at'        => date('Y-m-d H:i:s'),
+            $this->blogColumn($postData, false)
+        );
+    }
+
+    // ブログ用カラム切り替え制御
+    private function blogColumn(array $postData, bool $insert_flg)
+    {
+        $is_at = $insert_flg ? 'created_at' : 'updated_at';
+        return array(
+                $is_at              => date('Y-m-d H:i:s'),
                 'title'             => $postData['title'],
                 'image_flg'         => $postData['image_flg'],
                 'category'          => $postData['category'],
@@ -60,9 +54,8 @@ class Blog
                 'but_text'          => $postData['but_text'],
                 'conclusion_title'  => $postData['conclusion_title'],
                 'conclusion_text'   => $postData['conclusion_text'],
-            ]
         );
-     }
+    }
 
     // ブログデータを上限件数指定で取得
     public function getBlogList()
@@ -91,7 +84,7 @@ class Blog
     // 画像パス取得
     private function setImagePath(bool $flg, $id)
     {
-        return $flg ? $this->image_path . $id .'/'. $this->image_file : $this->nophoto;
+        return $flg ? '/storage/blog/' . $id .'/'. $this->image_file : $this->nophoto;
     }
 
     // いいね取得

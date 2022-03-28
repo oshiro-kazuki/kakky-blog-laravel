@@ -15,7 +15,6 @@ class BlogOwnerController extends Controller
         $this->title_length      = config('const.TEXT_LENGTH20');
         $this->text_length       = config('const.TEXT_LENGTH1000');
         $this->blog = new Blog();
-        $this->image_path = $this->blog->image_path;
         $this->image_file = $this->blog->image_file;
     }
 
