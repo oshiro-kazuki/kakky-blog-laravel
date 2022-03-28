@@ -167,8 +167,7 @@ class BlogOwnerController extends Controller
             $max_id =  $this->blog->getBlogMaxId();
             $insert_id = isset($max_id) ? $max_id + 1 : 1;
         }
-        $image_path = public_path($this->image_path.$insert_id);
-        $file->move($image_path,$this->image_file);
+        Storage::putFileAs('public/blog/'. $insert_id , $file, $this->image_file);
     }
 
     // 画像のあるディレクトリを削除

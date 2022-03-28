@@ -238,9 +238,6 @@ const setImage = (view_ele, conf_ele, val) => {
 // 画像削除ボタンクリックイベント
 const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele, img_flg_ele) => {
     del_ele.addEventListener('click', () => {
-        // if(input_ele.value === ''){
-        //     return;
-        // }
         if(confirm('削除してもよろしいですか？')){
             input_ele.value = '';
             conf_ele.src = '/img/nophoto.png';
