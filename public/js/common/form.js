@@ -121,8 +121,10 @@ const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 }
 
 // 必須項目でない画像
-const nullableImage = (text_ele, input_ele, view_ele, edit_ele, del_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn) => {
-    const gea = setElementArray(input_ele, err_ele, conf_ele, edit_ele, del_ele, text_ele, view_ele);
+const nullableImage = (text_ele, input_ele, view_ele, edit_ele, del_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn, image_flg) => {
+    const gea = setElementArray(input_ele, err_ele, conf_ele, edit_ele, del_ele, text_ele, view_ele, image_flg);
+    delImgClick(gea.in, gea.co, gea.te, gea.ed, gea.de, gea.vi, gea.img_flg);
+
     gea.in.addEventListener('change', (e) => {
         if(gea.in.value === ''){
             return;
@@ -135,7 +137,6 @@ const nullableImage = (text_ele, input_ele, view_ele, edit_ele, del_ele, err_ele
         cla_remove(gea.vi, 'hidden');
         cla_remove(gea.ed, 'hidden');
         cla_remove(gea.de, 'hidden');
-        delImgClick(gea.in, gea.co, gea.te, gea.ed, gea.de, gea.vi);
     });
 }
 
@@ -149,19 +150,27 @@ const loginText = (input_ele, err_ele, target_flg, index, submit_btn) => {
 }
 
 // 入力、エラー、確認の要素取得
-const setElementArray = (input_ele, err_ele, conf_ele = false, edit_ele = false, del_ele = false, text_ele = false, view_ele = false) => {
+const setElementArray = (input_ele, err_ele, conf_ele = false, edit_ele = false, del_ele = false, text_ele = false, view_ele = false, image_flg = false) => {
     const input_tag = get_tag_byId(input_ele);
     const err_tag = get_tag_byId(err_ele);
     if(conf_ele && !del_ele && !text_ele && !view_ele && !edit_ele){
         const conf_tag = get_tag_byId(conf_ele);
         return {in : input_tag,er : err_tag,co : conf_tag};
-    }else if(conf_ele && del_ele && text_ele && view_ele && edit_ele){
+    }else if(conf_ele && del_ele && text_ele && view_ele && edit_ele && !view_ele && !image_flg){
         const conf_tag = get_tag_byId(conf_ele);
         const edi_tag = get_tag_byId(edit_ele);
         const del_tag = get_tag_byId(del_ele);
         const tex_tag = get_tag_byId(text_ele);
         const vie_tag = get_tag_byId(view_ele);
         return {in : input_tag,er : err_tag,co : conf_tag,ed : edi_tag,de : del_tag,te: tex_tag,vi: vie_tag};
+    }else if(conf_ele && del_ele && text_ele && view_ele && edit_ele && view_ele && image_flg){
+        const conf_tag    = get_tag_byId(conf_ele);
+        const edi_tag     = get_tag_byId(edit_ele);
+        const del_tag     = get_tag_byId(del_ele);
+        const tex_tag     = get_tag_byId(text_ele);
+        const vie_tag     = get_tag_byId(view_ele);
+        const img_flg_tag = get_tag_byId(image_flg);
+        return {in : input_tag,er : err_tag,co : conf_tag,ed : edi_tag,de : del_tag,te: tex_tag,vi: vie_tag,img_flg: img_flg_tag};
     }
     return {in:input_tag,er:err_tag};
 }
@@ -227,11 +236,11 @@ const setImage = (view_ele, conf_ele, val) => {
 }
 
 // 画像削除ボタンクリックイベント
-const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele) => {
+const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele, img_flg_ele) => {
     del_ele.addEventListener('click', () => {
-        if(input_ele.value === ''){
-            return;
-        }
+        // if(input_ele.value === ''){
+        //     return;
+        // }
         if(confirm('削除してもよろしいですか？')){
             input_ele.value = '';
             conf_ele.src = '/img/nophoto.png';
@@ -240,6 +249,7 @@ const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele) 
             cla_add(view_ele, 'hidden');
             cla_add(edi_ele, 'hidden');
             cla_add(del_ele, 'hidden');
+            img_flg_ele.value = false;
         }
     });
 }

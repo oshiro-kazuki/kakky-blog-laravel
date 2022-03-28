@@ -11,39 +11,29 @@
 
         <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/form.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/top.css') }}">
-        <!-- <link rel="stylesheet" href="{{ asset('css/include/contents/news.css') }}"> -->
         @if(isset($blog_css))
             <link rel="stylesheet" href="{{ asset($blog_css) }}">
+        @endif
+        @if(isset($blog_css_owner))
+            <link rel="stylesheet" href="{{ asset($blog_css_owner) }}">
         @endif
     </head>
     <body>
         @include('include.common.header')
         <main>
-            <section id="top_image" class="top_image"></section>
-            
-            @if(count($news_lists) > 0)
-                @include('include.contents.news')
+            @if(isset($screen_title))
+                <h1>{{$screen_title}}</h1>
             @endif
-
-            <!-- ブログ表示 -->
-            @if(count($blog_lists) > 0)
-                <article>
-                    <h3>BLOG</h3>
-
-                    @include('include.contents.blog_cassette')
-
-                    @include('include.button.blog_list_btn')
-                </article>
-            @endif
+            @yield('content')
+            @include('include.button.owner_btn')
+            @include('include.button.top_btn')
         </main>
         @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/include/common/header.js') }}"></script>
         <script src="{{ asset('js/include/common/footer.js') }}"></script>
-        <script src="{{ asset('js/top_image.js') }}"></script>
-        <!-- <script src="{{ asset('js/include/contents/carousel.js') }}"></script> -->
     </body>
 </html>

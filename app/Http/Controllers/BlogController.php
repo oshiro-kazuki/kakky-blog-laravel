@@ -25,18 +25,14 @@ class BlogController extends Controller
     {
         $blog = $this->getBlogDetail($id);
 
-        if(!isset($blog['data'])){
+        if(!isset($blog)){
             return view('error.none_page');
-        }
-
-        foreach($blog as $key => $value){
-            
         }
 
         return view('blog.detail',
             [
-                'blog_data'  => $blog['data'],
-                'blog_css'   => $blog['css'],
+                'blog_data'  => $blog,
+                'blog_css'   => 'css/blog/detail.css',
                 'breadcrumb' => 'css/common/breadcrumb.css',
             ]
         );

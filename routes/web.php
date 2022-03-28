@@ -52,11 +52,17 @@ Route::prefix('/owner')->group(function() {
     });
     // ブログ画面
     Route::prefix('/blog')->group(function() {
+        // ブログ一覧画面
+        Route::get('/', 'BlogOwnerController@showList');
         // ブログ入力画面
         Route::prefix('/blog_input')->group(function() {
-            Route::get('/', 'BlogInputController@index');
-            Route::post('/post', 'BlogInputController@blogPost')->name('blog_input.post');
+            Route::get('/', 'BlogOwnerController@showinput');
+            Route::post('/post', 'BlogOwnerController@blogPost')->name('blog_input.post');
         });
-
+        // ブログ編集画面
+        Route::prefix('/blog_edit')->group(function() {
+            Route::get('/{id}', 'BlogOwnerController@showEdit');
+            Route::post('/post', 'BlogOwnerController@blogEdit')->name('blog_edit.post');
+        });
     });
 });
