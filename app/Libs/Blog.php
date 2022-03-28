@@ -7,14 +7,6 @@ use App\Libs\DataFormat;
 
 class Blog
 {
-    public $image_file = 'blog_img.jpg';
-
-    public function __construct()
-    {
-        $this->content_length = config('const.TEXT_LENGTH90');
-        $this->nophoto = config('const.NOPHOTO');
-    }
-
     // ブログid最大値習得
     public function getBlogMaxId()
     {
@@ -57,7 +49,7 @@ class Blog
         );
     }
 
-    // ブログデータを上限件数指定で取得
+    // ブログデータを全件・降順で取得
     public function getBlogList()
     {
         $blog_lists = Blogs::orderBy('created_at', 'desc')
@@ -66,7 +58,7 @@ class Blog
         return $blog_lists;
     }
      
-    // ブログデータを上限件数指定で取得
+    // ブログデータを上限件数指定・降順で取得
     public function getBlogListLimit(int $limit)
     {
         $blog_lists = Blogs::orderBy('created_at', 'desc')
@@ -76,26 +68,32 @@ class Blog
         return $blog_lists;
     }
 
+    // idからブログデータ取得
     public function getIdBlog(string $id)
     {
         return Blogs::find($id);
     }
 
-    // 画像パス取得
+    // 表示用画像パス設定
     private function setImagePath(bool $flg, $id)
     {
-        return $flg ? '/storage/blog/' . $id .'/'. $this->image_file : $this->nophoto;
+        return $flg ? '/storage/blog/' . $id .'/'. $this->setFilename() : config('const.NOPHOTO');
     }
 
-    // いいね取得
+    // いいねが0なら-をセット
     private function setNice($nice)
     {
         return $nice === 0 ? '-' : $nice;
     }
 
+    // 画像名セット
+    public function setFilename()
+    {
+        return 'blog_img.jpg';
+    }
 
     // カテゴリーセット
-    public function set_category()
+    public function setCategory()
     {
         $count = 0;
         return array(
@@ -117,8 +115,8 @@ class Blog
             $df = new DataFormat();
             foreach ($list as $key => $value) {
                 $value->created_at_date = $df->formatYmd($value->created_at);
-                $value->content = $df->formatLenthgCut($value->origin_text, $this->content_length);
-                $value->category = $df->formatSelect($value->category, $this->set_category());
+                $value->content = $df->formatLenthgCut($value->origin_text, config('const.TEXT_LENGTH90'));
+                $value->category = $df->formatSelect($value->category, $this->setCategory());
                 $value->image_path = $this->setImagePath($value->image_flg, $value->id);
                 $value->nice = $this->setNice($value->nice);
             }
@@ -141,9 +139,8 @@ class Blog
         // ブログ情報を整形
         if(isset($data)){
             $df = new DataFormat();
-
             $data->date = $df->formatYmd($data->created_at);
-            $data->category = $df->formatSelect($data->category, $this->set_category());
+            $data->category = $df->formatSelect($data->category, $this->setCategory());
             $data->image_path = $this->setImagePath($data->image_flg, $data->id);
             $data->nice = $this->setNice($data->nice);
         }
