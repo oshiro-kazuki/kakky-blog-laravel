@@ -121,8 +121,10 @@ const nullableText = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 }
 
 // 必須項目でない画像
-const nullableImage = (text_ele, input_ele, view_ele, edit_ele, del_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn) => {
-    const gea = setElementArray(input_ele, err_ele, conf_ele, edit_ele, del_ele, text_ele, view_ele);
+const nullableImage = (text_ele, input_ele, view_ele, edit_ele, del_ele, err_ele, conf_ele, target_flg, index, conf_btn, submit_btn, image_flg) => {
+    const gea = setElementArray(input_ele, err_ele, conf_ele, edit_ele, del_ele, text_ele, view_ele, image_flg);
+    delImgClick(gea.in, gea.co, gea.te, gea.ed, gea.de, gea.vi, gea.img_flg);
+
     gea.in.addEventListener('change', (e) => {
         if(gea.in.value === ''){
             return;
@@ -135,7 +137,6 @@ const nullableImage = (text_ele, input_ele, view_ele, edit_ele, del_ele, err_ele
         cla_remove(gea.vi, 'hidden');
         cla_remove(gea.ed, 'hidden');
         cla_remove(gea.de, 'hidden');
-        delImgClick(gea.in, gea.co, gea.te, gea.ed, gea.de, gea.vi);
     });
 }
 
@@ -227,11 +228,8 @@ const setImage = (view_ele, conf_ele, val) => {
 }
 
 // 画像削除ボタンクリックイベント
-const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele) => {
+const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele, img_flg_ele = false) => {
     del_ele.addEventListener('click', () => {
-        if(input_ele.value === ''){
-            return;
-        }
         if(confirm('削除してもよろしいですか？')){
             input_ele.value = '';
             conf_ele.src = '/img/nophoto.png';
@@ -240,6 +238,10 @@ const delImgClick = (input_ele, conf_ele, text_ele, edi_ele, del_ele, view_ele) 
             cla_add(view_ele, 'hidden');
             cla_add(edi_ele, 'hidden');
             cla_add(del_ele, 'hidden');
+            if(img_flg_ele){
+                get_tag_byId(img_flg_ele).value = false;
+                console.log(img_flg_ele.value)
+            }
         }
     });
 }

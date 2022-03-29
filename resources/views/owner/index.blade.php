@@ -21,8 +21,9 @@
             <h1>{{ $owner['name'] }}　様</h1>
             <nav class="owner_link_area">
                 <ul>
-                    <li><a href="/owner/news_input" class="owner_content_btn">ニュース入力画面</a></li>
-                    <li><a href="/owner/blog_input" class="owner_content_btn">ブログ入力画面</a></li>
+                    <!-- <li><a href="/owner/news_input" class="owner_content_btn">ニュース入力画面</a></li> -->
+                    <li><a href="/owner/blog/blog_input" class="owner_content_btn">ブログ入力画面</a></li>
+                    <li><a href="/owner/blog/" class="owner_content_btn">ブログ一覧画面</a></li>
                     <li><a href="/owner/logout" class="logout_btn">ログアウト</a></li>
                 </ul>
             </nav>

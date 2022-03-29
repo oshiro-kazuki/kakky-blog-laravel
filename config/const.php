@@ -19,7 +19,6 @@ return [
     'TELL_REGIX'     => '/^0[0-9]{10}$/',                                 // 電話番号
     // パス指定
     'OWNER_IMAGE_PATH' => '/storage/owner/profile/',
-    'BLOG_IMAGE_PATH'  => '/storage/blog/',
     // ファイル系
     'NOPHOTO'  => '/img/nophoto.png',
 ];

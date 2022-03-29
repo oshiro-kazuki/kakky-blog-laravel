@@ -51,6 +51,6 @@ class TopPageController extends Controller
     private function get_blog()
     {
         $blog = new Blog();
-        return $blog->setBlogCassette(10);
+        return $blog->setBlogCassette(9);
     }
 }
