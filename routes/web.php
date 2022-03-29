@@ -34,6 +34,14 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
+// 一時的にエラー画面へ
+// Route::get('/login', function(){
+//     return view('error.none_page');
+// });
+Route::get('/register', function(){
+    return view('error.none_page');
+});
+
 // オーナー用画面
 Route::prefix('/owner')->group(function() {
     // 画面表示
@@ -50,9 +58,19 @@ Route::prefix('/owner')->group(function() {
         Route::get('/', 'NewsInputController@index');
         Route::post('/post', 'NewsInputController@newsPost')->name('news_input.post');
     });
-    // ブログ入力画面
-    Route::prefix('/blog_input')->group(function() {
-        Route::get('/', 'BlogInputController@index');
-        Route::post('/post', 'BlogInputController@blogPost')->name('blog_input.post');
+    // ブログ画面
+    Route::prefix('/blog')->group(function() {
+        // ブログ一覧画面
+        Route::get('/', 'BlogOwnerController@showList');
+        // ブログ入力画面
+        Route::prefix('/blog_input')->group(function() {
+            Route::get('/', 'BlogOwnerController@showinput');
+            Route::post('/post', 'BlogOwnerController@blogPost')->name('blog_input.post');
+        });
+        // ブログ編集画面
+        Route::prefix('/blog_edit')->group(function() {
+            Route::get('/{id}', 'BlogOwnerController@showEdit');
+            Route::post('/post', 'BlogOwnerController@blogEdit')->name('blog_edit.post');
+        });
     });
 });

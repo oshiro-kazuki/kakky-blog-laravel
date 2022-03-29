@@ -7,12 +7,6 @@ use App\Libs\DataFormat;
 
 class Blog
 {
-    public function __construct()
-    {
-        $this->content_length = config('const.TEXT_LENGTH90');
-        $this->nophoto = config('const.NOPHOTO');
-    }
-
     // ブログid最大値習得
     public function getBlogMaxId()
     {
@@ -22,8 +16,25 @@ class Blog
     // ブログ挿入処理
     public function blogInsert(array $postData){
         Blogs::insertGetId(
-            [
-                'created_at'        => date('Y-m-d H:i:s'),
+            $this->blogColumn($postData, true)
+        );
+    }
+
+     // ブログ編集処理
+    public function blogUpdate(array $postData)
+    {
+        Blogs::where('id', $postData['id'])
+        ->update(
+            $this->blogColumn($postData, false)
+        );
+    }
+
+    // ブログ用カラム切り替え制御
+    private function blogColumn(array $postData, bool $insert_flg)
+    {
+        $is_at = $insert_flg ? 'created_at' : 'updated_at';
+        return array(
+                $is_at              => date('Y-m-d H:i:s'),
                 'title'             => $postData['title'],
                 'image_flg'         => $postData['image_flg'],
                 'category'          => $postData['category'],
@@ -35,11 +46,10 @@ class Blog
                 'but_text'          => $postData['but_text'],
                 'conclusion_title'  => $postData['conclusion_title'],
                 'conclusion_text'   => $postData['conclusion_text'],
-            ]
         );
     }
 
-    // ブログデータを上限件数指定で取得
+    // ブログデータを全件・降順で取得
     public function getBlogList()
     {
         $blog_lists = Blogs::orderBy('created_at', 'desc')
@@ -48,7 +58,7 @@ class Blog
         return $blog_lists;
     }
      
-    // ブログデータを上限件数指定で取得
+    // ブログデータを上限件数指定・降順で取得
     public function getBlogListLimit(int $limit)
     {
         $blog_lists = Blogs::orderBy('created_at', 'desc')
@@ -58,26 +68,32 @@ class Blog
         return $blog_lists;
     }
 
+    // idからブログデータ取得
     public function getIdBlog(string $id)
     {
         return Blogs::find($id);
     }
 
-    // 画像パス取得
+    // 表示用画像パス設定
     private function setImagePath(bool $flg, $id)
     {
-        return $flg ? '/storage/blog/'. $id .'/blog_img.jpg' : $this->nophoto;
+        return $flg ? '/storage/blog/' . $id .'/'. $this->setFilename() : config('const.NOPHOTO');
     }
 
-    // いいね取得
+    // いいねが0なら-をセット
     private function setNice($nice)
     {
         return $nice === 0 ? '-' : $nice;
     }
 
+    // 画像名セット
+    public function setFilename()
+    {
+        return 'blog_img.jpg';
+    }
 
     // カテゴリーセット
-    public function set_category()
+    public function setCategory()
     {
         $count = 0;
         return array(
@@ -99,8 +115,8 @@ class Blog
             $df = new DataFormat();
             foreach ($list as $key => $value) {
                 $value->created_at_date = $df->formatYmd($value->created_at);
-                $value->content = $df->formatLenthgCut($value->origin_text, $this->content_length);
-                $value->category = $df->formatSelect($value->category, $this->set_category());
+                $value->content = $df->formatLenthgCut($value->origin_text, config('const.TEXT_LENGTH90'));
+                $value->category = $df->formatSelect($value->category, $this->setCategory());
                 $value->image_path = $this->setImagePath($value->image_flg, $value->id);
                 $value->nice = $this->setNice($value->nice);
             }
@@ -123,20 +139,13 @@ class Blog
         // ブログ情報を整形
         if(isset($data)){
             $df = new DataFormat();
-
             $data->date = $df->formatYmd($data->created_at);
-            $data->category = $df->formatSelect($data->category, $this->set_category());
+            $data->category = $df->formatSelect($data->category, $this->setCategory());
             $data->image_path = $this->setImagePath($data->image_flg, $data->id);
             $data->nice = $this->setNice($data->nice);
         }
 
-        // cssを指定
-        $blog = array(
-            'css'  => 'css/blog/detail.css',
-            'data' => $data,
-        );
-
-        return $blog;
+        return $data;
     }
 }
 ?>
