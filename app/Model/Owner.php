@@ -4,10 +4,12 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Mail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\VerifyEmailJapanese;
+use App\Mail\Owner\LoginMailOwner;
 
 class Owner extends Authenticatable implements MustVerifyEmail
 {
@@ -36,10 +38,19 @@ class Owner extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    // メール認証
     public function sendEmailVerificationNotification()
     {
         // 日本語化したメールを送信
         $this->notify(new VerifyEmailJapanese);
+    }
+
+    // ログイン成功時にメール送信
+    public function sendEmailLogin($email, $os)
+    {
+        Mail::to($email)->send(
+            new LoginMailOwner($os)
+        );
     }
 
     public function getGuard()
