@@ -1,5 +1,7 @@
 <?php
 
+use App\Libs\ErrorPage;
+
 Route::get('/', 'TopPageController@index');
 
 // info系へアクセス
@@ -30,6 +32,7 @@ Route::prefix('/blog')->group(function($id) {
     Route::get('/{id}', 'BlogController@detail');
 });
 
+// 以下認証系
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
@@ -37,10 +40,12 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 // 一時的にエラー画面へ
 if(!config('const.REGISTER_FLG')){
     Route::get('/login', function(){
-        return view('error.none_page');
+        $err = new ErrorPage;
+        return $err->nonePage();
     });
     Route::get('/register', function(){
-        return view('error.none_page');
+        $err = new ErrorPage;
+        return $err->nonePage();
     });
 }
 
@@ -75,4 +80,10 @@ Route::prefix('/owner')->group(function() {
             Route::post('/post', 'BlogOwnerController@blogEdit')->name('blog_edit.post');
         });
     });
+});
+
+// ルート以外はエラー画面表示
+Route::fallback(function() {
+    $err = new ErrorPage;
+    return $err->nonePage();
 });

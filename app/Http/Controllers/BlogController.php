@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Libs\Blog;
+use App\Libs\ErrorPage;
 
 class BlogController extends Controller
 {    
@@ -26,7 +27,8 @@ class BlogController extends Controller
         $blog = $this->getBlogDetail($id);
 
         if(!isset($blog)){
-            return view('error.none_page');
+            $err = new ErrorPage;
+            return $err->nonePage();
         }
 
         return view('blog.detail',

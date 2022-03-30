@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Libs\ErrorPage;
 
 class RegisterController extends Controller
 {
@@ -72,7 +73,8 @@ class RegisterController extends Controller
     public function showOwnerRegisterForm()
     {
         if(!$this->register_flg){
-            return view('error.none_page');
+            $err = new ErrorPage;
+            return $err->nonePage();
         }
 
         $script = [
@@ -96,7 +98,8 @@ class RegisterController extends Controller
     protected function createOwner(Request $request)
     {
         if(!$this->register_flg){
-            return view('error.none_page');
+            $err = new ErrorPage;
+            return $err->nonePage();
         }
 
         $validator = $this->validatorOwner($request);
