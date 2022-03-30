@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Libs\Blog;
+use App\Libs\ErrorPage;
 
 class BlogOwnerController extends Controller
 {
@@ -81,7 +82,8 @@ class BlogOwnerController extends Controller
         $blog_data = $this->getBlogDetail($id);
 
         if(!isset($blog_data)){
-            return view('error.none_page');
+            $err = new ErrorPage;
+            return $err->nonePage();
         }
 
         $style = [

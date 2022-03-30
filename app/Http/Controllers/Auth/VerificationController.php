@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
+use App\Libs\ErrorPage;
 
 class VerificationController extends Controller
 {
@@ -28,7 +29,8 @@ class VerificationController extends Controller
             $this->guard = $request->session()->pull('user_type', 'default')[0];
         }else{
             $request->session()->flush();
-            return view('error.unauthorized_access');
+            $err = new ErrorPage;
+            return $err->unauthorized_access();
         }
 
         if ($request->user($this->guard)->hasVerifiedEmail()) {
