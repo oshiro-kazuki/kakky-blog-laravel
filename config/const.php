@@ -4,6 +4,8 @@ return [
     'APP_NAME'              => 'kakky-blog',
     'APP_INFO_MAIL_ADDRESS' => 'info@kakky-blog.com',
     'OWNER_MAIL_ADDRESS'    => 'ka.oo1213mi@gmail.com',
+    // 制御フラグ
+    'REGISTER_FLG' => false,
     // 共通文字数指定
     'PASSWORD_LENGTH'   => 20,
     'TEL_LENGTH'        => 11,

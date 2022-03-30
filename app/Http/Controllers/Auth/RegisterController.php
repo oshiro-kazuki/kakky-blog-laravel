@@ -29,6 +29,7 @@ class RegisterController extends Controller
         $this->tel_regex            = config('const.TELL_REGIX');
         $this->text_length          = config('const.TEXT_LENGTH140');
         $this->image_upload_path    = config('const.OWNER_IMAGE_PATH');
+        $this->register_flg         = config('const.REGISTER_FLG');
         $this->middleware('guest');
     }
 
@@ -70,6 +71,10 @@ class RegisterController extends Controller
     // オーナー登録画面表示
     public function showOwnerRegisterForm()
     {
+        if(!$this->register_flg){
+            return view('error.none_page');
+        }
+
         $script = [
             'js/auth/register.js',
         ];
@@ -90,6 +95,10 @@ class RegisterController extends Controller
     // オーナー登録
     protected function createOwner(Request $request)
     {
+        if(!$this->register_flg){
+            return view('error.none_page');
+        }
+
         $validator = $this->validatorOwner($request);
         if($validator->fails()){
             return redirect($this->redirectToReg)->withErrors($validator)->withInput();

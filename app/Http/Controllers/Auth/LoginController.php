@@ -42,6 +42,7 @@ class LoginController extends Controller
                 'script'       => $script,
                 'max_length'   => $this->max_length,
                 'pw_length'    => $this->pw_length,
+                'register_flg' => config('const.REGISTER_FLG'),
             ]
         );
     }
