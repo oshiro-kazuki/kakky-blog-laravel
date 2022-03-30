@@ -26,8 +26,10 @@
             <button id="login_submit" class="form_submit_btn" type="submit" disabled>ログイン</button>
         </section>
     </form>
-    <section class="form_link">
-        <a href="/owner/register">新規登録はこちら</a>
-    </section>
+    @if($register_flg)
+        <section class="form_link">
+            <a href="/owner/register">新規登録はこちら</a>
+        </section>
+    @endif
 </article>
 @endsection
