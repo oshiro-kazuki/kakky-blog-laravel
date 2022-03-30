@@ -35,12 +35,14 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 // 一時的にエラー画面へ
-// Route::get('/login', function(){
-//     return view('error.none_page');
-// });
-Route::get('/register', function(){
-    return view('error.none_page');
-});
+if(!config('const.REGISTER_FLG')){
+    Route::get('/login', function(){
+        return view('error.none_page');
+    });
+    Route::get('/register', function(){
+        return view('error.none_page');
+    });
+}
 
 // オーナー用画面
 Route::prefix('/owner')->group(function() {
