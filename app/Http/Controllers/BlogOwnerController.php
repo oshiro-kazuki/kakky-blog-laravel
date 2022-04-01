@@ -27,6 +27,9 @@ class BlogOwnerController extends Controller
         $script = [
             'js/owner/blog_input.js',
         ];
+
+        header('X-Frame-Options: DENY');
+
         return view('.owner.blog.blog_input',
         [
             'screen_title'  => 'ブログ投稿画面',
@@ -92,6 +95,9 @@ class BlogOwnerController extends Controller
         $script = [
             'js/owner/blog_input.js',
         ];
+
+        header('X-Frame-Options: DENY');
+        
         return view('.owner.blog.blog_edit',
         [
             'screen_title'  => 'ブログ編集画面',
