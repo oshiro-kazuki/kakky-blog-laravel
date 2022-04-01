@@ -80,6 +80,9 @@ class RegisterController extends Controller
         $script = [
             'js/auth/register.js',
         ];
+
+        header('X-Frame-Options: DENY');
+
         return view(
             'auth.owner.register',
             [

@@ -20,6 +20,9 @@ class NewsInputController extends Controller
         $script = [
             'js/owner/news_input.js',
         ];
+
+        header('X-Frame-Options: DENY');
+
         return view('.owner.news_input',
         [
             'screen_title'  => 'ニュース投稿画面',
