@@ -25,6 +25,8 @@ class MailSendController extends Controller
 
     public function showContactForm()
     {
+        header('X-Frame-Options: DENY');
+
         return view(
             'info.contact_mail', 
             [

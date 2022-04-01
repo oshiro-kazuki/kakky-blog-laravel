@@ -37,6 +37,9 @@ class VerificationController extends Controller
             return redirect($this->redirectPath());
         }else{
             $request->user($this->guard)->sendEmailVerificationNotification(); // メール送信処理
+            
+            header('X-Frame-Options: DENY');
+
             return view('auth.verify',
                 [
                     'screen_title'  => 'メール認証画面',

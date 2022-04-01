@@ -34,6 +34,8 @@ class LoginController extends Controller
             'js/auth/login.js',
         ];
         
+        header('X-Frame-Options: DENY');
+        
         return view(
             'auth.owner.login',
             [
