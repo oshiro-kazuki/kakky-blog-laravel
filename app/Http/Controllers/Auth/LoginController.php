@@ -22,9 +22,6 @@ class LoginController extends Controller
     {
         $this->middleware('guest:user')->except('logout');
         $this->middleware('guest:owner')->except('logout');
-        $this->max_length = config('const.TEXT_LENGTH191');
-        $this->pw_length = config('const.PASSWORD_LENGTH');
-        $this->password_regex = config('const.PASSWORD_REGIX');
     }
 
     // オーナーログイン画面表示
@@ -42,8 +39,8 @@ class LoginController extends Controller
                 'authgroup'    => 'owner',
                 'screen_title' => 'ログイン画面',
                 'script'       => $script,
-                'max_length'   => $this->max_length,
-                'pw_length'    => $this->pw_length,
+                'max_length'   => $this->getEmailLength(),
+                'pw_length'    => $this->getPasLength(),
                 'register_flg' => config('const.REGISTER_FLG'),
             ]
         );
@@ -112,8 +109,23 @@ class LoginController extends Controller
     protected function validator(Request $request)
     {
         return Validator::make($request->all(), [
-            $this->username()   => 'required|string|email|max:'.$this->max_length,
-            'password'          => 'required|string|regex:'.$this->password_regex,
+            $this->username()   => 'required|string|email|max:'.$this->getEmailLength(),
+            'password'          => 'required|string|regex:'.$this->getPasRegix(),
         ]);
+    }
+
+    private function getEmailLength()
+    {
+        return config('const.TEXT_LENGTH191');
+    }
+
+    private function getPasLength()
+    {
+        return config('const.TEXT_LENGTH35');
+    }
+
+    private function getPasRegix()
+    {
+        return config('const.PASSWORD_REGIX');
     }
 }
