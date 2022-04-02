@@ -20,7 +20,7 @@
         <main>
             <article>
                 <div class="profile_main_image">
-                    <img src="/img/info/profile/profile.jpg">
+                    <img src="/img/info/profile/profile.jpg" onerror="this.onerror=null;this.src='/img/nophoto.png';">
                 </div>
             </article>
             <article>
