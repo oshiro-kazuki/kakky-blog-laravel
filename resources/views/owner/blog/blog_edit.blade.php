@@ -55,13 +55,13 @@
                     @if($blog_data->image_flg)
                         <p id="text_image" class="text_image hidden">画像を選択</p>
                         <input id="image" class="form_image hidden" type="file" name="image">
-                        <img id="view_image" class="view_image" src="{{$blog_data->image_path}}">
+                        <img id="view_image" class="view_image" src="{{$blog_data->image_path}}" onerror="this.onerror=null;this.src='/img/nophoto.png';">
                         <div id="edit_image_btn" class="form_edit_image_btn">選択</div>
                         <div id="del_image_btn" class="form_del_image_btn">削除</div>
                     @else
                         <p id="text_image" class="text_image">画像を選択</p>
                         <input id="image" class="form_image" type="file" name="image">
-                        <img id="view_image" class="view_image hidden">
+                        <img id="view_image" class="view_image hidden" >
                         <div id="edit_image_btn" class="form_edit_image_btn hidden">選択</div>
                         <div id="del_image_btn" class="form_del_image_btn hidden">削除</div>
                     @endif
@@ -200,7 +200,7 @@
                 <label>トップ画像</label>
                 <div class="image_area">
                     @if($blog_data->image_flg)
-                        <img id="image_conf" class="view_image" src="{{$blog_data->image_path}}">
+                        <img id="image_conf" class="view_image" src="{{$blog_data->image_path}}" onerror="this.onerror=null;this.src='/img/nophoto.png';">
                     @else
                         <img id="image_conf" class="view_image" src="/img/nophoto.png">
                     @endif
