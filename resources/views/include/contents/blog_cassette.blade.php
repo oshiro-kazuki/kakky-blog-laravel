@@ -22,7 +22,7 @@
                                 <p class="item_nice">{{$blog_list->nice}}</p>
                             </div> -->
                         </div>
-                        <img class="item_img" src="{{$blog_list->image_path}}" loading="lazy">
+                        <img loading="lazy" class="item_img" onerror="this.onerror=null;this.src='/img/nophoto.png';" src="{{$blog_list->image_path}}">
                         <p class="item_text">{{$blog_list->content}}</p>
                     </a>
             </li>

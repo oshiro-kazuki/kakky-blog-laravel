@@ -59,7 +59,7 @@
                 <div class="image_area">
                     <p id="text_image" class="text_image">画像を選択</p>
                     <input id="image" class="form_image" type="file" name="image">
-                    <img id="view_image" class="view_image hidden">
+                    <img id="view_image" class="view_image hidden" onerror="this.onerror=null;this.src='/img/nophoto.png';">
                     <div id="edit_image_btn" class="form_edit_image_btn hidden">選択</div>
                     <div id="del_image_btn" class="form_del_image_btn hidden">削除</div>
                 </div>
@@ -118,7 +118,7 @@
             <div class="conf_list">
                 <label>プロフィール画像</label>
                 <div class="image_area">
-                    <img id="image_conf" class="view_image" src="/img/nophoto.png">
+                    <img id="image_conf" class="view_image" src="/img/nophoto.png" onerror="this.onerror=null;this.src='/img/nophoto.png';">
                 </div>
             </div>
             <div class="conf_list">

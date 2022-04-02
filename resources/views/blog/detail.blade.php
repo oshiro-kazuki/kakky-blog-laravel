@@ -16,7 +16,7 @@
         </div>
     </section>
 
-    <img src="{{$blog_data->image_path}}" class="blog_img">
+    <img src="{{$blog_data->image_path}}" class="blog_img" onerror="this.onerror=null;this.src='/img/nophoto.png';">
 
     <section class="blog_nav_titles">
         <h6>見出し一覧</h6>
