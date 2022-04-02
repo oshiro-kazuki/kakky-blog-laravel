@@ -202,6 +202,7 @@ h1{
 .conf_list > p{
     margin: 10px 10px 0;
     word-break: break-all;
+    white-space: pre-wrap;
 }
 .form_link{
     margin: 30px 10px 0;

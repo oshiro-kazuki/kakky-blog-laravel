@@ -62,4 +62,5 @@
 .blog_contents p{
     margin-top: 10px;
     font-size: 24px;
+    white-space: pre-wrap;
 }
