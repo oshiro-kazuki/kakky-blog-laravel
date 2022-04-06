@@ -18,6 +18,10 @@
     color: #5f9ea0;
     padding: 0 3px 0 5px;
 }
+.supplement_row h6,
+.supplement_row p{
+    font-size: 20px;
+}
 .blog_img{
     width: 100%;
     height: auto;
@@ -38,7 +42,7 @@
     font-weight: bold;
     list-style: circle;
     margin-left: 25px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .blog_nav_titles li a{
     text-decoration: underline;

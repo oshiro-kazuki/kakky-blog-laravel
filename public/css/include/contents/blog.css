@@ -3,9 +3,8 @@
 }
 .blog_item{
     display: block;
-    height: 500px;
+    height: 530px;
     width: 300px;
-    padding: 10px 5px;
     margin: 0 auto;
     border: 2px solid #afeeee;
     box-shadow: 3px 3px 2px #e0ffff;
@@ -23,22 +22,30 @@
     height: 65px;
     padding: 5px 0;
 }
-.item_supplement{
-    display: flex;
-    margin: 5px 0 10px;
+.blog_item a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 10px 5px;
 }
+.item_date,
 .item_supplement .supplement_row{
     display: flex;
     align-items: center;
+    margin: 5px 0 5px 5px;
 }
+.item_date{
+    width: 100%;
+}
+.item_date .material-icons,
 .item_supplement .supplement_row .material-icons{
     color: #5f9ea0;
     padding: 0 3px 0 5px;
 }
-.item_supplement .supplement_row .item_date,
+.item_date h6,
 .item_supplement .supplement_row .item_category,
 .item_supplement .supplement_row .item_nice{
-    font-size: 16px;
+    font-size: 20px;
 }
 .item_img{
     display: block;
