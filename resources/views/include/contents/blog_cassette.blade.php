@@ -8,11 +8,11 @@
                     <a href="/blog/{{$blog_list->id}}">
                 @endif
                         <h3 class="item_title">{{$blog_list->title}}</h3>
+                        <div class="item_date">
+                            <span class="material-icons">calendar_today</span>
+                            <h6>{{$blog_list->created_at_date}}</h6>
+                        </div>
                         <div class="item_supplement">
-                            <div class="supplement_row">
-                                <span class="material-icons">calendar_today</span>
-                                <h6 class="item_date">{{$blog_list->created_at_date}}</h6>
-                            </div>
                             <div class="supplement_row">
                                 <span class="material-icons">label</span>
                                 <p class="item_category">{{$blog_list->category}}</p>
