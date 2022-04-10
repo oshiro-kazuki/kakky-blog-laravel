@@ -101,6 +101,8 @@ class Blog
             '日常'  => ++$count,
             'コード' => ++$count,
             '観光'  => ++$count,
+            '本'    => ++$count,
+            '金融'  => ++$count,
         );
     }
 
