@@ -32,12 +32,13 @@ class BlogOwnerController extends Controller
 
         return view('.owner.blog.blog_input',
         [
-            'screen_title'  => 'ブログ投稿画面',
-            'category_list' => $this->getCategory(),
-            'style'         => $style,
-            'script'        => $script,
-            'title_length'  => $this->getTitleLength(),
-            'text_length'   => $this->getTextLength(),
+            'screen_title'      => 'ブログ投稿画面',
+            'category_list'     => $this->getCategory(),
+            'style'             => $style,
+            'script'            => $script,
+            'title_length'      => $this->getTitleLength(),
+            'text_length'       => $this->getTextLength(),
+            'reference_length'  => $this->getReferenceLength(),
         ]);
     }
 
@@ -100,13 +101,14 @@ class BlogOwnerController extends Controller
         
         return view('.owner.blog.blog_edit',
         [
-            'screen_title'  => 'ブログ編集画面',
-            'blog_data'     => $blog_data,
-            'category_list' => $this->getCategory(),
-            'style'         => $style,
-            'script'        => $script,
-            'title_length'  => $this->getTitleLength(),
-            'text_length'   => $this->getTextLength(),
+            'screen_title'      => 'ブログ編集画面',
+            'blog_data'         => $blog_data,
+            'category_list'     => $this->getCategory(),
+            'style'             => $style,
+            'script'            => $script,
+            'title_length'      => $this->getTitleLength(),
+            'text_length'       => $this->getTextLength(),
+            'reference_length'  => $this->getReferenceLength(),
         ]);
     }
 
@@ -158,6 +160,10 @@ class BlogOwnerController extends Controller
             'accepted_text'     => 'nullable|string|max:'.$this->getTextLength(),
             'but_text'          => 'nullable|string|max:'.$this->getTextLength(),
             'conclusion_text'   => 'nullable|string|max:'.$this->getTextLength(),
+            'reference_text1'   => 'nullable|string|max:'.$this->getTitleLength(),
+            'reference_link1'   => 'nullable|string|max:'.$this->getReferenceLength(),
+            'reference_text2'   => 'nullable|string|max:'.$this->getTitleLength(),
+            'reference_link2'   => 'nullable|string|max:'.$this->getReferenceLength(),
         ]);
     }
 
@@ -171,6 +177,12 @@ class BlogOwnerController extends Controller
     private function getTextLength()
     {
         return config('const.TEXT_LENGTH1000');
+    }
+
+    // 参考リンク最大文字数
+    private function getReferenceLength()
+    {
+        return config('const.TEXT_LENGTH140');
     }
 
     // 画像ファイル名

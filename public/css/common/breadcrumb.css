@@ -1,12 +1,18 @@
 .breadcrumb{
-  display: flex;
+  display: inline-block;
+  margin: 0 10px;
+}
+.breadcrumb>a,
+.breadcrumb>p{
+  display: inline;
+  padding: 0 10px;
+  width: 100%;
+  line-height: 30px;
 }
 .breadcrumb>a{
   color: #1e90ff;
   text-decoration: underline;
-  margin: 0 5px;
 }
 .breadcrumb>p{
   color: #696969;
-  margin: 0 5px;
 }

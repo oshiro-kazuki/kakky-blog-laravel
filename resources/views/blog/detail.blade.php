@@ -66,6 +66,17 @@
         @endif
     </section>
 
+    @if(isset($blog_data->reference))
+        <section class="blog_reference">
+            <h6>参考リンク</h2>
+            <ul>
+                @foreach($blog_data->reference as $list)
+                    <li><a href="{{ $list['link'] }}">{{ $list['title']}}</a></li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+
     <!-- <section class="supplement_row">
         <span class="material-icons">thumb_up_alt</span>
         <p class="item_nice">{{$blog_data->nice}}</p>
