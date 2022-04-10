@@ -46,6 +46,10 @@ class Blog
                 'but_text'          => $postData['but_text'],
                 'conclusion_title'  => $postData['conclusion_title'],
                 'conclusion_text'   => $postData['conclusion_text'],
+                'reference_text1'   => $postData['reference_text1'],
+                'reference_link1'   => $postData['reference_link1'],
+                'reference_text2'   => $postData['reference_text2'],
+                'reference_link2'   => $postData['reference_link2'],
         );
     }
 
@@ -145,9 +149,31 @@ class Blog
             $data->category = $df->formatSelect($data->category, $this->setCategory());
             $data->image_path = $this->setImagePath($data->image_flg, $data->id);
             $data->nice = $this->setNice($data->nice);
+            if((isset($data->reference_text1) && isset($data->reference_link1)) || (isset($data->reference_text2) && isset($data->reference_link2))){
+                $data->reference = $this->setReference($data->reference_text1, $data->reference_link1, $data->reference_text2, $data->reference_link2);
+            }
         }
 
         return $data;
+    }
+
+    // 参考リンク
+    private function setReference($reference_text1, $reference_link1,$reference_text2, $reference_link2)
+    {
+        $reference = [];
+        $count = 0;
+
+        if(!is_null($reference_text1) && !is_null($reference_link1)){
+            $reference[$count]['title'] = $reference_text1;
+            $reference[$count]['link'] = $reference_link1;
+            if(!is_null($reference_text2) && !is_null($reference_link2)){
+                ++$count;
+                $reference[$count]['title'] = $reference_text2;
+                $reference[$count]['link'] = $reference_link2;
+            }
+        }
+
+        return $reference;
     }
 }
 ?>

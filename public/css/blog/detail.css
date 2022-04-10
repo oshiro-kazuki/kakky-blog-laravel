@@ -27,8 +27,8 @@
     height: auto;
 }
 .blog_nav_titles{
-    margin: 10px 0;
-    padding: 10px 0;
+    margin: 30px 0;
+    padding: 20px 0;
     background-color: #f5f5f5;
     border-radius: 5px;
 }
@@ -67,4 +67,26 @@
     margin-top: 10px;
     font-size: 24px;
     white-space: pre-wrap;
+    padding: 0 5px;
+}
+.blog_reference{
+    margin-top: 50px;
+    margin-left: 10px;
+}
+.blog_reference ul{
+    list-style: circle;
+}
+.blog_reference h6{
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.blog_reference li{
+    margin-left: 30px;
+    font-size: 18px;
+}
+.blog_reference li:nth-child(n + 2){
+    margin-top: 20px;
+}
+.blog_reference a{
+    color: #1e90ff;
 }
