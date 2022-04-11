@@ -6,14 +6,14 @@
 
         <title>{{config('const.APP_NAME')}} : プライバシーポリシー</title>
 
-        <!-- fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-        <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/info/privacy_policy.css') }}">
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4672310262447739" crossorigin="anonymous"></script>
+        <meta name="google-site-verification" content="PO3gKtFcBtC6E34K8IBzCi5Jq-1DmsBqxJDBlaGIN30" />
     </head>
     <body>
         @include('include.common.header')
