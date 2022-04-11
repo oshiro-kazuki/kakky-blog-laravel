@@ -6,14 +6,14 @@
 
         <title>{{config('const.APP_NAME')}} : プロフィール</title>
 
-        <!-- fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-        <!-- style -->
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/info/profile.css') }}">
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4672310262447739" crossorigin="anonymous"></script>
+        <meta name="google-site-verification" content="PO3gKtFcBtC6E34K8IBzCi5Jq-1DmsBqxJDBlaGIN30" />
     </head>
     <body>
         @include('include.common.header')
@@ -28,18 +28,18 @@
                     <h3>略歴</h3>
                     <ul>
                         <li><p>税理士事務所</p><span>11年</span></li>
-                        <li><p>webエンジニア(現在)</p><span>1年</span></li>
+                        <li><p>webエンジニア(現在)</p><span>2年</span></li>
                     </ul>
                 </section>
                 <section class="profile_area">
                     <h3>拠点</h3>
                     <ul>
-                        <li><p>沖縄県沖縄市</p></li>
+                        <li><p>沖縄県</p></li>
                     </ul>
                 </section>
                 <section class="profile_comment">
                     <h3>コメント</h3>
-                    <p>初めまして。<br>koと申します。<br>webエンジニアになって１年になります。<br>長年勤めた税理士事務所では税金を通してお客様の課題を解決し喜ばれることにとてもやりがいを感じておりました。<br>現在は自身が開発したアプリケーションで皆様に貢献できたらと思い、日々精進しております。<br>ホームページの作成やアプリケーションの開発のことで、ご依頼・ご相談があれば是非ご連絡をよろしくお願いいたします。</p>
+                    <p>初めまして。<br>koと申します。<br>webエンジニアになって2年目になります。<br>長年勤めた税理士事務所では税金を通してお客様の課題を解決し喜ばれることにとてもやりがいを感じておりました。<br>現在は自身が開発したアプリケーションで皆様に貢献できたらと思い、日々精進しております。<br>ホームページの作成やアプリケーションの開発のことで、ご依頼・ご相談があれば是非ご連絡をよろしくお願いいたします。</p>
                 </section>
             </article>
             @include('include.button.contact_btn')
