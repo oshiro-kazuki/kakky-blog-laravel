@@ -81,5 +81,10 @@
         <span class="material-icons">thumb_up_alt</span>
         <p class="item_nice">{{$blog_data->nice}}</p>
     </section> -->
+
+    <section class="blog_read_end">
+        <p>当記事は僕の私見もあるので、あくまでもご参考程度にお読みください。<br>
+            最後まで読んでいただき、ありがとうございました。</p>
+    </section>
 </article>
 @endsection
