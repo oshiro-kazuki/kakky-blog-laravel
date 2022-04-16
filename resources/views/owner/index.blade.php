@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{{config('const.APP_NAME')}} オーナー画面</title>
+        @include('include.common.meta')
+        <title>オーナー画面</title>
 
         <!-- fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,7 +16,7 @@
     <body>
         @include('include.common.header')
         <main>
-            <h1>{{ $owner['name'] }}　様</h1>
+            <h1>{{ $owner['name'] }}  様</h1>
             <nav class="owner_link_area">
                 <ul>
                     <!-- <li><a href="/owner/news_input" class="owner_content_btn">ニュース入力画面</a></li> -->

@@ -5,7 +5,7 @@
         @include('include.contents.blog_cassette')
     @else
         <section style="padding:30px;">
-            <h3 style="font-size:26px;">投稿されたブログはございません。</h3>
+            <h3 style="font-size:26px;text-align:center;">投稿されたブログはございません。</h3>
         </section>
     @endif
 </article>
