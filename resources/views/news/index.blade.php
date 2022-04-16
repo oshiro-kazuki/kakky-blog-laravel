@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{{config('const.APP_NAME')}} : NEWS一覧</title>
+        @include('include.common.meta')
+        <title>{{ $title }}</title>
+        @if(isset($ogp))
+            @include('include.common.open_graph_protocol')
+        @endif
 
         <!-- fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,6 +15,8 @@
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/news/news.css') }}">
+
+        @include('include.common.google')
     </head>
     <body>
         @include('include.common.header')
