@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{{config('const.APP_NAME')}}</title>
+        @include('include.common.meta')
+        @if(isset($screen_title))
+            <title>{{ $screen_title }}</title>
+        @else
+            <title>{{ config('const.APP_NAME') }}</title>
+        @endif
 
         <!-- fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

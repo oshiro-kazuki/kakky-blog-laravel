@@ -3,7 +3,7 @@
 namespace App\Libs;
 
 use App\Model\Blogs;
-use App\Libs\DataFormat;
+use App\Libs\Common\DataFormat;
 
 class Blog
 {
@@ -152,6 +152,8 @@ class Blog
             if((isset($data->reference_text1) && isset($data->reference_link1)) || (isset($data->reference_text2) && isset($data->reference_link2))){
                 $data->reference = $this->setReference($data->reference_text1, $data->reference_link1, $data->reference_text2, $data->reference_link2);
             }
+            $data->description = $df->formatLenthgCut($data->origin_text, config('const.TEXT_LENGTH90'));
+            $data->date = $df->formatYmd($data->created_at);
         }
 
         return $data;

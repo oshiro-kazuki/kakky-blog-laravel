@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Libs\DataFormat;
+use App\Libs\Common\DataFormat;
+use App\Libs\Common\OpenGraphProtocol;
 use App\Libs\News;
 use App\Libs\Blog;
 
@@ -14,17 +15,23 @@ class TopPageController extends Controller
         $this->news_contet_length = config('const.TEXT_LENGTH35');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $news_lists = $this->get_news();
-        $blog = $this-> get_blog();
+        $blog = $this->get_blog();
+        $title = config('const.APP_NAME');
+        $description = 'koがseoや日々の疑問など調査した内容をアウトプットするブログです。';
+        $ogp = new OpenGraphProtocol($request->server('HTTP_HOST'), $request->server('REQUEST_URI'), $title, $description);
 
         return view(
             'index', 
             [
-                'news_lists' => $news_lists,
-                'blog_lists' => $blog['list'],
-                'blog_css'   => $blog['css'],
+                'news_lists'    => $news_lists,
+                'blog_lists'    => $blog['list'],
+                'blog_css'      => $blog['css'],
+                'title'         => $title,
+                'description'   => $description,
+                'ogp'           => $ogp,
             ]
         );
     }
