@@ -29,7 +29,7 @@ class DataFormat
     }
 
     // 選択値をセット
-    public function formatSelect(int $value, array $category_arr)
+    public function formatSelect(string $value, array $category_arr)
     {
         if(!isset($value) || !isset($category_arr)) return;
         $format = '';

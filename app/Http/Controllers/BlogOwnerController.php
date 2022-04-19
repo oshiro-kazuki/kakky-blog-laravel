@@ -151,7 +151,7 @@ class BlogOwnerController extends Controller
         return Validator::make($request->all(), [
             'title'             => 'required|string|max:'.$this->getTitleLength(),
             'image'             => 'bail|file|max:3000|image|mimes:jpeg,png,jpg',
-            'category'          => 'not_in:0',
+            'category'          => 'not_in:' . $this->getCategory()['選択'],
             'origin_title'      => 'required|string|max:'.$this->getTitleLength(),
             'accepted_title'    => 'nullable|string|max:'.$this->getTitleLength(),
             'but_title'         => 'nullable|string|max:'.$this->getTitleLength(),

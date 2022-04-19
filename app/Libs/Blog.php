@@ -99,14 +99,13 @@ class Blog
     // カテゴリーセット
     public function setCategory()
     {
-        $count = 0;
         return array(
-            '選択'  => $count,
-            '日常'  => ++$count,
-            'コード' => ++$count,
-            '観光'  => ++$count,
-            '本'    => ++$count,
-            '金融'  => ++$count,
+            '選択'  => 'none',
+            '日常'  => 'every',
+            'コード' => 'code',
+            '観光'  => 'tourism',
+            '本'    => 'book',
+            '金融'  => 'finance',
         );
     }
 
