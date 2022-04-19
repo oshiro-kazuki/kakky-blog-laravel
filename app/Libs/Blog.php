@@ -50,6 +50,7 @@ class Blog
                 'reference_link1'   => $postData['reference_link1'],
                 'reference_text2'   => $postData['reference_text2'],
                 'reference_link2'   => $postData['reference_link2'],
+                'label'             => 0,
         );
     }
 

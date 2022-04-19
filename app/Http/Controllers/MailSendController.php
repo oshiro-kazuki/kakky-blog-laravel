@@ -56,7 +56,7 @@ class MailSendController extends Controller
 
         $postData = $request->all();
         $postData['is_subject'] = '';
-        $subject = intval($postData['subject']);
+        $subject = $postData['subject'];
         foreach($this->subject_list as $key => $value){
             if($subject === $value){
                 $postData['is_subject'] = $key;
