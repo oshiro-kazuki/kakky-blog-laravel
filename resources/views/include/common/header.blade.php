@@ -1,6 +1,6 @@
 <?php
     $header_menu_list = array(
-        ['text'=> 'ブログ'     , 'link'=> '/blog'              , 'icon'=> 'article'],
+        ['text'=> 'ブログ'     , 'link'=> '/blog/list'              , 'icon'=> 'article'],
         ['text'=> 'お問い合わせ', 'link'=> '/info/contact_mail/', 'icon'=> 'email'],
         ['text'=> 'プロフィール', 'link'=> '/info/profile/'     , 'icon'=> 'person'],
     );

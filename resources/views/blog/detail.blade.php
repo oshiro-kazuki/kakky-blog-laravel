@@ -1,7 +1,7 @@
 @extends('blog.index')
 @section('content')
 <aside class="breadcrumb">
-    <a href="/">トップ</a>/<a href="/blog">ブログ</a>/<p>{{$blog_data->category}}</p>/<p>{{$blog_data->title}}</p>
+    <a href="/">トップ</a>/<a href="/blog/list">ブログ</a>/<a href="/blog/list/{{$blog_data->category}}">{{$blog_data->category_nm}}</a>/<p>{{$blog_data->title}}</p>
 </aside>
 <article class="blog_container">
     <h1>{{$blog_data->title}}</h1>

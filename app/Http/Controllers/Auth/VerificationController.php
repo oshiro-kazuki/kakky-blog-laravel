@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
-use App\Libs\ErrorPage;
+use App\Libs\Common\ErrorPage;
 
 class VerificationController extends Controller
 {

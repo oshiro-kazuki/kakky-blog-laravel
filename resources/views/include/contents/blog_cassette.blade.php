@@ -22,7 +22,11 @@
                                 <p class="item_nice">{{$blog_list->nice}}</p>
                             </div> -->
                         </div>
-                        <img loading="lazy" class="item_img" onerror="this.onerror=null;this.src='/img/nophoto.png';" src="{{$blog_list->image_path}}">
+                        @if($loop->first)
+                            <img class="item_img" onerror="this.onerror=null;this.src='/img/nophoto.png';" src="{{$blog_list->image_path}}">
+                        @else
+                            <img loading="lazy" class="item_img" onerror="this.onerror=null;this.src='/img/nophoto.png';" src="{{$blog_list->image_path}}">
+                        @endif
                         <p class="item_text">{{$blog_list->content}}</p>
                     </a>
             </li>
