@@ -34,7 +34,7 @@ class LoginMailOwner extends Mailable
             'mail.login',
             [
                 'os'          => $this->os,
-                'contact_url' => 'https://kakky-blog.com/info/contact_mail/',
+                'contact_url' => 'https://kakky-blog.com/contact_mail',
             ]
         );
     }
