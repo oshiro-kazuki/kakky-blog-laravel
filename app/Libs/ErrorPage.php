@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libs\Common;
+namespace App\Libs;
 
 class ErrorPage
 {

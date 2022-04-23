@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-use App\Libs\Common\ErrorPage;
 use App\Libs\Blog;
+use App\Libs\ErrorPage;
 
 class BlogOwnerController extends Controller
 {
