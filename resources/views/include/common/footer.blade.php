@@ -1,8 +1,8 @@
 <?php
     $footer_menu_list = array(
-        ['text'=> 'プロフィール'        , 'link'=> '/info/profile/'],
-        ['text'=> 'お問い合わせ'        , 'link'=> '/info/contact_mail/'],
-        ['text'=> 'プライバシーポリシー'  , 'link'=> '/info/privacy_policy'],
+        ['text'=> 'プロフィール'        , 'link'=> '/profile'],
+        ['text'=> 'お問い合わせ'        , 'link'=> '/contact_mail'],
+        ['text'=> 'プライバシーポリシー'  , 'link'=> '/privacy_policy'],
     );
 
     $footer_sns_list = array(
@@ -24,7 +24,7 @@
         <nav>
             <ul id="footer_sns">
                 @foreach ($footer_sns_list as $list)
-                <li><a href="{{$list['link']}}"><img src="{{$list['logo']}}" class="footer_sns_logo" alt="snsのロゴ画像" loading="lazy"></a></li>
+                <li><a href="{{$list['link']}}"><img src="{{$list['logo']}}" class="footer_sns_logo" onerror="this.onerror=null;this.src='/img/nophoto.png';" alt="snsのロゴ画像" loading="lazy"></a></li>
                 @endforeach
             </ul>
         </nav>

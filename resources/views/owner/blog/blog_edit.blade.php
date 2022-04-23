@@ -55,13 +55,13 @@
                     @if($blog_data->image_flg)
                         <p id="text_image" class="text_image hidden">画像を選択</p>
                         <input id="image" class="form_image hidden" type="file" name="image">
-                        <img id="view_image" class="view_image" src="{{$blog_data->image_path}}">
+                        <img id="view_image" class="view_image" src="{{$blog_data->image_path}}" onerror="this.onerror=null;this.src='/img/nophoto.png';">
                         <div id="edit_image_btn" class="form_edit_image_btn">選択</div>
                         <div id="del_image_btn" class="form_del_image_btn">削除</div>
                     @else
                         <p id="text_image" class="text_image">画像を選択</p>
                         <input id="image" class="form_image" type="file" name="image">
-                        <img id="view_image" class="view_image hidden">
+                        <img id="view_image" class="view_image hidden" >
                         <div id="edit_image_btn" class="form_edit_image_btn hidden">選択</div>
                         <div id="del_image_btn" class="form_del_image_btn hidden">削除</div>
                     @endif
@@ -178,6 +178,58 @@
                             @endforeach
                         @endif</p>
                 </div>
+                <div class="form_list">
+                    <label>参考リンク1タイトル</label>
+                    @if(old('reference_text1') === null)
+                        <input id="reference_text1" type="text" name="reference_text1" maxlength="{{$title_length}}" value="{{ $blog_data->reference_text1 }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @else
+                        <input id="reference_text1" type="text" name="reference_text1" maxlength="{{$title_length}}" value="{{ old('reference_text1') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @endif
+                    <p id="reference_text1_err">@if ($errors->has('reference_text1'))
+                            @foreach ($errors->get('reference_text1') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
+                <div class="form_list">
+                    <label>参考リンク1URL</label>
+                    @if(old('reference_link1') === null)
+                        <input id="reference_link1" type="text" name="reference_link1" maxlength="{{$title_length}}" value="{{ $blog_data->reference_link1 }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @else
+                        <input id="reference_link1" type="text" name="reference_link1" maxlength="{{$title_length}}" value="{{ old('reference_link1') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @endif
+                    <p id="reference_link1_err">@if ($errors->has('reference_link1'))
+                            @foreach ($errors->get('reference_link1') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
+                <div class="form_list">
+                    <label>参考リンク2タイトル</label>
+                    @if(old('reference_text2') === null)
+                        <input id="reference_text2" type="text" name="reference_text2" maxlength="{{$title_length}}" value="{{ $blog_data->reference_text2 }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @else
+                        <input id="reference_text2" type="text" name="reference_text2" maxlength="{{$title_length}}" value="{{ old('reference_text2') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @endif
+                    <p id="reference_text2_err">@if ($errors->has('reference_text2'))
+                            @foreach ($errors->get('reference_text2') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
+                <div class="form_list">
+                    <label>参考リンク2URL</label>
+                    @if(old('reference_link2') === null)
+                        <input id="reference_link2" type="text" name="reference_link2" maxlength="{{$title_length}}" value="{{ $blog_data->reference_link2 }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @else
+                        <input id="reference_link2" type="text" name="reference_link2" maxlength="{{$title_length}}" value="{{ old('reference_link2') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    @endif
+                    <p id="reference_link2_err">@if ($errors->has('reference_link2'))
+                            @foreach ($errors->get('reference_link2') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
             </section>
             
             <div id="form_conf_btn" class="form_conf_btn hidden">確認</div>
@@ -200,7 +252,7 @@
                 <label>トップ画像</label>
                 <div class="image_area">
                     @if($blog_data->image_flg)
-                        <img id="image_conf" class="view_image" src="{{$blog_data->image_path}}">
+                        <img id="image_conf" class="view_image" src="{{$blog_data->image_path}}" onerror="this.onerror=null;this.src='/img/nophoto.png';">
                     @else
                         <img id="image_conf" class="view_image" src="/img/nophoto.png">
                     @endif
@@ -239,6 +291,22 @@
                 <div class="conf_list">
                     <label>本文4</label>
                     <p id="conclusion_text_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク1タイトル</label>
+                    <p id="reference_text1_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク1URL</label>
+                    <p id="reference_link1_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク2タイトル</label>
+                    <p id="reference_text2_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク2URL</label>
+                    <p id="reference_link2_conf"></p>
                 </div>
             </section>
 

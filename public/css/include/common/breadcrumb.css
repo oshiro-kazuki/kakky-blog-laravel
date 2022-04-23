@@ -1,0 +1,21 @@
+.breadcrumb{
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 10px 0;
+  background-color: white;;
+}
+.breadcrumb>a,
+.breadcrumb>p{
+  display: inline;
+  padding: 0 10px;
+  width: 100%;
+  line-height: 30px;
+}
+.breadcrumb>a{
+  color: #1e90ff;
+  text-decoration: underline;
+}
+.breadcrumb>p{
+  color: #696969;
+}

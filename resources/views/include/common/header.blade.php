@@ -1,14 +1,14 @@
 <?php
     $header_menu_list = array(
-        ['text'=> 'ブログ'     , 'link'=> '/blog'              , 'icon'=> 'article'],
-        ['text'=> 'お問い合わせ', 'link'=> '/info/contact_mail/', 'icon'=> 'email'],
-        ['text'=> 'プロフィール', 'link'=> '/info/profile/'     , 'icon'=> 'person'],
+        ['text'=> 'ブログ'     , 'link'=> '/blog'         , 'icon'=> 'article'],
+        ['text'=> 'お問い合わせ', 'link'=> '/contact_mail', 'icon'=> 'email'],
+        ['text'=> 'プロフィール', 'link'=> '/profile'     , 'icon'=> 'person'],
     );
 ?> 
 
 <header>
     <a href="/" class="header_left">
-        <img src="/img/logo.jpg" alt="ロゴ画像">
+        <img src="/img/logo.jpg" alt="ロゴ画像" onerror="this.onerror=null;this.src='/img/nophoto.png';">
     </a>
     <div class="header_center">
         <a href="/" id="header_center_title">{{config('const.APP_NAME')}}</a>

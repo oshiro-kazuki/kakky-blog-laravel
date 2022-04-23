@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{{config('const.APP_NAME')}} : お問い合わせ</title>
+        @include('include.common.meta')
+        <title>お問い合わせ</title>
+        <meta name="robots" content="noindex,nofollow">
 
         <!-- fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,9 +13,11 @@
         <link rel="stylesheet" href="{{ asset('css/common/form.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/breadcrumb.css') }}">
     </head>
     <body>
         @include('include.common.header')
+        @include('include.common.breadcrumb')
         <main>
             <form action="{{ route('contact_mail.send') }}" method="post" enctype="multipart/form-data">
                 @csrf

@@ -1,8 +1,5 @@
 @extends('blog.index')
 @section('content')
-<aside class="breadcrumb">
-    <a href="/">トップ</a>/<a href="/blog">ブログ</a>/<p>{{$blog_data->category}}</p>/<p>{{$blog_data->title}}</p>
-</aside>
 <article class="blog_container">
     <h1>{{$blog_data->title}}</h1>
     <section class="blog_supplement">
@@ -12,11 +9,11 @@
         </div>
         <div class="supplement_row">
             <span class="material-icons">label</span>
-            <p class="item_category">{{$blog_data->category}}</p>
+            <p class="item_category">{{$blog_data->category_nm}}</p>
         </div>
     </section>
 
-    <img src="{{$blog_data->image_path}}" class="blog_img">
+    <img src="{{$blog_data->image_path}}" class="blog_img" onerror="this.onerror=null;this.src='/img/nophoto.png';">
 
     <section class="blog_nav_titles">
         <h6>見出し一覧</h6>
@@ -66,9 +63,25 @@
         @endif
     </section>
 
+    @if(isset($blog_data->reference))
+        <section class="blog_reference">
+            <h6>参考リンク</h2>
+            <ul>
+                @foreach($blog_data->reference as $list)
+                    <li><a href="{{ $list['link'] }}">{{ $list['title']}}</a></li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+
     <!-- <section class="supplement_row">
         <span class="material-icons">thumb_up_alt</span>
         <p class="item_nice">{{$blog_data->nice}}</p>
     </section> -->
+
+    <section class="blog_read_end">
+        <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
+            最後まで読んでいただき、ありがとうございました。</p>
+    </section>
 </article>
 @endsection

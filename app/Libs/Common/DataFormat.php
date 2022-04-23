@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libs;
+namespace App\Libs\Common;
 
 use DateTime;
 
@@ -19,15 +19,17 @@ class DataFormat
     public function formatLenthgCut($text, int $length) //$textはnullもある
     {
         if(!isset($text)) return;
-        $content = $text;
-        if (mb_strlen($text) > $length) {
-            $content = mb_substr($text, 0, $length). '...';
+        
+        $content = $this->formatNewine($text);
+
+        if (mb_strlen($content) > $length) {
+            $content = mb_substr($content, 0, $length). '...';
         }
         return $content;
     }
 
     // 選択値をセット
-    public function formatSelect(int $value, array $category_arr)
+    public function formatSelect(string $value, array $category_arr)
     {
         if(!isset($value) || !isset($category_arr)) return;
         $format = '';
@@ -37,6 +39,14 @@ class DataFormat
             }
         }
         return $format;
+    }
+
+    // 改行・空白削除
+    private function formatNewine(string $text)
+    {
+        if(!isset($text)) return;
+
+        return str_replace(array("\r\n", "\r", "\n"), '', $text);
     }
 }
 ?>

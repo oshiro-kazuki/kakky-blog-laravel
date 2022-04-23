@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Libs\ErrorPage;
+use App\Libs\Common\ErrorPage;
 
 class RegisterController extends Controller
 {
@@ -80,6 +80,9 @@ class RegisterController extends Controller
         $script = [
             'js/auth/register.js',
         ];
+
+        header('X-Frame-Options: DENY');
+
         return view(
             'auth.owner.register',
             [

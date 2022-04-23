@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
-use App\Libs\ErrorPage;
+use App\Libs\Common\ErrorPage;
 
 class VerificationController extends Controller
 {
@@ -37,6 +37,9 @@ class VerificationController extends Controller
             return redirect($this->redirectPath());
         }else{
             $request->user($this->guard)->sendEmailVerificationNotification(); // メール送信処理
+            
+            header('X-Frame-Options: DENY');
+
             return view('auth.verify',
                 [
                     'screen_title'  => 'メール認証画面',

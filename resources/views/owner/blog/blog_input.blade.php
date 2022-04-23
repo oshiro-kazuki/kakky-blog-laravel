@@ -130,6 +130,42 @@
                             @endforeach
                         @endif</p>
                 </div>
+                <div class="form_list">
+                    <label>参考リンク1タイトル</label>
+                    <input id="reference_text1" type="text" name="reference_text1" maxlength="{{$title_length}}" value="{{ old('reference_text1') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    <p id="reference_text1_err">@if ($errors->has('reference_text1'))
+                            @foreach ($errors->get('reference_text1') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
+                <div class="form_list">
+                    <label>参考リンク1URL</label>
+                    <input id="reference_link1" type="text" name="reference_link1" maxlength="{{$reference_length}}" value="{{ old('reference_link1') }}" placeholder="タイトルを入力(最大{{$reference_length}}文字)">
+                    <p id="reference_link1_err">@if ($errors->has('reference_link1'))
+                            @foreach ($errors->get('reference_link1') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
+                <div class="form_list">
+                    <label>参考リンク2タイトル</label>
+                    <input id="reference_text2" type="text" name="reference_text2" maxlength="{{$title_length}}" value="{{ old('reference_text2') }}" placeholder="タイトルを入力(最大{{$title_length}}文字)">
+                    <p id="reference_text2_err">@if ($errors->has('reference_text2'))
+                            @foreach ($errors->get('reference_text2') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
+                <div class="form_list">
+                    <label>参考リンク2URL</label>
+                    <input id="reference_link2" type="text" name="reference_link2" maxlength="{{$reference_length}}" value="{{ old('reference_link2') }}" placeholder="タイトルを入力(最大{{$reference_length}}文字)">
+                    <p id="reference_link2_err">@if ($errors->has('reference_link2'))
+                            @foreach ($errors->get('reference_link2') as $detail_errors)
+                                {{ $detail_errors }}
+                            @endforeach
+                        @endif</p>
+                </div>
             </section>
             
             <div id="form_conf_btn" class="form_conf_btn hidden">確認</div>
@@ -187,6 +223,22 @@
                 <div class="conf_list">
                     <label>本文4</label>
                     <p id="conclusion_text_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク1タイトル</label>
+                    <p id="reference_text1_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク1URL</label>
+                    <p id="reference_link1_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク2タイトル</label>
+                    <p id="reference_text2_conf"></p>
+                </div>
+                <div class="conf_list">
+                    <label>参考リンク2URL</label>
+                    <p id="reference_link2_conf"></p>
                 </div>
             </section>
 

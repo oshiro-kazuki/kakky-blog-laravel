@@ -56,34 +56,38 @@ const requireEmail = (input_ele, err_ele, conf_ele, max, target_flg, index, conf
 }
 
 // 必須項目のselect
-const requireSelect = (input_ele, err_ele, conf_ele, init_ele, target_flg, index, conf_btn, submit_btn) => {
+const requireSelect = (input_ele, err_ele, conf_ele, init_ele, target_flg, index, conf_btn, submit_btn, err_val) => {
     const gea = setElementArray(input_ele, err_ele, conf_ele);
     const init = get_tag_byId(init_ele);
     const gfa = setFlgArray(gea.in, gea.er.textContent);
+    const options = gea.in.options;
 
     gea.in.addEventListener('change', (e) => {
-        const intValue = Number(e.target.value);
-        getText(init, e.target[intValue].textContent);
-        init.style.color = 'black';
-        const result = selectCheck(intValue, gea.er);
-        confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
-        for(let i = 0;i < gea.in.options.length; i++){
-            if(intValue === i){
-                gea.in.options[i].setAttribute('selected', 'selected')
+        const target = e.target;
+        const val = target.value;
+
+        for(let i = 0;i < options.length; i++){
+            if(val === options[i].value){
+                const text = target[i].textContent;
+                getText(init, text);
+                getText(gea.co, text);
+                init.style.color = 'black';
+                const result = selectCheck(val, gea.er, err_val);
+                confSubmitCheck(target_flg, index, result, conf_btn, submit_btn);
+                options[i].setAttribute('selected', 'selected')
             }else{
-                gea.in.options[i].removeAttribute('selected')
+                options[i].removeAttribute('selected')
             }
         }
-        getText(gea.co, e.target[intValue].textContent);
+
         return;
     });
 
+    const selected_index = options.selectedIndex;
     if(!gfa.val_flg && gfa.text_flg){
-        getText(init, gea.in.options[gea.in.value].textContent);
-        // getText(gea.co, gea.in.options[gea.in.value].textContent);
-        const intValue = Number(gea.in.options[gea.in.value].value);
-        if(intValue !== 0) init.style.color = 'black';
-        returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, gea.in.options[gea.in.value].textContent);
+        getText(init, options[selected_index].textContent);
+        if(gea.in.value !== err_val) init.style.color = 'black';
+        returnCheck(target_flg, index, conf_btn, submit_btn, gea.co, options[selected_index].textContent);
     }
 }
 
@@ -169,7 +173,7 @@ const setElementArray = (input_ele, err_ele, conf_ele = false, edit_ele = false,
 
 // 入力、エラーの要素値の有無判定
 const setFlgArray = (in_ele, err_text) => {
-    const val_flg = in_ele.value === '' || in_ele.value === '0' ? true : false;
+    const val_flg = in_ele.value === '' || in_ele.value === 'none' ? true : false;
     const text_flg = err_text === '' ? true : false;
     
     return {val_flg:val_flg,text_flg:text_flg};

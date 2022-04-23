@@ -3,7 +3,7 @@
 namespace App\Libs;
 
 use App\Model\Blogs;
-use App\Libs\DataFormat;
+use App\Libs\Common\DataFormat;
 
 class Blog
 {
@@ -46,6 +46,10 @@ class Blog
                 'but_text'          => $postData['but_text'],
                 'conclusion_title'  => $postData['conclusion_title'],
                 'conclusion_text'   => $postData['conclusion_text'],
+                'reference_text1'   => $postData['reference_text1'],
+                'reference_link1'   => $postData['reference_link1'],
+                'reference_text2'   => $postData['reference_text2'],
+                'reference_link2'   => $postData['reference_link2'],
         );
     }
 
@@ -74,6 +78,14 @@ class Blog
         return Blogs::find($id);
     }
 
+    // ブログカテゴリ習得
+    public function getCategoryBlog(string $category)
+    {
+        return Blogs::where('category', $category)
+        ->orderBy('created_at', 'desc')
+        ->get();
+    }
+
     // 表示用画像パス設定
     private function setImagePath(bool $flg, $id)
     {
@@ -95,20 +107,26 @@ class Blog
     // カテゴリーセット
     public function setCategory()
     {
-        $count = 0;
         return array(
-            '選択'  => $count,
-            '日常'  => ++$count,
-            'コード' => ++$count,
-            '観光'  => ++$count,
+            '選択'  => 'none',
+            '日常'  => 'every',
+            'コード' => 'code',
+            '観光'  => 'tourism',
+            '本'    => 'book',
+            '金融'  => 'finance',
         );
     }
 
     // include用カセット
-    public function setBlogCassette($limit = false)
+    public function setBlogCassette($limit = false, $category = false)
     {
-        // limitの指定がなければ全件取得
-        $list = $limit ? $this->getBlogListLimit($limit) : $this->getBlogList($limit);
+        if($category){
+            $list = $this->getCategoryBlog($category);
+        }else if($limit){
+            $list = $this->getBlogListLimit($limit);
+        }else{
+            $list = $this->getBlogList();
+        }
 
         // ブログ情報を整形
         if(count($list) > 0){
@@ -116,9 +134,10 @@ class Blog
             foreach ($list as $key => $value) {
                 $value->created_at_date = $df->formatYmd($value->created_at);
                 $value->content = $df->formatLenthgCut($value->origin_text, config('const.TEXT_LENGTH90'));
-                $value->category = $df->formatSelect($value->category, $this->setCategory());
                 $value->image_path = $this->setImagePath($value->image_flg, $value->id);
                 $value->nice = $this->setNice($value->nice);
+                $value->category_nm = $df->formatSelect($value->category, $this->setCategory());
+                $value->link = $this->setBlogLink($value->category, $value->id);
             }
         }
 
@@ -140,12 +159,42 @@ class Blog
         if(isset($data)){
             $df = new DataFormat();
             $data->date = $df->formatYmd($data->created_at);
-            $data->category = $df->formatSelect($data->category, $this->setCategory());
+            $data->category_nm = $df->formatSelect($data->category, $this->setCategory());
             $data->image_path = $this->setImagePath($data->image_flg, $data->id);
             $data->nice = $this->setNice($data->nice);
+            if((isset($data->reference_text1) && isset($data->reference_link1)) || (isset($data->reference_text2) && isset($data->reference_link2))){
+                $data->reference = $this->setReference($data->reference_text1, $data->reference_link1, $data->reference_text2, $data->reference_link2);
+            }
+            $data->description = $df->formatLenthgCut($data->origin_text, config('const.TEXT_LENGTH90'));
+            $data->date = $df->formatYmd($data->created_at);
         }
 
         return $data;
+    }
+
+    // 参考リンク
+    private function setReference($reference_text1, $reference_link1,$reference_text2, $reference_link2)
+    {
+        $reference = [];
+        $count = 0;
+
+        if(!is_null($reference_text1) && !is_null($reference_link1)){
+            $reference[$count]['title'] = $reference_text1;
+            $reference[$count]['link'] = $reference_link1;
+            if(!is_null($reference_text2) && !is_null($reference_link2)){
+                ++$count;
+                $reference[$count]['title'] = $reference_text2;
+                $reference[$count]['link'] = $reference_link2;
+            }
+        }
+
+        return $reference;
+    }
+
+    // ブログ詳細リンク整形
+    private function setBlogLink(string $category, string $id)
+    {
+        return $category . '/' . $id;
     }
 }
 ?>
