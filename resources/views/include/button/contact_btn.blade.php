@@ -1,4 +1,4 @@
-<a href="/info/contact_mail/" id="contact_btn">お問い合わせ</a>
+<a href="/contact_mail/" id="contact_btn">お問い合わせ</a>
 <script>
     (function () {
         const contact_btn = document.getElementById('contact_btn');
