@@ -1,8 +1,8 @@
 <?php
     $footer_menu_list = array(
-        ['text'=> 'プロフィール'        , 'link'=> '/info/profile/'],
-        ['text'=> 'お問い合わせ'        , 'link'=> '/info/contact_mail/'],
-        ['text'=> 'プライバシーポリシー'  , 'link'=> '/info/privacy_policy'],
+        ['text'=> 'プロフィール'        , 'link'=> '/profile'],
+        ['text'=> 'お問い合わせ'        , 'link'=> '/contact_mail'],
+        ['text'=> 'プライバシーポリシー'  , 'link'=> '/privacy_policy'],
     );
 
     $footer_sns_list = array(

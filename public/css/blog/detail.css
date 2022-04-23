@@ -4,6 +4,7 @@
 .blog_container h1{
     font-size: 30px;
     font-weight: bold;
+    padding: 0 10px;
 }
 .blog_supplement{
     margin: 20px 0;
@@ -28,7 +29,7 @@
 }
 .blog_nav_titles{
     margin: 30px 0;
-    padding: 20px 0;
+    padding: 20px;
     background-color: #f5f5f5;
     border-radius: 5px;
 }
@@ -44,7 +45,8 @@
     margin-left: 25px;
     margin-top: 20px;
 }
-.blog_nav_titles li a{
+.blog_nav_titles li a,
+.blog_contact{
     text-decoration: underline;
     color: #1e90ff;
 }
@@ -57,7 +59,7 @@
     display: block;
     width: 100%;
     position: relative;
-    padding: 5px;
+    padding: 5px 15px;
     border-left: 5px solid #3cb371;
     border-bottom: 3px solid #2e8b57;
     border-radius: 3px;
@@ -67,7 +69,7 @@
     margin-top: 10px;
     font-size: 24px;
     white-space: pre-wrap;
-    padding: 0 5px;
+    padding: 0 10px;
 }
 .blog_reference{
     margin-top: 50px;

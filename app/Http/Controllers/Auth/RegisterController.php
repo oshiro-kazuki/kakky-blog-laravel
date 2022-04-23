@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Libs\ErrorPage;
+use App\Libs\Common\ErrorPage;
 
 class RegisterController extends Controller
 {

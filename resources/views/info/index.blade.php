@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('include.common.meta')
-        <title>{{ $title }}</title> 
+        <title>{{ $title }}</title>
         @if(isset($ogp))
             @include('include.common.open_graph_protocol')
         @endif
@@ -12,11 +12,9 @@
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/breadcrumb.css') }}">
-        @if(isset($blog_css))
-            <link rel="stylesheet" href="{{ asset($blog_css) }}">
+        @if(isset($info_css))
+            <link rel="stylesheet" href="{{ asset($info_css) }}">
         @endif
-
-        @include('include.common.google')
     </head>
     <body>
         @include('include.common.header')
@@ -27,9 +25,8 @@
             @yield('content')
             @include('include.button.top_btn')
         </main>
-
+        
         @include('include.common.footer')
-
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/include/common/header.js') }}"></script>
         <script src="{{ asset('js/include/common/footer.js') }}"></script>
