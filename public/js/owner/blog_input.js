@@ -12,7 +12,7 @@
     
     window.addEventListener('load', () => {
         requireText('title', 'title_err', 'title_conf', title_len, submit_flg, count, 'form_conf_btn', 'submit_btn');
-        requireSelect('category','category_error', 'category_conf', 'category_init', submit_flg, ++count, 'form_conf_btn', 'submit_btn');
+        requireSelect('category','category_error', 'category_conf', 'category_init', submit_flg, ++count, 'form_conf_btn', 'submit_btn', 'none');
         requireText('origin_title', 'origin_title_err', 'origin_title_conf', title_len, submit_flg, ++count, 'form_conf_btn', 'submit_btn');
         requireText('origin_text', 'origin_text_err', 'origin_text_conf', text_len, submit_flg, ++count, 'form_conf_btn', 'submit_btn');
         nullableImage('text_image', 'image', 'view_image', 'edit_image_btn','del_image_btn', 'image_error', 'image_conf', submit_flg, ++count, 'form_conf_btn', 'submit_btn', 'image_flg');
