@@ -7,7 +7,6 @@ use App\Mail\Owner\ContactMailOwner;
 use App\Mail\ContactMailSend;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Libs\Common\breadcrumb;
 
 class MailSendController extends Controller
 {
@@ -24,12 +23,9 @@ class MailSendController extends Controller
         $this->text_length           = config('const.TEXT_LENGTH140');
     }
 
-    public function showContactForm(Request $request)
+    public function showContactForm()
     {
         header('X-Frame-Options: DENY');
-
-        $bd   = new Breadcrumb($request->server('REQUEST_URI'));
-        $breadcrumb = $bd->getBreadcrumb();
 
         return view(
             'info.contact_mail', 
@@ -37,7 +33,6 @@ class MailSendController extends Controller
                 'subject_list' => $this->subject_list,
                 'max_length'   => $this->max_length,
                 'text_length'  => $this->text_length,
-                'breadcrumb'   => $breadcrumb,
             ]
         );
     }

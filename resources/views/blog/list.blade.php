@@ -1,7 +1,7 @@
 @extends('blog.index')
 @section('content')
 <article>
-    <h2 style="font-size:26px;font-weight:bold;text-align:center;padding-bottom:30px;">{{ $title }}</h2>
+    <h2 style="font-size:26px;font-weight:bold;text-align:center;padding-bottom:30px;">ブログ一覧</h2>
     @if(count($blog_lists) > 0)
         @include('include.contents.blog_cassette')
     @else

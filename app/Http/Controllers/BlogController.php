@@ -4,66 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Libs\Common\OpenGraphProtocol;
-use App\Libs\Common\ErrorPage;
-use App\Libs\Common\breadcrumb;
 use App\Libs\Blog;
+use App\Libs\ErrorPage;
 
 class BlogController extends Controller
 {    
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->blog         = new Blog();
-        $this->err          = new ErrorPage();
-        $this->request      = $request;
-        $this->host         = $this->request->server('HTTP_HOST');
-        $this->uri          = $this->request->server('REQUEST_URI');
-        $this->breadcrumb   = new Breadcrumb($this->uri);
+        $this->blog = new Blog();
     }
 
     // ブログ一覧画面表示
-    public function list()
+    public function list(Request $request)
     {
         $blog = $this->blog->setBlogCassette();
         $title = 'ブログ一覧画面';
-        $description = '全てのブログを一覧にしてます。是非、他の記事もご一読ください。';
-
-        $breadcrumb = $this->breadcrumb->getBreadcrumb();
-
-        return $this->showList($blog, $title, $description, $breadcrumb, true);
-    }
-
-    // ブログカテゴリ一覧画面表示
-    public function categoryList($category)
-    {
-        $blog = $this->blog->setBlogCassette(false, $category);
-
-        // カテゴリ名を取得
-        $is_category = '';
-        foreach($this->blog->setCategory() as $key => $value){
-            if($value === $category){
-                $is_category = $key;
-            }
-        }
-
-        $title = 'ブログ・カテゴリ(' . $is_category . ')一覧画面';
-        $description = 'カテゴリ(' . $is_category . ')で絞り込んだブログを一覧にしてます。是非、他の記事もご一読ください。';
-
-        $this->breadcrumb->setSecondArr($this->blog->setCategory());
-        $breadcrumb = $this->breadcrumb->getBreadcrumb();
-
-        return $this->showList($blog, $title, $description, $breadcrumb, false);
-    }
-
-    private function showList(array $blog,string $title,string $description, $breadcrumb, $search_flg = false)
-    {
-
-        if(count($blog['list']) <= 0){
-            return $this->err->nonePage();
-        }
-
-        $ogp = new OpenGraphProtocol($this->host, $this->uri, $title, $description);
-
-        $category_list = $search_flg ? $this->blog->setCategory() : '';
+        $description = 'カテゴリ問わずブログを一覧にしてます。是非、他の記事もご一読ください。';
+        $ogp = new OpenGraphProtocol($request->server('HTTP_HOST'), $request->server('REQUEST_URI'), $title, $description);
 
         return view('blog.list',
             [
@@ -72,36 +29,30 @@ class BlogController extends Controller
                 'title'         => $title,
                 'description'   => $description,
                 'ogp'           => $ogp,
-                'breadcrumb'    => $breadcrumb,
-                'search_flg'    => $search_flg,
-                'category_list' => $category_list,
             ]
         );
     }
 
     // ブログ詳細画面表示
-    public function detail($category, $id)
+    public function detail($id, Request $request)
     {
         $blog = $this->blog->setBlogDetail($id);
 
         if(!isset($blog)){
-            return $this->err->nonePage();
+            $err = new ErrorPage;
+            return $err->nonePage();
         }
 
-        $ogp = new OpenGraphProtocol($this->host, $this->uri, $blog->title, $blog->description);
-
-        $this->breadcrumb->setSecondArr($this->blog->setCategory());
-        $this->breadcrumb->setLastArr([$blog->title => $id]);
-        $breadcrumb = $this->breadcrumb->getBreadcrumb();
+        $ogp = new OpenGraphProtocol($request->server('HTTP_HOST'), $request->server('REQUEST_URI'), $blog->title, $blog->description);
 
         return view('blog.detail',
             [
                 'blog_data'     => $blog,
                 'blog_css'      => 'css/blog/detail.css',
+                'breadcrumb'    => 'css/common/breadcrumb.css',
                 'title'         => $blog->title,
                 'description'   => $blog->description,
                 'ogp'           => $ogp,
-                'breadcrumb'    => $breadcrumb,
             ]
         );
     }

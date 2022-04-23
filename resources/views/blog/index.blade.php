@@ -11,7 +11,9 @@
         <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/include/common/breadcrumb.css') }}">
+        @if(isset($breadcrumb))
+            <link rel="stylesheet" href="{{ asset($breadcrumb) }}">
+        @endif
         @if(isset($blog_css))
             <link rel="stylesheet" href="{{ asset($blog_css) }}">
         @endif
@@ -21,8 +23,6 @@
     <body>
         @include('include.common.header')
 
-        @include('include.common.breadcrumb')
-        
         <main>
             @yield('content')
             @include('include.button.top_btn')
