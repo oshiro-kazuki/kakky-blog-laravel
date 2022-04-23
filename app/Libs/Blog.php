@@ -50,6 +50,7 @@ class Blog
                 'reference_link1'   => $postData['reference_link1'],
                 'reference_text2'   => $postData['reference_text2'],
                 'reference_link2'   => $postData['reference_link2'],
+                'label'             => 0,
         );
     }
 
@@ -76,14 +77,6 @@ class Blog
     public function getIdBlog(string $id)
     {
         return Blogs::find($id);
-    }
-
-    // ブログカテゴリ習得
-    public function getCategoryBlog(string $category)
-    {
-        return Blogs::where('category', $category)
-        ->orderBy('created_at', 'desc')
-        ->get();
     }
 
     // 表示用画像パス設定
@@ -118,15 +111,10 @@ class Blog
     }
 
     // include用カセット
-    public function setBlogCassette($limit = false, $category = false)
+    public function setBlogCassette($limit = false)
     {
-        if($category){
-            $list = $this->getCategoryBlog($category);
-        }else if($limit){
-            $list = $this->getBlogListLimit($limit);
-        }else{
-            $list = $this->getBlogList();
-        }
+        // limitの指定がなければ全件取得
+        $list = $limit ? $this->getBlogListLimit($limit) : $this->getBlogList($limit);
 
         // ブログ情報を整形
         if(count($list) > 0){
@@ -134,10 +122,9 @@ class Blog
             foreach ($list as $key => $value) {
                 $value->created_at_date = $df->formatYmd($value->created_at);
                 $value->content = $df->formatLenthgCut($value->origin_text, config('const.TEXT_LENGTH90'));
+                $value->category = $df->formatSelect($value->category, $this->setCategory());
                 $value->image_path = $this->setImagePath($value->image_flg, $value->id);
                 $value->nice = $this->setNice($value->nice);
-                $value->category_nm = $df->formatSelect($value->category, $this->setCategory());
-                $value->link = $this->setBlogLink($value->category, $value->id);
             }
         }
 
@@ -159,7 +146,7 @@ class Blog
         if(isset($data)){
             $df = new DataFormat();
             $data->date = $df->formatYmd($data->created_at);
-            $data->category_nm = $df->formatSelect($data->category, $this->setCategory());
+            $data->category = $df->formatSelect($data->category, $this->setCategory());
             $data->image_path = $this->setImagePath($data->image_flg, $data->id);
             $data->nice = $this->setNice($data->nice);
             if((isset($data->reference_text1) && isset($data->reference_link1)) || (isset($data->reference_text2) && isset($data->reference_link2))){
@@ -189,12 +176,6 @@ class Blog
         }
 
         return $reference;
-    }
-
-    // ブログ詳細リンク整形
-    private function setBlogLink(string $category, string $id)
-    {
-        return $category . '/' . $id;
     }
 }
 ?>

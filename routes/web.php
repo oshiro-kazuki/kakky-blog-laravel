@@ -1,19 +1,25 @@
 <?php
 
-use App\Libs\Common\ErrorPage;
+use App\Libs\ErrorPage;
 
 Route::get('/', 'TopPageController@index');
 
 // info系へアクセス
-// お問い合わせメール画面
-Route::prefix('/contact_mail')->group(function() {
-    Route::get('/', 'MailSendController@showContactForm');
-    Route::post('/send', 'MailSendController@contactMailSend')->name('contact_mail.send');
+Route::prefix('/info')->group(function() {
+    // お問い合わせメール画面
+    Route::prefix('/contact_mail')->group(function() {
+        Route::get('/', 'MailSendController@showContactForm');
+        Route::post('/send', 'MailSendController@contactMailSend')->name('contact_mail.send');
+    });
+    // プロフィール画面
+    Route::get('/profile', function () {
+        return view('/info/profile');
+    });
+    // プライバシーポリシー画面
+    Route::get('/privacy_policy', function () {
+        return view('/info/privacy_policy');
+    });
 });
-// プロフィール画面
-Route::get('/profile', 'InfoController@showProfile');
-// プライバシーポリシー画面
-Route::get('/privacy_policy', 'InfoController@showPrivacyPolicy');
 
 // ニュース一覧画面
 Route::prefix('/news')->group(function() {
@@ -23,8 +29,7 @@ Route::prefix('/news')->group(function() {
 // ブログ
 Route::prefix('/blog')->group(function($id) {
     Route::get('/', 'BlogController@list');
-    Route::get('/{category}', 'BlogController@categoryList');
-    Route::get('/{category}/{id}', 'BlogController@detail');
+    Route::get('/{id}', 'BlogController@detail');
 });
 
 // 以下認証系

@@ -1,9 +1,6 @@
 .breadcrumb{
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 30px 10px 0;
-  background-color: white;;
+  display: inline-block;
+  margin: 0 10px;
 }
 .breadcrumb>a,
 .breadcrumb>p{
