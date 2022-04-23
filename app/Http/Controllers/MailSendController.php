@@ -56,7 +56,7 @@ class MailSendController extends Controller
     {
         $validator = $this->validator($request);
         if($validator->fails()){
-            return redirect('/info/contact_mail')->withErrors($validator)->withInput();
+            return redirect('/contact_mail')->withErrors($validator)->withInput();
         }
 
         $postData = $request->all();
