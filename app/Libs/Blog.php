@@ -134,9 +134,10 @@ class Blog
             foreach ($list as $key => $value) {
                 $value->created_at_date = $df->formatYmd($value->created_at);
                 $value->content = $df->formatLenthgCut($value->origin_text, config('const.TEXT_LENGTH90'));
-                $value->category = $df->formatSelect($value->category, $this->setCategory());
                 $value->image_path = $this->setImagePath($value->image_flg, $value->id);
                 $value->nice = $this->setNice($value->nice);
+                $value->category_nm = $df->formatSelect($value->category, $this->setCategory());
+                $value->link = $this->setBlogLink($value->category, $value->id);
             }
         }
 
@@ -188,6 +189,12 @@ class Blog
         }
 
         return $reference;
+    }
+
+    // ブログ詳細リンク整形
+    private function setBlogLink(string $category, string $id)
+    {
+        return $category . '/' . $id;
     }
 }
 ?>

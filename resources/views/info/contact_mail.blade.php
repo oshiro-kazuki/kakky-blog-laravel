@@ -13,9 +13,11 @@
         <link rel="stylesheet" href="{{ asset('css/common/form.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/include/common/breadcrumb.css') }}">
     </head>
     <body>
         @include('include.common.header')
+        @include('include.common.breadcrumb')
         <main>
             <form action="{{ route('contact_mail.send') }}" method="post" enctype="multipart/form-data">
                 @csrf

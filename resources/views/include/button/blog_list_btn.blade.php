@@ -1,4 +1,4 @@
-<a href="/blog/list" id="blog_list_btn">ブログ一覧へ</a>
+<a href="/blog" id="blog_list_btn">ブログ一覧へ</a>
 <script>
     (function () {
         const blog_list_btn = document.getElementById('blog_list_btn');

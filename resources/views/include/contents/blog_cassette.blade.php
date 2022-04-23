@@ -5,7 +5,7 @@
                 @if(isset($owner_flg))
                     <a href="/owner/blog/blog_edit/{{$blog_list->id}}">
                 @else
-                    <a href="/blog/{{$blog_list->id}}">
+                    <a href="/blog/{{$blog_list->link}}">
                 @endif
                         <h3 class="item_title">{{$blog_list->title}}</h3>
                         <div class="item_date">
@@ -15,7 +15,7 @@
                         <div class="item_supplement">
                             <div class="supplement_row">
                                 <span class="material-icons">label</span>
-                                <p class="item_category">{{$blog_list->category}}</p>
+                                <p class="item_category">{{$blog_list->category_nm}}</p>
                             </div>
                             <!-- <div class="supplement_row">
                                 <span class="material-icons">thumb_up_alt</span>

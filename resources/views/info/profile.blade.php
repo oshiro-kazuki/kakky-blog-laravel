@@ -1,49 +1,28 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        @include('include.common.meta')
-        <title>プロフィール</title>
-        <meta name="robots" content="noindex,nofollow">
-
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/common/reset.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/include/common/header.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/include/common/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/info/profile.css') }}">
-    </head>
-    <body>
-        @include('include.common.header')
-        <main>
-            <article>
-                <div class="profile_main_image">
-                    <img src="/img/info/profile/profile.jpg" onerror="this.onerror=null;this.src='/img/nophoto.png';">
-                </div>
-            </article>
-            <article>
-                <section class="profile_career">
-                    <h3>略歴</h3>
-                    <ul>
-                        <li><p>税理士事務所</p><span>11年</span></li>
-                        <li><p>webエンジニア(現在)</p><span>2年</span></li>
-                    </ul>
-                </section>
-                <section class="profile_area">
-                    <h3>拠点</h3>
-                    <ul>
-                        <li><p>沖縄県</p></li>
-                    </ul>
-                </section>
-                <section class="profile_comment">
-                    <h3>コメント</h3>
-                    <p>初めまして。<br>koと申します。<br>webエンジニアになって2年目になります。<br>長年勤めた税理士事務所では税金を通してお客様の課題を解決し喜ばれることにとてもやりがいを感じておりました。<br>現在は自身が開発したアプリケーションで皆様に貢献できたらと思い、日々精進しております。<br>ホームページの作成やアプリケーションの開発のことで、ご依頼・ご相談があれば是非ご連絡をよろしくお願いいたします。</p>
-                </section>
-            </article>
-            @include('include.button.contact_btn')
-            @include('include.button.top_btn')
-        </main>
-        @include('include.common.footer')
-        <script src="{{ asset('js/common/dom_operation.js') }}"></script>
-        <script src="{{ asset('js/include/common/header.js') }}"></script>
-        <script src="{{ asset('js/include/common/footer.js') }}"></script>
-    </body>
-</html>
+@extends('info.index')
+@section('content')
+<article>
+    <div class="profile_main_image">
+        <img src="/img/info/profile/profile.jpg" onerror="this.onerror=null;this.src='/img/nophoto.png';">
+    </div>
+</article>
+<article>
+    <section class="profile_career">
+        <h3>略歴</h3>
+        <ul>
+            <li><p>税理士事務所</p><span>11年</span></li>
+            <li><p>webエンジニア(現在)</p><span>2年</span></li>
+        </ul>
+    </section>
+    <section class="profile_area">
+        <h3>拠点</h3>
+        <ul>
+            <li><p>沖縄県</p></li>
+        </ul>
+    </section>
+    <section class="profile_comment">
+        <h3>コメント</h3>
+        <p>初めまして。<br>koと申します。<br>webエンジニアになって2年目になります。<br>長年勤めた税理士事務所では税金を通してお客様の課題を解決し喜ばれることにとてもやりがいを感じておりました。<br>現在は自身が開発したアプリケーションで皆様に貢献できたらと思い、日々精進しております。<br>ホームページの作成やアプリケーションの開発のことで、ご依頼・ご相談があれば是非ご連絡をよろしくお願いいたします。</p>
+    </section>
+</article>
+@include('include.button.contact_btn')
+@endsection

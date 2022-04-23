@@ -1,8 +1,5 @@
 @extends('blog.index')
 @section('content')
-<aside class="breadcrumb">
-    <a href="/">トップ</a>/<a href="/blog/list">ブログ</a>/<a href="/blog/list/{{$blog_data->category}}">{{$blog_data->category_nm}}</a>/<p>{{$blog_data->title}}</p>
-</aside>
 <article class="blog_container">
     <h1>{{$blog_data->title}}</h1>
     <section class="blog_supplement">
@@ -12,7 +9,7 @@
         </div>
         <div class="supplement_row">
             <span class="material-icons">label</span>
-            <p class="item_category">{{$blog_data->category}}</p>
+            <p class="item_category">{{$blog_data->category_nm}}</p>
         </div>
     </section>
 
@@ -83,7 +80,7 @@
     </section> -->
 
     <section class="blog_read_end">
-        <p>当記事は僕の私見もあるので、あくまでもご参考程度にお読みください。<br>
+        <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
             最後まで読んでいただき、ありがとうございました。</p>
     </section>
 </article>
