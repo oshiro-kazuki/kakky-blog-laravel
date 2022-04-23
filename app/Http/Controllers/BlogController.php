@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Libs\Common\OpenGraphProtocol;
 use App\Libs\Common\ErrorPage;
-use App\Libs\Common\breadcrumb;
+use App\Libs\Common\Breadcrumb;
 use App\Libs\Blog;
 
 class BlogController extends Controller

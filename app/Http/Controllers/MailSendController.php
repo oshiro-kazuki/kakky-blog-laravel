@@ -7,7 +7,7 @@ use App\Mail\Owner\ContactMailOwner;
 use App\Mail\ContactMailSend;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Libs\Common\breadcrumb;
+use App\Libs\Common\Breadcrumb;
 
 class MailSendController extends Controller
 {
