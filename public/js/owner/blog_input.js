@@ -5,7 +5,7 @@
     for(let i = 0; i < 11; ++i){
         i < 4 ? submit_flg.push(true) : submit_flg.push(false);
     }
-    const title_len = 20;
+    const title_len = 35;
     const text_len = 1000;
     const refe_len = 140;
     let count = 0;
