@@ -170,7 +170,7 @@ class BlogOwnerController extends Controller
     // タイトル最大文字数
     private function getTitleLength()
     {
-        return config('const.TEXT_LENGTH20');
+        return config('const.TEXT_LENGTH35');
     }
 
     // テキスト最大文字数
