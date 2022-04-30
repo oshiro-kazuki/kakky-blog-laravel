@@ -2,6 +2,7 @@
 
 namespace App\Libs;
 
+use Illuminate\Support\Facades\DB;
 use App\Model\Blogs;
 use App\Libs\Common\DataFormat;
 
@@ -27,6 +28,23 @@ class Blog
         ->update(
             $this->blogColumn($postData, false)
         );
+    }
+
+    public function getCategoryCount()
+    {
+        $category_list = Blogs::groupBy('category')
+        ->select(DB::raw('category, COUNT(category) as category_count'))
+        ->get();
+
+        foreach($category_list as $list){
+            foreach($this->setCategory() as $key => $value){
+                if($list->category === $value){
+                    $list->category_nm = $key;
+                }
+            }
+        }
+
+        return $category_list;
     }
 
     // ブログ用カラム切り替え制御

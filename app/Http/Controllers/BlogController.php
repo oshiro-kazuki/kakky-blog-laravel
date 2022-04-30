@@ -63,7 +63,10 @@ class BlogController extends Controller
 
         $ogp = new OpenGraphProtocol($this->host, $this->uri, $title, $description);
 
-        $category_list = $search_flg ? $this->blog->setCategory() : '';
+        $category_list = '';
+        if($search_flg){
+            $category_list = $this->blog->getCategoryCount();
+        }
 
         return view('blog.list',
             [

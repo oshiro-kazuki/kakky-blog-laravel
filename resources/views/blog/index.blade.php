@@ -15,6 +15,9 @@
         @if(isset($blog_css))
             <link rel="stylesheet" href="{{ asset($blog_css) }}">
         @endif
+        @if(isset($search_flg) && $search_flg)
+            <link rel="stylesheet" href="{{ asset('css/blog/search.css') }}">
+        @endif
 
         @include('include.common.google')
     </head>
@@ -33,5 +36,8 @@
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>
         <script src="{{ asset('js/include/common/header.js') }}"></script>
         <script src="{{ asset('js/include/common/footer.js') }}"></script>
+        @if(isset($search_flg) && $search_flg)
+            <script src="{{ asset('js/blog/search.js') }}"></script>
+        @endif
     </body>
 </html>
