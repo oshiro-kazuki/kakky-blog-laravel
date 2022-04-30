@@ -1,0 +1,103 @@
+#search_menu{
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    position: fixed;
+    bottom: -1px;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+.search_btn{
+    margin: 5px;
+    line-height: 40px;
+    height: 40px;
+    width: 50%;
+    color: yellow;
+    border: 1px solid yellow;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    opacity: 1;
+}
+#search_modal{
+    display: block;
+    width: 320px;
+    position: fixed;
+    top: 20%;
+    left: calc((100% - 320px) / 2);
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    z-index: 2;
+}
+#search_modal_title{
+    text-align: center;
+    height: 20px;
+    margin-bottom: 10px;
+}
+.search_modal_view.category{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 130px);
+    grid-gap: 10px 20px;
+    justify-content: center;
+}
+.search_modal_view.area{
+    display: block;
+    text-align: center;
+    font-size: 30px;
+}
+.search_modal_btn{
+    display: block;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px #ccc;
+    background-color: pink;
+}
+.search_modal_count{
+    display: block;
+    margin: 10px auto;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 16px;
+}
+#search_modal_close_btn{
+    margin-top: 20px;
+    height: 50px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    background-color: red;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px #ccc;
+}
+#search_modal_overray{
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, .5);
+}
+#search_modal.hidden,
+#search_modal_overray.hidden{
+    display: none;
+}
+.search_btn.hidden{
+    opacity: 0.5;
+    pointer-events: none;
+}
+.search_modal_view.category.hidden,
+.search_modal_view.area.hidden{
+    display: none;
+}
