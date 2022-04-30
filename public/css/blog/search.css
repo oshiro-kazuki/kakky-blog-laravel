@@ -101,3 +101,42 @@
 .search_modal_view.area.hidden{
     display: none;
 }
+@media screen and (min-width: 800px){
+    .blog_list_container{
+        display: flex;
+    }
+    .blog_list_cassete{
+        width: calc(100% - 260px);
+    }
+    #search_menu{
+        width: 240px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 4px 4px 4px #ccc;
+        background-color: white;
+        position: fixed;
+        top: 260px;
+        left: calc(100% - 260px);
+        display: block;
+        height: fit-content;
+    }
+    .search_btn{
+        margin: 5px;
+        width: 90%;
+        color: black;
+        text-align: start;
+        border: none;
+        border-radius: 0;
+    }
+}
+@media screen and (min-width: 1000px){
+    .blog_list_cassete{
+        width: 700px;
+    }
+    #search_menu{
+        position: static;
+    }
+    .search_btn{
+        cursor: pointer;
+    }
+}
