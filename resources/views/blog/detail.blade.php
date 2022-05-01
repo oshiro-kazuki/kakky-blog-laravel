@@ -11,6 +11,10 @@
             <span class="material-icons">label</span>
             <p class="item_category">{{$blog_data->category_nm}}</p>
         </div>
+        <div class="supplement_row">
+            <span class="material-icons">label</span>
+            <p id="item_nice">{{$blog_data->nice}}</p>
+        </div>
     </section>
 
     <img src="{{$blog_data->image_path}}" class="blog_img" onerror="this.onerror=null;this.src='/img/nophoto.png';">
@@ -74,10 +78,9 @@
         </section>
     @endif
 
-    <!-- <section class="supplement_row">
-        <span class="material-icons">thumb_up_alt</span>
-        <p class="item_nice">{{$blog_data->nice}}</p>
-    </section> -->
+    <section id="nice_btn">
+        <p class="nice_btn_text">いいね</p>
+    </section>
 
     <section class="blog_read_end">
         <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
