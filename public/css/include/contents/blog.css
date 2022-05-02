@@ -36,6 +36,10 @@
 .item_date{
     width: 100%;
 }
+.item_supplement{
+    display: flex;
+    margin: 5px 0;
+}
 .item_date .material-icons,
 .item_supplement .supplement_row .material-icons{
     color: #5f9ea0;

@@ -12,7 +12,7 @@
             <p class="item_category">{{$blog_data->category_nm}}</p>
         </div>
         <div class="supplement_row">
-            <span class="material-icons">label</span>
+            <span class="material-icons">thumb_up_al</span>
             <p id="item_nice">{{$blog_data->nice}}</p>
         </div>
     </section>
@@ -80,6 +80,10 @@
 
     <section id="nice_btn">
         <p class="nice_btn_text">いいね</p>
+        <form method="POST">
+            @csrf
+            <input type="hidden" name="id" value="{{ $id }}">
+        </form>
     </section>
 
     <section class="blog_read_end">

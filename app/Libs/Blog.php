@@ -3,6 +3,7 @@
 namespace App\Libs;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 use App\Model\Blogs;
 use App\Libs\Common\DataFormat;
 
@@ -22,12 +23,17 @@ class Blog
     }
 
      // ブログ編集処理
-    public function blogUpdate(array $postData)
+    public function blogUpdateById(array $postData)
     {
-        Blogs::where('id', $postData['id'])
-        ->update(
-            $this->blogColumn($postData, false)
-        );
+        try {
+            Blogs::where('id', $postData['id'])
+                ->update(
+                    $this->blogColumn($postData, false)
+                );
+            return true;
+        }catch(QueryException $e) {
+            return false;
+        }
     }
 
     public function getCategoryCount()
@@ -110,12 +116,6 @@ class Blog
         return $flg ? '/storage/blog/' . $id .'/'. $this->setFilename() : config('const.NOPHOTO');
     }
 
-    // いいねが0なら-をセット
-    private function setNice($nice)
-    {
-        return $nice === 0 ? '-' : $nice;
-    }
-
     // 画像名セット
     public function setFilename()
     {
@@ -153,7 +153,6 @@ class Blog
                 $value->created_at_date = $df->formatYmd($value->created_at);
                 $value->content = $df->formatLenthgCut($value->origin_text, config('const.TEXT_LENGTH90'));
                 $value->image_path = $this->setImagePath($value->image_flg, $value->id);
-                $value->nice = $this->setNice($value->nice);
                 $value->category_nm = $df->formatSelect($value->category, $this->setCategory());
                 $value->link = $this->setBlogLink($value->category, $value->id);
             }
@@ -179,7 +178,6 @@ class Blog
             $data->date = $df->formatYmd($data->created_at);
             $data->category_nm = $df->formatSelect($data->category, $this->setCategory());
             $data->image_path = $this->setImagePath($data->image_flg, $data->id);
-            $data->nice = $this->setNice($data->nice);
             if((isset($data->reference_text1) && isset($data->reference_link1)) || (isset($data->reference_text2) && isset($data->reference_link2))){
                 $data->reference = $this->setReference($data->reference_text1, $data->reference_link1, $data->reference_text2, $data->reference_link2);
             }

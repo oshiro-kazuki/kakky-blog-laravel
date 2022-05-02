@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Libs\Common\ErrorPage;
 use App\Libs\Blog;
+use App\Libs\BlogNice;
 
 class BlogOwnerController extends Controller
 {
@@ -16,6 +17,8 @@ class BlogOwnerController extends Controller
     {
         $this->middleware('auth:owner');
         $this->blog = new Blog();
+        $this->bn   = new BlogNice();
+        $this->err  = new ErrorPage();
     }
 
     // ブログ投稿画面表示
@@ -70,6 +73,14 @@ class BlogOwnerController extends Controller
     {
         $blog_data = $this->getBlogList();
 
+        if(count($blog_data['list']) <= 0){
+            return $this->err->nonePage();
+        }
+
+        foreach($blog_data['list'] as $key => $value){
+            $value->nice = $this->bn->getCount($value->id); // いいね取得
+        }
+
         return view('.owner.blog.blog_list',
             [
                 'screen_title' => 'ブログ一覧(管理)',
@@ -86,8 +97,7 @@ class BlogOwnerController extends Controller
         $blog_data = $this->getBlogDetail($id);
 
         if(!isset($blog_data)){
-            $err = new ErrorPage;
-            return $err->nonePage();
+            return $this->err->nonePage();
         }
 
         $style = [
@@ -140,8 +150,11 @@ class BlogOwnerController extends Controller
             }
         }
 
-        $this->blog->blogUpdate($postData);
+        $res = $this->blog->blogUpdateById($postData);
 
+        if(!$res){
+            return $this->err->noneRegisterEdit();
+        }
         return redirect('/owner');
     }
 

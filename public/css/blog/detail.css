@@ -18,6 +18,8 @@
 .supplement_row .material-icons{
     color: #5f9ea0;
     padding: 0 3px 0 5px;
+    width: 35px;
+    height: 25px;
 }
 .supplement_row h6,
 .supplement_row p{
@@ -112,11 +114,13 @@
     left: calc(100% - 80px);
 }
 #nice_btn.done{
-    background-color: orange;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ccc;
 }
 @media screen and (min-width: 1000px){
     #nice_btn{
         left: calc(50% + 400px);
         cursor: pointer;
+        user-select: none;
     }
 }
