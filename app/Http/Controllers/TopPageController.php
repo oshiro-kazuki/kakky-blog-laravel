@@ -7,6 +7,7 @@ use App\Libs\Common\DataFormat;
 use App\Libs\Common\OpenGraphProtocol;
 use App\Libs\News;
 use App\Libs\Blog;
+use App\Libs\BlogNice;
 
 class TopPageController extends Controller
 {
@@ -22,7 +23,7 @@ class TopPageController extends Controller
         $title = config('const.APP_NAME');
         $description = 'koがseoや日々の疑問など調査した内容をアウトプットするブログです。';
         $ogp = new OpenGraphProtocol($request->server('HTTP_HOST'), $request->server('REQUEST_URI'), $title, $description);
-
+        
         return view(
             'index', 
             [
@@ -58,6 +59,14 @@ class TopPageController extends Controller
     private function get_blog()
     {
         $blog = new Blog();
-        return $blog->setBlogCassette(9);
+        $bn   = new BlogNice();
+
+        $blog_data = $blog->setBlogCassette(9);
+
+        foreach($blog_data['list'] as $key => $value){
+            $value->nice = $bn->getCount($value->id); // いいね取得
+        }
+
+        return $blog_data;
     }
 }
