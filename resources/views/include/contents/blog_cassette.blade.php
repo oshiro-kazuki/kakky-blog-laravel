@@ -17,10 +17,10 @@
                                 <span class="material-icons">label</span>
                                 <p class="item_category">{{$blog_list->category_nm}}</p>
                             </div>
-                            <!-- <div class="supplement_row">
+                            <div class="supplement_row">
                                 <span class="material-icons">thumb_up_alt</span>
                                 <p class="item_nice">{{$blog_list->nice}}</p>
-                            </div> -->
+                            </div>
                         </div>
                         @if($loop->first)
                             <img class="item_img" onerror="this.onerror=null;this.src='/img/nophoto.png';" src="{{$blog_list->image_path}}">

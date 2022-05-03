@@ -25,6 +25,7 @@ Route::prefix('/blog')->group(function($id) {
     Route::get('/', 'BlogController@list');
     Route::get('/{category}', 'BlogController@categoryList');
     Route::get('/{category}/{id}', 'BlogController@detail');
+    Route::post('/nice_input', 'BlogController@nice_input');
 });
 
 // 以下認証系

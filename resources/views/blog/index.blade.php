@@ -39,5 +39,8 @@
         @if(isset($search_flg) && $search_flg)
             <script src="{{ asset('js/blog/search.js') }}"></script>
         @endif
+        @if(isset($detail_js))
+            <script src="{{ asset($detail_js[0]) }}"></script>
+        @endif
     </body>
 </html>
