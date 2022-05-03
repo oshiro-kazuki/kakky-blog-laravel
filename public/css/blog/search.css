@@ -134,7 +134,8 @@
         width: 700px;
     }
     #search_menu{
-        position: static;
+        top: 260px;
+        left: calc(50% + 200px);
     }
     .search_btn{
         cursor: pointer;

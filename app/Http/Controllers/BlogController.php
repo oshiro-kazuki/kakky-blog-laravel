@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Libs\Common\OpenGraphProtocol;
 use App\Libs\Common\ErrorPage;
 use App\Libs\Common\Breadcrumb;
 use App\Libs\Blog;
+use App\Libs\BlogNice;
 
 class BlogController extends Controller
 {    
     public function __construct(Request $request)
     {
         $this->blog         = new Blog();
+        $this->bn           = new BlogNice();
         $this->err          = new ErrorPage();
         $this->request      = $request;
         $this->host         = $this->request->server('HTTP_HOST');
@@ -61,6 +64,10 @@ class BlogController extends Controller
             return $this->err->nonePage();
         }
 
+        foreach($blog['list'] as $key => $value){
+            $value->nice = $this->bn->getCount($value->id); // いいね取得
+        }
+
         $ogp = new OpenGraphProtocol($this->host, $this->uri, $title, $description);
 
         $category_list = '';
@@ -91,11 +98,16 @@ class BlogController extends Controller
             return $this->err->nonePage();
         }
 
+        $blog->nice = $this->bn->getCount($id); // いいね取得
+
         $ogp = new OpenGraphProtocol($this->host, $this->uri, $blog->title, $blog->description);
 
         $this->breadcrumb->setSecondArr($this->blog->setCategory());
         $this->breadcrumb->setLastArr([$blog->title => $id]);
         $breadcrumb = $this->breadcrumb->getBreadcrumb();
+        $detail_js = array(
+            'js/blog/nice.js',
+        );
 
         return view('blog.detail',
             [
@@ -105,7 +117,37 @@ class BlogController extends Controller
                 'description'   => $blog->description,
                 'ogp'           => $ogp,
                 'breadcrumb'    => $breadcrumb,
+                'detail_js'     => $detail_js,
+                'id'            => $id,
             ]
         );
+    }
+
+    // いいね更新
+    public function nice_input()
+    {
+        $data = $this->request->all();
+        $validator = $this->validatorNice();
+        if($validator->fails()){
+            return response()->json([
+                'status' => 406,
+            ]);
+        }
+
+        $bn = new BlogNice();
+        $res = $bn->blogNiceInsert($data['id']);
+
+        $status = $res ? 200 : 406;
+
+        return response()->json([
+            'status' => $status
+        ]);
+    }
+
+    private function validatorNice()
+    {
+        return Validator::make($this->request->all(), [
+            'id'    => 'required',
+        ]);
     }
 }
