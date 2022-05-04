@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Owner;
+use App\Model\Owners;
 use Auth;
 
 
@@ -23,6 +23,6 @@ class OwnerController extends Controller
     // 認証に成功したオーナー情報を取得
     public function getOwner()
     {
-        return Owner::where('id', Auth::id())->get();
+        return Owners::where('id', Auth::id())->get();
     }
 }

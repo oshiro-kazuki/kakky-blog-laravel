@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\VerifyEmailJapanese;
 use App\Mail\Owner\LoginMailOwner;
 
-class Owner extends Authenticatable implements MustVerifyEmail
+class Owners extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Model\User;
-use App\Model\Owner;
+use App\Model\Owners;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -117,7 +117,7 @@ class RegisterController extends Controller
             $file = $request['image'];
             $this->createOwnerProfileImage($file);
         }
-        Owner::insertGetId([
+        Owners::insertGetId([
             'owner_id'          => Str::random(32),
             'created_at'        => now(),
             'name'              => $request['company_name'],
@@ -134,7 +134,7 @@ class RegisterController extends Controller
     // オーナープロフィール画像保存処理
     private function createOwnerProfileImage($file)
     {
-        $insert_id = Owner::max('id') + 1;
+        $insert_id = Owners::max('id') + 1;
         $profile_image_path = public_path($this->image_upload_path.$insert_id);
         $file_name = 'pfrofile_img.jpg';
         $file->move($profile_image_path,$file_name);
