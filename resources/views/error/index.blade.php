@@ -18,6 +18,7 @@
         <main>
             <h1 style="text-align:center;font-weight:800;font-size:1.5rem;">エラー画面</h1>
             @yield('content')
+            @include('include.button.top_btn')
         </main>
         @include('include.common.footer')
         <script src="{{ asset('js/common/dom_operation.js') }}"></script>

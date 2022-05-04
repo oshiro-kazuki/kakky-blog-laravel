@@ -28,7 +28,7 @@
                         </div>
                     @endif
     
-                    <div id="search_modal_close_btn">閉じる</div>    
+                    <div id="search_modal_close_btn" class="btn close_btn">閉じる</div>    
                 </section>
     
                 <section id="search_modal_overray" class="hidden"></section>
