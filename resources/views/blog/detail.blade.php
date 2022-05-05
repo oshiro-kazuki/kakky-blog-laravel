@@ -80,15 +80,31 @@
 
     <section id="nice_btn">
         <p class="nice_btn_text">いいね</p>
-        <form method="POST">
-            @csrf
-            <input type="hidden" name="id" value="{{ $id }}">
-        </form>
     </section>
 
+    <!-- チャットコンテンツ -->
+    @include('include.contents.chat',
+        [
+            'about'     => $blog_data->title,
+            'btn_nm'    => 'コメント',
+            'include'   => $chat['include'],
+        ]
+    )
+
+    <section class="comment_area">
+
+    </section>
+    
     <section class="blog_read_end">
         <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
-            最後まで読んでいただき、ありがとうございました。</p>
+        最後まで読んでいただき、ありがとうございました。</p>
     </section>
+
+
+
+    <form method="POST">
+        @csrf
+        <input type="hidden" name="id" value="{{ $id }}">
+    </form>
 </article>
 @endsection

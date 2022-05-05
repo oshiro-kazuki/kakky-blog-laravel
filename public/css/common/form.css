@@ -85,7 +85,7 @@ h1{
 .form_submit_btn,
 .form_return_btn{
     display: block;
-    height: 50px;
+    height: 40px;
     width: 300px;
     margin: 30px auto 0;
     border-radius: 8px;
@@ -94,7 +94,7 @@ h1{
     font-size: 20px;
     font-weight: 800;
     text-align: center;
-    line-height: 50px;
+    line-height: 40px;
     letter-spacing: 5px;
 }
 .form_conf_btn,

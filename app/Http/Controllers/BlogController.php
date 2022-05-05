@@ -9,6 +9,7 @@ use App\Libs\Common\ErrorPage;
 use App\Libs\Common\Breadcrumb;
 use App\Libs\Blog;
 use App\Libs\BlogNice;
+use App\Libs\Owner;
 
 class BlogController extends Controller
 {    
@@ -109,6 +110,22 @@ class BlogController extends Controller
             'js/blog/nice.js',
         );
 
+        $owner = new Owner();
+        $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id)[0];
+
+        $chat = array(
+            'css'       => 'css/include/contents/chat.css',
+            'js'        => 'js/include/contents/chat.js',
+            'include'       => array(
+                'owner_data'    => $owner_data,
+                'length'        => array(
+                    'name'      => $this->setChatNameLength(),
+                    'email'     => $this->setChatEmailLength(),
+                    'comment'   => $this->setChatCommentLength(),
+                )
+            )
+        );
+
         return view('blog.detail',
             [
                 'blog_data'     => $blog,
@@ -119,6 +136,7 @@ class BlogController extends Controller
                 'breadcrumb'    => $breadcrumb,
                 'detail_js'     => $detail_js,
                 'id'            => $id,
+                'chat'          => $chat,
             ]
         );
     }
@@ -149,5 +167,20 @@ class BlogController extends Controller
         return Validator::make($this->request->all(), [
             'id'    => 'required',
         ]);
+    }
+
+    private function setChatNameLength()
+    {
+        return config('const.TEXT_LENGTH20');
+    }
+
+    private function setChatEmailLength()
+    {
+        return config('const.TEXT_LENGTH191');
+    }
+
+    private function setChatCommentLength()
+    {
+        return config('const.TEXT_LENGTH140');
     }
 }

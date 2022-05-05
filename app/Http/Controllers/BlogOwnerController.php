@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Libs\Common\ErrorPage;
 use App\Libs\Blog;
 use App\Libs\BlogNice;
+use Auth;
 
 class BlogOwnerController extends Controller
 {
@@ -54,6 +55,7 @@ class BlogOwnerController extends Controller
         }
 
         $postData = $request->all();
+        $postData['owner_id'] = Auth::user()->owner_id;
         
         $postData['image_flg'] = false;
 
@@ -131,6 +133,7 @@ class BlogOwnerController extends Controller
         }
 
         $postData = $request->all();
+        $postData['owner_id'] = Auth::user()->owner_id;
 
         if($postData['image_flg'] === '1'){ // 画像が更新または維持された場合
             $postData['image_flg'] = true;

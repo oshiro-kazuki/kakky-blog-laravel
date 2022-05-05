@@ -223,25 +223,35 @@ th {
   font-weight: bold;
 }
 .btn{
-  margin: 50px auto 0;
-  padding-bottom: 50px;
   display: block;
-  height: 50px;
+  height: 40px;
   max-width: 300px;
   width: 100%;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  line-height: 50px;
+  line-height: 40px;
   border-radius: 8px;
   box-shadow: 4px 4px 4px #ccc;
   
 }
 .link_btn{
+  margin: 50px auto 0;
   color: white;
   background-color: tomato;
 }
 .close_btn{
+  margin: 20px auto 0;
   color: white;
   background-color: red;
+}
+.post_btn{
+  margin: 20px auto 0;
+  color: white;
+  background-color: blue;
+}
+.skip_btn{
+  margin: 20px auto 0;
+  color: black;
+  background-color: lime;
 }
