@@ -18,7 +18,7 @@ class CreateBlogCommentsTable extends Migration
             $table->timestamps();
             $table->string('blog_id', 20);
             $table->tinyInteger('user_type')->default(0);
-            $table->string('ip', 15);
+            $table->string('ip', 15)->nullable();
             $table->tinyInteger('view_flg')->default(0);
             $table->tinyInteger('del_flg')->default(0);
             $table->string('name', 20)->nullable();

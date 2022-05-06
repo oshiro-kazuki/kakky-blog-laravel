@@ -100,8 +100,6 @@
         最後まで読んでいただき、ありがとうございました。</p>
     </section>
 
-
-
     <form method="POST">
         @csrf
         <input type="hidden" name="id" value="{{ $id }}">
