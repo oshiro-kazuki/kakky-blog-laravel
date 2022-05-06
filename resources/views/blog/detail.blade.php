@@ -88,7 +88,11 @@
             @foreach($blog_data->comment as $data)
                 @if($data['user_type'] === 0)
                     <div class="comments">
-                        <h6>{{ $data['name'] }}</h6>
+                        @if(is_null($data['name']))
+                            <h6>匿名 様</h6>
+                        @else
+                            <h6>{{ $data['name'] }} 様</h6>
+                        @endif
                         <p>{{ $data['comment'] }}</p>
                     </div>
                 @endif

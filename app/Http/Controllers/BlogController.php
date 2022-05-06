@@ -115,7 +115,7 @@ class BlogController extends Controller
         $owner = new Owner();
         $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id)[0];
 
-        $blog->comment = $this->bc->getBlogComment($id);
+        $blog->comment = $this->bc->getBlogCommentByBlogId($id);
 
         $chat = array(
             'css'       => 'css/include/contents/chat.css',
