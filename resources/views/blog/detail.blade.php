@@ -82,6 +82,20 @@
         <p class="nice_btn_text">いいね</p>
     </section>
 
+    @if(count($blog_data->comment) > 0)
+        <section class="comment_area">
+            <h2>コメント一覧</h2>
+            @foreach($blog_data->comment as $data)
+                @if($data['user_type'] === 0)
+                    <div class="comments">
+                        <h6>{{ $data['name'] }}</h6>
+                        <p>{{ $data['comment'] }}</p>
+                    </div>
+                @endif
+            @endforeach
+        </section>
+    @endif
+
     <!-- チャットコンテンツ -->
     @include('include.contents.chat',
         [
@@ -91,10 +105,6 @@
         ]
     )
 
-    <section class="comment_area">
-
-    </section>
-    
     <section class="blog_read_end">
         <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
         最後まで読んでいただき、ありがとうございました。</p>

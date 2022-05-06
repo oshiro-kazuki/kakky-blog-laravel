@@ -21,6 +21,7 @@ class CreateBlogCommentsTable extends Migration
             $table->string('ip', 15)->nullable();
             $table->tinyInteger('view_flg')->default(0);
             $table->tinyInteger('del_flg')->default(0);
+            $table->string('comment_id', 20)->nullable();
             $table->string('name', 20)->nullable();
             $table->string('email', 191)->nullable();
             $table->string('comment', 140);

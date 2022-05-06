@@ -25,5 +25,27 @@ class BlogComment
             return false;
         }
     }
+
+    // コメント取得
+    public function getBlogComment(string $blog_id)
+    {
+        $data = BlogComments::where('blog_id', $blog_id)
+        ->select('user_type', 'comment_id', 'name', 'comment')
+        ->get();
+
+        foreach($data as $value){
+            if($value['name'] === null) $value['name'] = $this->setNoName($value['name']);
+        }
+
+        return $data;
+    }
+
+    // 匿名セット
+    private function setNoName($name)
+    {
+        if($name !== null) return;
+
+        return '匿名';
+    }
 }
 ?>

@@ -18,6 +18,7 @@ class BlogController extends Controller
     {
         $this->blog         = new Blog();
         $this->bn           = new BlogNice();
+        $this->bc           = new BlogComment();
         $this->err          = new ErrorPage();
         $this->request      = $request;
         $this->host         = $this->request->server('HTTP_HOST');
@@ -114,6 +115,8 @@ class BlogController extends Controller
         $owner = new Owner();
         $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id)[0];
 
+        $blog->comment = $this->bc->getBlogComment($id);
+
         $chat = array(
             'css'       => 'css/include/contents/chat.css',
             'js'        => 'js/include/contents/chat.js',
@@ -198,8 +201,7 @@ class BlogController extends Controller
 
         $data['ip'] = $this->request->server('REMOTE_ADDR');
 
-        $bC = new BlogComment();
-        $res = $bC->blogCommentInsert($data);
+        $res = $this->bc->blogCommentInsert($data);
 
         $status = $res ? 200 : 406;
 
