@@ -29,18 +29,24 @@ class BlogController extends Controller
     // ブログ一覧画面表示
     public function list()
     {
+        // ブログカセットデータ取得
         $blog = $this->blog->setBlogCassette();
+
+        // 画面タイトル・説明設定
         $title = 'ブログ一覧画面';
         $description = '全てのブログを一覧にしてます。是非、他の記事もご一読ください。';
 
+        // パンくず取得
         $breadcrumb = $this->breadcrumb->getBreadcrumb();
 
+        // 画面表示用の関数に渡す
         return $this->showList($blog, $title, $description, $breadcrumb, true);
     }
 
     // ブログカテゴリ一覧画面表示
     public function categoryList($category)
     {
+        // ブログカセットデータ取得
         $blog = $this->blog->setBlogCassette(false, $category);
 
         // カテゴリ名を取得
@@ -51,18 +57,23 @@ class BlogController extends Controller
             }
         }
 
+        // 画面タイトル・説明設定
         $title = 'ブログ・カテゴリ(' . $is_category . ')一覧画面';
         $description = 'カテゴリ(' . $is_category . ')で絞り込んだブログを一覧にしてます。是非、他の記事もご一読ください。';
 
+        // パンくず取得
         $this->breadcrumb->setSecondArr($this->blog->setCategory());
         $breadcrumb = $this->breadcrumb->getBreadcrumb();
 
+        // 画面表示用の関数に渡す
         return $this->showList($blog, $title, $description, $breadcrumb, false);
     }
 
+    // 一覧・カテゴリ一覧画面表示関数
     private function showList(array $blog,string $title,string $description, $breadcrumb, $search_flg = false)
     {
 
+        // ブログデータが無ければエラー画面を表示
         if(count($blog['list']) <= 0){
             return $this->err->nonePage();
         }
@@ -71,13 +82,15 @@ class BlogController extends Controller
             $value->nice = $this->bn->getCount($value->id); // いいね取得
         }
 
+        // Open Graph Protocolデータを取得
         $ogp = new OpenGraphProtocol($this->host, $this->uri, $title, $description);
 
         $category_list = '';
         if($search_flg){
-            $category_list = $this->blog->getCategoryCount();
+            $category_list = $this->blog->getCategoryCount(); // カテゴリ毎に件数を取得
         }
 
+        // 画面表示
         return view('blog.list',
             [
                 'blog_lists'    => $blog['list'],
@@ -95,8 +108,10 @@ class BlogController extends Controller
     // ブログ詳細画面表示
     public function detail($category, $id)
     {
+        // ブログ詳細データ取得
         $blog = $this->blog->setBlogDetail($id);
 
+        // ブログデータが無ければエラー画面を表示
         if(!isset($blog)){
             return $this->err->nonePage();
         }
@@ -108,18 +123,21 @@ class BlogController extends Controller
         $this->breadcrumb->setSecondArr($this->blog->setCategory());
         $this->breadcrumb->setLastArr([$blog->title => $id]);
         $breadcrumb = $this->breadcrumb->getBreadcrumb();
+
         $detail_js = array(
             'js/blog/nice.js',
         );
 
+        // ブログのオーナーデータ取得
         $owner = new Owner();
         $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id)[0];
 
-        $blog->comment = $this->bc->getBlogCommentByBlogId($id);
+        $blog->comment = $this->bc->getBlogCommentByBlogId($id); // ブログコメント取得
 
+        // チャットコンテンツ用
         $chat = array(
-            'css'       => 'css/include/contents/chat.css',
-            'js'        => 'js/include/contents/chat.js',
+            'css'           => 'css/include/contents/chat.css',
+            'js'            => 'js/include/contents/chat.js',
             'include'       => array(
                 'owner_data'    => $owner_data,
                 'length'        => array(
@@ -130,6 +148,7 @@ class BlogController extends Controller
             )
         );
 
+        // 画面表示
         return view('blog.detail',
             [
                 'blog_data'     => $blog,
@@ -145,27 +164,28 @@ class BlogController extends Controller
         );
     }
 
-    // いいね更新
+    // いいね挿入処理
     public function nice_input()
     {
-        $data = $this->request->all();
-        $validator = $this->validatorNice();
+        $data = $this->request->all(); // 入力データ取得
+
+        $validator = $this->validatorNice(); // バリデーション
         if($validator->fails()){
             return response()->json([
                 'status' => 406,
             ]);
         }
 
-        $bn = new BlogNice();
-        $res = $bn->blogNiceInsert($data['id']);
+        $res = $this->bn->blogNiceInsert($data['id']); // いいね挿入
 
-        $status = $res ? 200 : 406;
+        $status = $res ? 200 : 406; // 成功なら200
 
         return response()->json([
             'status' => $status
         ]);
     }
 
+    // いいねバリデーション
     private function validatorNice()
     {
         return Validator::make($this->request->all(), [
@@ -173,43 +193,48 @@ class BlogController extends Controller
         ]);
     }
 
+    // blog_idと名前の長さ指定
     private function setChatIdNameLength()
     {
         return config('const.TEXT_LENGTH20');
     }
 
+    // メールアドレスの長さ指定
     private function setChatEmailLength()
     {
         return config('const.TEXT_LENGTH191');
     }
 
+    // コメントの長さ指定
     private function setChatCommentLength()
     {
         return config('const.TEXT_LENGTH140');
     }
 
+    // コメント挿入処理
     public function comment_input()
     {
-        $data = $this->request->all();
+        $data = $this->request->all(); // 入力データ取得
 
-        $validator = $this->validatorComment();
+        $validator = $this->validatorComment(); // バリデーション
         if($validator->fails()){
             return response()->json([
                 'status' => 406,
             ]);
         }
+        
+        $data['ip'] = $this->request->server('REMOTE_ADDR'); // ユーザーのip取得
 
-        $data['ip'] = $this->request->server('REMOTE_ADDR');
+        $res = $this->bc->blogCommentInsert($data); // コメント挿入処理
 
-        $res = $this->bc->blogCommentInsert($data);
-
-        $status = $res ? 200 : 406;
+        $status = $res ? 200 : 406; // 成功なら200
 
         return response()->json([
             'status' => $status
         ]);
     }
 
+    // コメントバリデーション
     private function validatorComment()
     {
         return Validator::make($this->request->all(), [
