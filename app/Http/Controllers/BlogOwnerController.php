@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Libs\Common\ErrorPage;
 use App\Libs\Blog;
 use App\Libs\BlogNice;
+use App\Libs\BlogComment;
 use Auth;
 
 class BlogOwnerController extends Controller
@@ -19,6 +20,7 @@ class BlogOwnerController extends Controller
         $this->middleware('auth:owner');
         $this->blog = new Blog();
         $this->bn   = new BlogNice();
+        $this->bc   = new BlogComment();
         $this->err  = new ErrorPage();
     }
 
@@ -243,4 +245,123 @@ class BlogOwnerController extends Controller
     {
         return $this->blog->setBlogDetail($id);
     }
+
+    // ブログコメント一覧画面表示
+    public function showCommentList()
+    {
+        $owner_id = Auth::user()->owner_id; // ログイン中owner_id取得
+
+        $blog_id = $this->blog->getBlogIdByOwnerId($owner_id); // blog_id取得
+        
+        $blog_comment = $this->bc->getBlogCommentAllByBlogId($blog_id); // ブログコメント全件取得
+        
+        if(count($blog_comment) <= 0){
+            return $this->err->nonePage();
+        }
+
+        return view('.owner.blog.blog_comment_list',
+            [
+                'screen_title'  => 'ブログコメント一覧(管理)',
+                'blog_comment' => $blog_comment,
+            ]
+        );
+    }
+
+    // ブログ編集画面表示
+    public function showCommentEdit($id)
+    {
+        $blog_comment = $this->bc->getBlogCommentById($id); // ブログコメント取得
+        
+        if(count($blog_comment) <= 0){
+            return $this->err->nonePage();
+        }
+
+        $style = [
+            'css/owner/blog_comment_edit.css',
+        ];
+        $script = [
+            'js/owner/blog_coment.js',
+        ];
+
+        $del_message = '';
+        if($blog_comment[0]->del_flg === 1){ // 表示切替
+            $del_message = '表示';
+            $blog_comment[0]->del_flg = 0;
+        }else{                               // 非表示切替
+            $del_message = '非表示';
+            $blog_comment[0]->del_flg = 1;
+        }
+
+        header('X-Frame-Options: DENY');
+        
+        return view('.owner.blog.blog_comment_edit',
+        [
+            'screen_title'      => 'ブログコメント編集画面',
+            'blog_comment'      => $blog_comment[0],
+            'style'             => $style,
+            'script'            => $script,
+            'name_length'       => $this->bc->setIdNameLength(),
+            'comment_length'    => $this->bc->setCommentLength(),
+            'del_message'       => $del_message,
+        ]);
+    }
+
+    // ブログコメント返答処理
+    public function commentReply(Request $request)
+    {
+        $validator = $this->validatorComment($request);
+        if($validator->fails()){
+            return redirect('/owner/blog_comment/'.$request->id)->withErrors($validator)->withInput();
+        }
+
+        $postData = $request->all();
+
+        $postData['owner_nm'] = Auth::user()->name;
+
+        $res = $this->bc->blogCommentOwnerInsert($postData);
+
+        if(!$res){
+            return $this->err->noneRegisterEdit();
+        }
+        return redirect('/owner');
+    }
+
+    // ブログコメント用バリデーション
+    private function validatorComment(Request $request)
+    {
+        return Validator::make($request->all(), [
+            'id'        => 'required|string|max:' . $this->bc->setIdNameLength(),
+            'blog_id'   => 'required|string|max:' . $this->bc->setIdNameLength(),
+            'comment'   => 'required|string|max:' . $this->bc->setCommentLength(),
+        ]);
+    }
+
+    // ブログコメント表示制御処理
+    public function commentDel(Request $request)
+    {
+        $validator = $this->validatorCommentDel($request);
+        if($validator->fails()){
+            return redirect('/owner/blog_comment/'.$request->id)->withErrors($validator)->withInput();
+        }
+
+        $postData = $request->all();
+
+        // $postData['owner_nm'] = Auth::user()->name;
+
+        $res = $this->bc->blogCommentDel($postData);
+
+        if(!$res){
+            return $this->err->noneRegisterEdit();
+        }
+        return redirect('/owner');
+    }
+
+     // ブログコメント表示制御バリデーション
+     private function validatorCommentDel(Request $request)
+     {
+         return Validator::make($request->all(), [
+             'id'        => 'required|string|max:' . $this->bc->setIdNameLength(),
+             'del_flg'   => 'required|string|max:1',
+         ]);
+     }
 }

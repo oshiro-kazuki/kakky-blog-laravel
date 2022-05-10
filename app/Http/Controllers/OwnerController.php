@@ -14,9 +14,10 @@ class OwnerController extends Controller
         $this->middleware('auth:owner');
     }    
 
+    // オーナー画面表示
     public function index()
     {
-        $owner_data = $this->getOwner()[0];
+        $owner_data = $this->getOwner()[0]; // オーナーデータ取得
         return view('owner.index', ['owner' => $owner_data]);
     }
 

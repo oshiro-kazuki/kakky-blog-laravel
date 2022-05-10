@@ -1,0 +1,37 @@
+.blog_comment_contant{
+    margin: 10px;
+    background-color: #e6e6fa;
+    padding: 5px;
+}
+.blog_comment_contant h6,
+.blog_comment_contant p,
+.blog_comment_contant a{
+    padding: 10px;
+}
+.blog_comment_contant h3,
+.blog_comment_contant h6{
+    font-size: 20px;
+}
+.blog_comment_contant h3{
+    font-weight: bold;
+}
+.blog_comment_contant p{
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.blog_comment_contant a{
+    display: block;
+    font-size: 20px;
+    color: blue;
+    text-decoration: underline;
+}
+#hidden_conf_btn,
+#hidden_btn{
+    display: block;
+    z-index: 1;
+}
+#hidden_conf_btn .hidden,
+#hidden_btn:disabled{
+    display: none;
+    z-index: -1;
+}

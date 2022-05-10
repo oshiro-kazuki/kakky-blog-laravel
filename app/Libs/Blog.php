@@ -22,7 +22,7 @@ class Blog
         );
     }
 
-     // ブログ編集処理
+    // ブログ編集処理
     public function blogUpdateById(array $postData)
     {
         try {
@@ -212,6 +212,15 @@ class Blog
     private function setBlogLink(string $category, string $id)
     {
         return $category . '/' . $id;
+    }
+
+    // owner_idでblog_id取得
+    public function getBlogIdByOwnerId(string $owner_id)
+    {
+        return Blogs::orderBy('created_at', 'desc')
+        ->select('id as blog_id')
+        ->where('owner_id', $owner_id)
+        ->get();
     }
 }
 ?>

@@ -22,6 +22,9 @@
         @if(isset($blog_css_owner))
             <link rel="stylesheet" href="{{ asset($blog_css_owner) }}">
         @endif
+        @if(isset($blog_comment))
+            <link rel="stylesheet" href="{{ asset('css/owner/blog_comment_list.css') }}">
+        @endif
     </head>
     <body>
         @include('include.common.header')

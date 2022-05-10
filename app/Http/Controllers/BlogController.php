@@ -141,9 +141,9 @@ class BlogController extends Controller
             'include'       => array(
                 'owner_data'    => $owner_data,
                 'length'        => array(
-                    'name'      => $this->setChatIdNameLength(),
-                    'email'     => $this->setChatEmailLength(),
-                    'comment'   => $this->setChatCommentLength(),
+                    'name'      => $this->bc->setIdNameLength(),
+                    'email'     => $this->bc->setEmailLength(),
+                    'comment'   => $this->bc->setCommentLength(),
                 )
             )
         );
@@ -189,26 +189,8 @@ class BlogController extends Controller
     private function validatorNice()
     {
         return Validator::make($this->request->all(), [
-            'id'    => 'required|string|max:' . $this->setChatIdNameLength(),
+            'id'    => 'required|string|max:' . $this->bn->setBlogIdLength(),
         ]);
-    }
-
-    // blog_idと名前の長さ指定
-    private function setChatIdNameLength()
-    {
-        return config('const.TEXT_LENGTH20');
-    }
-
-    // メールアドレスの長さ指定
-    private function setChatEmailLength()
-    {
-        return config('const.TEXT_LENGTH191');
-    }
-
-    // コメントの長さ指定
-    private function setChatCommentLength()
-    {
-        return config('const.TEXT_LENGTH140');
     }
 
     // コメント挿入処理
@@ -225,7 +207,7 @@ class BlogController extends Controller
         
         $data['ip'] = $this->request->server('REMOTE_ADDR'); // ユーザーのip取得
 
-        $res = $this->bc->blogCommentInsert($data); // コメント挿入処理
+        $res = $this->bc->blogCommentUserInsert($data); // コメント挿入処理
 
         $status = $res ? 200 : 406; // 成功なら200
 
@@ -238,10 +220,10 @@ class BlogController extends Controller
     private function validatorComment()
     {
         return Validator::make($this->request->all(), [
-            'id'        => 'required|string|max:' . $this->setChatIdNameLength(),
-            'name'      => 'string|nullable|max:' . $this->setChatIdNameLength(),
-            'email'     => 'string|nullable|email|max:' . $this->setChatEmailLength(),
-            'comment'   => 'required|string|max:' . $this->setChatCommentLength(),
+            'id'        => 'required|string|max:' . $this->bc->setIdNameLength(),
+            'name'      => 'string|nullable|max:' . $this->bc->setIdNameLength(),
+            'email'     => 'string|nullable|email|max:' . $this->bc->setEmailLength(),
+            'comment'   => 'required|string|max:' . $this->bc->setCommentLength(),
         ]);
     }
 }
