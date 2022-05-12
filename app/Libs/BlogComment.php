@@ -47,9 +47,7 @@ class BlogComment
     // idでコメント取得
     public function getBlogCommentById(string $id)
     {
-        return BlogComments::where('id', $id)
-        ->select('id', 'blog_id', 'del_flg', 'view_flg', 'comment_id', 'user_type', 'name', 'comment')
-        ->get();
+        return BlogComments::find($id);
     }
 
     // blog_idと名前の長さ指定

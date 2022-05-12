@@ -12,9 +12,8 @@
         
         <p>{{ $blog_comment->comment }}</p>
         
-        <!-- ブログ詳細のリンクも記載 -->
         <span>ブログリンク</span>
-        <a href="http://localhost:8000/blog/tourism/8">ブログリンクfdfdfdfdf</a>
+        <a href="{{ $blog_detail_info['link'] }}" target="_blank" rel="noopener noreferrer">{{ $blog_detail_info['title'] }}</a>
     </section>
 
     <section>

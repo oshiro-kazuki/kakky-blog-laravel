@@ -272,7 +272,7 @@ class BlogOwnerController extends Controller
     {
         $blog_comment = $this->bc->getBlogCommentById($id); // ブログコメント取得
         
-        if(count($blog_comment) <= 0){
+        if(is_null($blog_comment)){
             return $this->err->nonePage();
         }
 
@@ -284,25 +284,31 @@ class BlogOwnerController extends Controller
         ];
 
         $del_message = '';
-        if($blog_comment[0]->del_flg === 1){ // 表示切替
+        if($blog_comment->del_flg === 1){ // 表示切替
             $del_message = '表示';
-            $blog_comment[0]->del_flg = 0;
-        }else{                               // 非表示切替
+            $blog_comment->del_flg = 0;
+        }else{                            // 非表示切替
             $del_message = '非表示';
-            $blog_comment[0]->del_flg = 1;
+            $blog_comment->del_flg = 1;
         }
+
+        $blog_detail_info = array(
+            'link'      => $this->blog->getBlogLink($blog_comment->blog_id),    // 詳細リンク取得
+            'title'     => $this->blog->getBlogTitle($blog_comment->blog_id),   // タイトル取得
+        );
 
         header('X-Frame-Options: DENY');
         
         return view('.owner.blog.blog_comment_edit',
         [
             'screen_title'      => 'ブログコメント編集画面',
-            'blog_comment'      => $blog_comment[0],
+            'blog_comment'      => $blog_comment,
             'style'             => $style,
             'script'            => $script,
             'name_length'       => $this->bc->setIdNameLength(),
             'comment_length'    => $this->bc->setCommentLength(),
             'del_message'       => $del_message,
+            'blog_detail_info'  => $blog_detail_info,
         ]);
     }
 

@@ -222,5 +222,19 @@ class Blog
         ->where('owner_id', $owner_id)
         ->get();
     }
+
+    // ブログ詳細リンク取得
+    public function getBlogLink(string $id)
+    {
+        $blog = $this->getIdBlog($id);
+
+        return '/blog/' . $this->setBlogLink($blog->category, $blog->id);
+    }
+
+    // ブログ詳細タイトル取得
+    public function getBlogTitle(string $id)
+    {
+        return $this->getIdBlog($id)->title;
+    }
 }
 ?>
