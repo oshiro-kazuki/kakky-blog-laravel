@@ -10,6 +10,7 @@ use App\Libs\Blog;
 use App\Libs\BlogNice;
 use App\Libs\BlogComment;
 use Auth;
+use stdClass;
 
 class BlogOwnerController extends Controller
 {
@@ -253,16 +254,18 @@ class BlogOwnerController extends Controller
 
         $blog_id = $this->blog->getBlogIdByOwnerId($owner_id); // blog_id取得
         
-        $blog_comment = $this->bc->getBlogCommentAllByBlogId($blog_id); // ブログコメント全件取得
+        $blog_comment = new stdClass;
+        $blog_comment->user  = $this->bc->getBlogUserCommentAllByBlogId($blog_id);  // ブログユーザーコメント全件取得
+        $blog_comment->owner = $this->bc->getBlogOwnerCommentAllByBlogId($blog_id); // ブログユーザーコメント全件取得
         
-        if(count($blog_comment) <= 0){
+        if(count($blog_comment->user) < 0){
             return $this->err->nonePage();
         }
 
         return view('.owner.blog.blog_comment_list',
             [
                 'screen_title'  => 'ブログコメント一覧(管理)',
-                'blog_comment' => $blog_comment,
+                'blog_comment'  => $blog_comment,
             ]
         );
     }

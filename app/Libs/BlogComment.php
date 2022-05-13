@@ -35,12 +35,23 @@ class BlogComment
         ->get();
     }
 
-    // blog_idでコメント全件取得
-    public function getBlogCommentAllByBlogId(object $blog_id)
+    // blog_idでユーザーコメント全件取得
+    public function getBlogUserCommentAllByBlogId(object $blog_id)
     {
         return BlogComments::orderBy('created_at', 'desc')
-        ->select('id', 'del_flg', 'view_flg', 'comment_id', 'user_type', 'name', 'comment')
+        ->select('id', 'del_flg', 'view_flg', 'name', 'comment')
         ->whereIn('blog_id', $blog_id)
+        ->where('user_type', 0)
+        ->get();
+    }
+
+    // blog_idでブロガーコメント全件取得
+    public function getBlogOwnerCommentAllByBlogId(object $blog_id)
+    {
+        return BlogComments::orderBy('created_at', 'desc')
+        ->select('comment_id', 'comment')
+        ->whereIn('blog_id', $blog_id)
+        ->where('user_type', 1)
         ->get();
     }
 

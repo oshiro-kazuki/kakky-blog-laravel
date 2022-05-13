@@ -2,11 +2,15 @@
     width: 350px;
     margin: 0 auto;
 }
+.blog_comment_cassete{
+    width: 100%;
+    margin-bottom: 40px;
+}
 .blog_comments,
 .blog_comments_{
     display: block;
     padding: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     height: 100%;
 }
 .blog_comments{
@@ -16,12 +20,10 @@
 .blog_comments_{
     width: 80%;
     margin-left: auto;
-    margin-bottom: 10px;
     background-color: greenyellow;
 }
 .comment_name_read{
     display: flex;
-    justify-content: space-between;
     height: 40px;
 }
 .blog_comments h6,
@@ -30,21 +32,28 @@
     font-weight: bold;
     line-height: 35px;
 }
-.blog_comments span,
-.blog_comments_ span{
+.comment_id{
+    line-height: 35px;
+    margin-left: 20px;
+}
+.blog_comments .comment_status,
+.blog_comments_ .comment_status{
     display: block;
     height: 35px;
     width: 55px;
+    margin-left: auto;
     text-align: center;
     line-height: 35px;
     border-radius: 8px;
     background-color: #dcdcdc;
-}
-.blog_comments span,
-.blog_comments_ span{
     font-size: 16px;
 }
 .blog_comments p,
 .blog_comments_ p{
     font-size: 18px;
+}
+.comment_reply{
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
 }
