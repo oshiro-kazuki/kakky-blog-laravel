@@ -82,30 +82,20 @@
         <p class="nice_btn_text">いいね</p>
     </section>
 
-    @if(count($blog_data->comment) > 0)
-        <section class="comment_area">
+    @if(count($blog_comment->user) > 0)
+        <section class="blog_comment">
             <h2>コメント一覧</h2>
-            @foreach($blog_data->comment as $data)
-                @if($data['user_type'] === 0)
-                    <div class="comments">
-                        @if(is_null($data['name']))
-                            <h6>匿名 様</h6>
-                        @else
-                            <h6>{{ $data['name'] }} 様</h6>
-                        @endif
-                        <p>{{ $data['comment'] }}</p>
-                    </div>
-                @endif
-            @endforeach
+
+            @include('include.contents.blog.blog_comment', ['owner_flg' => false])
         </section>
     @endif
 
     <!-- チャットコンテンツ -->
     @include('include.contents.chat',
         [
-            'about'     => $blog_data->title,
-            'btn_nm'    => 'コメント',
-            'include'   => $chat['include'],
+            'about'         => $blog_data->title,
+            'btn_nm'        => 'コメント',
+            'include'       => $chat['include'],
         ]
     )
 

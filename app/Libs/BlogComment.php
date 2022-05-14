@@ -36,7 +36,27 @@ class BlogComment
     }
 
     // blog_idでユーザーコメント全件取得
-    public function getBlogUserCommentAllByBlogId(object $blog_id)
+    public function getBlogUserCommentByBlogId(string $blog_id)
+    {
+        return BlogComments::orderBy('created_at', 'desc')
+        ->select('id', 'del_flg', 'view_flg', 'name', 'comment')
+        ->where('blog_id', $blog_id)
+        ->where('user_type', 0)
+        ->get();
+    }
+
+    // blog_idでブロガーコメント全件取得
+    public function getBlogOwnerCommentByBlogId(string $blog_id)
+    {
+        return BlogComments::orderBy('created_at', 'desc')
+        ->select('comment_id', 'name', 'comment')
+        ->where('blog_id', $blog_id)
+        ->where('user_type', 1)
+        ->get();
+    }
+
+    // 複数blog_idでユーザーコメント全件取得
+    public function getBlogUserCommentAllByBlogIds(object $blog_id)
     {
         return BlogComments::orderBy('created_at', 'desc')
         ->select('id', 'del_flg', 'view_flg', 'name', 'comment')
@@ -45,11 +65,11 @@ class BlogComment
         ->get();
     }
 
-    // blog_idでブロガーコメント全件取得
-    public function getBlogOwnerCommentAllByBlogId(object $blog_id)
+    // 複数blog_idでブロガーコメント全件取得
+    public function getBlogOwnerCommentAllByBlogIds(object $blog_id)
     {
         return BlogComments::orderBy('created_at', 'desc')
-        ->select('comment_id', 'comment')
+        ->select('comment_id', 'name', 'comment')
         ->whereIn('blog_id', $blog_id)
         ->where('user_type', 1)
         ->get();

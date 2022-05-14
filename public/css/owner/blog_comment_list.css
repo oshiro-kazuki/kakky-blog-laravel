@@ -32,6 +32,9 @@
     font-weight: bold;
     line-height: 35px;
 }
+.blog_comments_ h6{
+    margin-left: auto;
+}
 .comment_id{
     line-height: 35px;
     margin-left: 20px;

@@ -52,10 +52,12 @@
     text-decoration: underline;
     color: #1e90ff;
 }
-.blog_contents{
+.blog_contents,
+.blog_comment{
     margin: 30px 0 0;
 }
-.blog_contents h2{
+.blog_contents h2,
+.blog_comment h2{
     font-size: 24px;
     font-weight: bold;
     display: block;
@@ -116,6 +118,46 @@
 #nice_btn.done{
     background-color: rgba(0, 0, 0, 0.5);
     color: #ccc;
+}
+.blog_comment_container{
+    margin: 20px auto;
+    padding: 0 10px;
+}
+.blog_comment_cassete{
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+.blog_comments ,
+.blog_comments_ {
+    display: block;
+    width: 90%;
+}
+.blog_comments{
+    margin-bottom: 5px;
+}
+.blog_comments_{
+    margin-left: auto;
+}
+.blog_comments h6,
+.blog_comments_ h6{
+    font-weight: bold;
+}
+.blog_comments_ h6{
+    text-align: end;
+}
+.blog_comments p,
+.blog_comments_ p{
+    display: block;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 5px;
+    box-shadow: 2px 2px 2px #ccc;
+}
+.blog_comments p{
+    background-color: #e0ffff;
+}
+.blog_comments_ p{
+    background-color: #faf0e6;
 }
 @media screen and (min-width: 1000px){
     #nice_btn{

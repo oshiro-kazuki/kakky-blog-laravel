@@ -11,6 +11,7 @@ use App\Libs\Blog;
 use App\Libs\BlogNice;
 use App\Libs\Owner;
 use App\Libs\BlogComment;
+use stdClass;
 
 class BlogController extends Controller
 {    
@@ -129,10 +130,8 @@ class BlogController extends Controller
         );
 
         // ブログのオーナーデータ取得
-        $owner = new Owner();
+        $owner      = new Owner();
         $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id)[0];
-
-        $blog->comment = $this->bc->getBlogCommentByBlogId($id); // ブログコメント取得
 
         // チャットコンテンツ用
         $chat = array(
@@ -144,10 +143,15 @@ class BlogController extends Controller
                     'name'      => $this->bc->setIdNameLength(),
                     'email'     => $this->bc->setEmailLength(),
                     'comment'   => $this->bc->setCommentLength(),
-                )
-            )
+                    )
+                    )
         );
-
+        
+        // ブログコメントデータ取得
+        $blog_comment        = new stdClass;
+        $blog_comment->user  = $this->bc->getBlogUserCommentByBlogId($id);  // ブログユーザーコメント全件取得
+        $blog_comment->owner = $this->bc->getBlogOwnerCommentByBlogId($id); // ブログブロガーコメント全件取得
+        
         // 画面表示
         return view('blog.detail',
             [
@@ -160,6 +164,7 @@ class BlogController extends Controller
                 'detail_js'     => $detail_js,
                 'id'            => $id,
                 'chat'          => $chat,
+                'blog_comment'  => $blog_comment,
             ]
         );
     }

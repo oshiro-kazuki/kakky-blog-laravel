@@ -255,8 +255,8 @@ class BlogOwnerController extends Controller
         $blog_id = $this->blog->getBlogIdByOwnerId($owner_id); // blog_id取得
         
         $blog_comment = new stdClass;
-        $blog_comment->user  = $this->bc->getBlogUserCommentAllByBlogId($blog_id);  // ブログユーザーコメント全件取得
-        $blog_comment->owner = $this->bc->getBlogOwnerCommentAllByBlogId($blog_id); // ブログユーザーコメント全件取得
+        $blog_comment->user  = $this->bc->getBlogUserCommentAllByBlogIds($blog_id);  // ブログユーザーコメント全件取得
+        $blog_comment->owner = $this->bc->getBlogOwnerCommentAllByBlogIds($blog_id); // ブログブロガーコメント全件取得
         
         if(count($blog_comment->user) < 0){
             return $this->err->nonePage();
