@@ -1,6 +1,6 @@
 <section>
     <div id="chat_btn">{{ $btn_nm }}</div>
-    <span id="chat_name" style="display:none;">{{ $include['owner_data']->name }}</span>
+    <span id="chat_name" style="display:none;">{{ $replyer }}</span>
 
     <div id="chat_modal" class="hidden">
         <div class="chat_about">{{ $about }}について</div>

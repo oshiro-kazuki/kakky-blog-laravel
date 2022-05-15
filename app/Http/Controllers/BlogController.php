@@ -141,7 +141,6 @@ class BlogController extends Controller
             'css'           => 'css/include/contents/chat.css',
             'js'            => 'js/include/contents/chat.js',
             'include'       => array(
-                'owner_data'    => $owner_data,
                 'length'        => array(
                     'name'      => $this->bc->setIdNameLength(),
                     'email'     => $this->bc->setEmailLength(),
@@ -168,6 +167,7 @@ class BlogController extends Controller
                 'id'            => $id,
                 'chat'          => $chat,
                 'blog_comment'  => $blog_comment,
+                'owner_data'    => $owner_data,
             ]
         );
     }

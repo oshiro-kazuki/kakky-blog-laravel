@@ -325,8 +325,6 @@ class BlogOwnerController extends Controller
 
         $postData = $request->all();
 
-        $postData['owner_nm'] = Auth::user()->name;
-
         $res = $this->bc->blogCommentOwnerInsert($postData);
 
         if(!$res){

@@ -86,7 +86,10 @@
         <section class="blog_comment">
             <h2>コメント一覧</h2>
 
-            @include('include.contents.blog.blog_comment', ['owner_flg' => false])
+            @include('include.contents.blog.blog_comment',[
+                'owner_flg'  => false,
+                'owner_nm'   => $owner_data->name,
+            ])
         </section>
     @endif
 
@@ -95,6 +98,7 @@
         [
             'about'         => $blog_data->title,
             'btn_nm'        => 'コメント',
+            'replyer'       => $owner_data->name,
             'include'       => $chat['include'],
         ]
     )

@@ -112,7 +112,6 @@ class BlogComment
                     'user_type'     => 1,                   // ブロガー
                     'view_flg'      => 1,                   // 返答は既読
                     'comment_id'    => $data['id'],
-                    'name'          => $data['owner_nm'],
                     'comment'       => $data['comment'],
                 )
             );
