@@ -36,5 +36,11 @@ class BlogNice
             return false;
         }
     }
+
+    // blog_idの長さ指定
+    public function setBlogIdLength()
+    {
+        return config('const.TEXT_LENGTH20');
+    }
 }
 ?>

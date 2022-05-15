@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Mail;
-use App\Mail\Owner\ContactMailOwner;
-use App\Mail\ContactMailSend;
+use App\Libs\Mail\Owner\ContactMailOwner;
+use App\Libs\Mail\ContactMailSend;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Libs\Common\Breadcrumb;

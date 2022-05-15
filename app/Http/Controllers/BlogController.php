@@ -9,6 +9,12 @@ use App\Libs\Common\ErrorPage;
 use App\Libs\Common\Breadcrumb;
 use App\Libs\Blog;
 use App\Libs\BlogNice;
+use App\Libs\Owner;
+use App\Libs\BlogComment;
+use App\Libs\Mail\BlogCommentMailSend;
+use App\Libs\Mail\Owner\BlogCommentOwnerMailSend;
+use Mail;
+use stdClass;
 
 class BlogController extends Controller
 {    
@@ -16,6 +22,7 @@ class BlogController extends Controller
     {
         $this->blog         = new Blog();
         $this->bn           = new BlogNice();
+        $this->bc           = new BlogComment();
         $this->err          = new ErrorPage();
         $this->request      = $request;
         $this->host         = $this->request->server('HTTP_HOST');
@@ -26,18 +33,24 @@ class BlogController extends Controller
     // ブログ一覧画面表示
     public function list()
     {
+        // ブログカセットデータ取得
         $blog = $this->blog->setBlogCassette();
+
+        // 画面タイトル・説明設定
         $title = 'ブログ一覧画面';
         $description = '全てのブログを一覧にしてます。是非、他の記事もご一読ください。';
 
+        // パンくず取得
         $breadcrumb = $this->breadcrumb->getBreadcrumb();
 
+        // 画面表示用の関数に渡す
         return $this->showList($blog, $title, $description, $breadcrumb, true);
     }
 
     // ブログカテゴリ一覧画面表示
     public function categoryList($category)
     {
+        // ブログカセットデータ取得
         $blog = $this->blog->setBlogCassette(false, $category);
 
         // カテゴリ名を取得
@@ -48,18 +61,23 @@ class BlogController extends Controller
             }
         }
 
+        // 画面タイトル・説明設定
         $title = 'ブログ・カテゴリ(' . $is_category . ')一覧画面';
         $description = 'カテゴリ(' . $is_category . ')で絞り込んだブログを一覧にしてます。是非、他の記事もご一読ください。';
 
+        // パンくず取得
         $this->breadcrumb->setSecondArr($this->blog->setCategory());
         $breadcrumb = $this->breadcrumb->getBreadcrumb();
 
+        // 画面表示用の関数に渡す
         return $this->showList($blog, $title, $description, $breadcrumb, false);
     }
 
+    // 一覧・カテゴリ一覧画面表示関数
     private function showList(array $blog,string $title,string $description, $breadcrumb, $search_flg = false)
     {
 
+        // ブログデータが無ければエラー画面を表示
         if(count($blog['list']) <= 0){
             return $this->err->nonePage();
         }
@@ -68,13 +86,15 @@ class BlogController extends Controller
             $value->nice = $this->bn->getCount($value->id); // いいね取得
         }
 
+        // Open Graph Protocolデータを取得
         $ogp = new OpenGraphProtocol($this->host, $this->uri, $title, $description);
 
         $category_list = '';
         if($search_flg){
-            $category_list = $this->blog->getCategoryCount();
+            $category_list = $this->blog->getCategoryCount(); // カテゴリ毎に件数を取得
         }
 
+        // 画面表示
         return view('blog.list',
             [
                 'blog_lists'    => $blog['list'],
@@ -92,8 +112,10 @@ class BlogController extends Controller
     // ブログ詳細画面表示
     public function detail($category, $id)
     {
+        // ブログ詳細データ取得
         $blog = $this->blog->setBlogDetail($id);
 
+        // ブログデータが無ければエラー画面を表示
         if(!isset($blog)){
             return $this->err->nonePage();
         }
@@ -105,10 +127,34 @@ class BlogController extends Controller
         $this->breadcrumb->setSecondArr($this->blog->setCategory());
         $this->breadcrumb->setLastArr([$blog->title => $id]);
         $breadcrumb = $this->breadcrumb->getBreadcrumb();
+
         $detail_js = array(
             'js/blog/nice.js',
         );
 
+        // ブログのオーナーデータ取得
+        $owner      = new Owner();
+        $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id);
+
+        // チャットコンテンツ用
+        $chat = array(
+            'css'           => 'css/include/contents/chat.css',
+            'js'            => 'js/include/contents/chat.js',
+            'include'       => array(
+                'length'        => array(
+                    'name'      => $this->bc->setIdNameLength(),
+                    'email'     => $this->bc->setEmailLength(),
+                    'comment'   => $this->bc->setCommentLength(),
+                )
+            )
+        );
+        
+        // ブログコメントデータ取得
+        $blog_comment        = new stdClass;
+        $blog_comment->user  = $this->bc->getBlogUserCommentByBlogId($id);  // ブログユーザーコメント全件取得
+        $blog_comment->owner = $this->bc->getBlogOwnerCommentByBlogId($id); // ブログブロガーコメント全件取得
+        
+        // 画面表示
         return view('blog.detail',
             [
                 'blog_data'     => $blog,
@@ -119,35 +165,91 @@ class BlogController extends Controller
                 'breadcrumb'    => $breadcrumb,
                 'detail_js'     => $detail_js,
                 'id'            => $id,
+                'chat'          => $chat,
+                'blog_comment'  => $blog_comment,
+                'owner_data'    => $owner_data,
             ]
         );
     }
 
-    // いいね更新
+    // いいね挿入処理
     public function nice_input()
     {
-        $data = $this->request->all();
-        $validator = $this->validatorNice();
+        $data = $this->request->all(); // 入力データ取得
+
+        $validator = $this->validatorNice(); // バリデーション
         if($validator->fails()){
             return response()->json([
                 'status' => 406,
             ]);
         }
 
-        $bn = new BlogNice();
-        $res = $bn->blogNiceInsert($data['id']);
+        $res = $this->bn->blogNiceInsert($data['id']); // いいね挿入
 
-        $status = $res ? 200 : 406;
+        $status = $res ? 200 : 406; // 成功なら200
 
         return response()->json([
             'status' => $status
         ]);
     }
 
+    // いいねバリデーション
     private function validatorNice()
     {
         return Validator::make($this->request->all(), [
-            'id'    => 'required',
+            'id'    => 'required|string|max:' . $this->bn->setBlogIdLength(),
+        ]);
+    }
+
+    // コメント挿入処理
+    public function comment_input()
+    {
+        $data = $this->request->all(); // 入力データ取得
+
+        $validator = $this->validatorComment(); // バリデーション
+        if($validator->fails()){
+            return response()->json([
+                'status' => 406,
+            ]);
+        }
+        
+        $data['ip'] = $this->request->server('REMOTE_ADDR'); // ユーザーのip取得
+
+        $res = $this->bc->blogCommentUserInsert($data);      // コメント挿入処理
+
+        // owner_id取得
+        $blog_data = $this->blog->getOwnerIdByBlogId($data['id']);
+        $owenr_id = $blog_data->owner_id;
+
+        // ブログのオーナーデータ取得
+        $owner      = new Owner();
+        $owner_data = $owner->getOwnerByOwnerIdToEmail($owenr_id);
+        
+        // メール送信処理 ※ブログURL・コメント必須
+        if(!is_null($data['email'])){
+            Mail::to($data['email'])->send(             // ユーザーへメール送信
+                new BlogCommentMailSend($data['url'], $data['comment'])
+            );
+        }
+        Mail::to($owner_data->email)->send(             // ブロガーへメール送信
+            new BlogCommentOwnerMailSend($data['url'], $data['comment'], $data['name'])
+        );
+
+        $status = $res ? 200 : 406; // 成功なら200
+
+        return response()->json([
+            'status' => $status
+        ]);
+    }
+
+    // コメントバリデーション
+    private function validatorComment()
+    {
+        return Validator::make($this->request->all(), [
+            'id'        => 'required|string|max:' . $this->bc->setIdNameLength(),
+            'name'      => 'string|nullable|max:' . $this->bc->setIdNameLength(),
+            'email'     => 'string|nullable|email|max:' . $this->bc->setEmailLength(),
+            'comment'   => 'required|string|max:' . $this->bc->setCommentLength(),
         ]);
     }
 }

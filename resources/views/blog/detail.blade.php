@@ -80,15 +80,37 @@
 
     <section id="nice_btn">
         <p class="nice_btn_text">いいね</p>
-        <form method="POST">
-            @csrf
-            <input type="hidden" name="id" value="{{ $id }}">
-        </form>
     </section>
 
+    @if(count($blog_comment->user) > 0)
+        <section class="blog_comment">
+            <h2>コメント一覧</h2>
+
+            @include('include.contents.blog.blog_comment',[
+                'owner_flg'  => false,
+                'owner_nm'   => $owner_data->name,
+            ])
+        </section>
+    @endif
+
+    <!-- チャットコンテンツ -->
+    @include('include.contents.chat',
+        [
+            'about'         => $blog_data->title,
+            'btn_nm'        => 'コメント',
+            'replyer'       => $owner_data->name,
+            'include'       => $chat['include'],
+        ]
+    )
+
     <section class="blog_read_end">
-        <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
-            最後まで読んでいただき、ありがとうございました。</p>
+        <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば上記「コメント」または<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
+        最後まで読んでいただき、ありがとうございました。</p>
     </section>
+
+    <form method="POST">
+        @csrf
+        <input type="hidden" name="id" value="{{ $id }}">
+    </form>
 </article>
 @endsection

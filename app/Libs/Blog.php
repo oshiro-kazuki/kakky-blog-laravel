@@ -22,7 +22,7 @@ class Blog
         );
     }
 
-     // ブログ編集処理
+    // ブログ編集処理
     public function blogUpdateById(array $postData)
     {
         try {
@@ -74,6 +74,7 @@ class Blog
                 'reference_link1'   => $postData['reference_link1'],
                 'reference_text2'   => $postData['reference_text2'],
                 'reference_link2'   => $postData['reference_link2'],
+                'owner_id'          => $postData['owner_id'],
         );
     }
 
@@ -211,6 +212,37 @@ class Blog
     private function setBlogLink(string $category, string $id)
     {
         return $category . '/' . $id;
+    }
+
+    // owner_idでblog_id取得
+    public function getBlogIdByOwnerId(string $owner_id)
+    {
+        return Blogs::orderBy('created_at', 'desc')
+        ->select('id as blog_id')
+        ->where('owner_id', $owner_id)
+        ->get();
+    }
+
+    // ブログ詳細リンク取得
+    public function getBlogLink(string $id)
+    {
+        $blog = $this->getIdBlog($id);
+
+        return '/blog/' . $this->setBlogLink($blog->category, $blog->id);
+    }
+
+    // ブログ詳細タイトル取得
+    public function getBlogTitle(string $id)
+    {
+        return $this->getIdBlog($id)->title;
+    }
+
+    // blog_idでowner_id取得
+    public function getOwnerIdByBlogId(string $blog_id)
+    {
+        return Blogs::where('id', $blog_id)
+        ->select('owner_id')
+        ->first();
     }
 }
 ?>

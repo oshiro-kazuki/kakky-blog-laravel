@@ -18,6 +18,9 @@
         @if(isset($search_flg) && $search_flg)
             <link rel="stylesheet" href="{{ asset('css/blog/search.css') }}">
         @endif
+        @if(isset($chat))
+            <link rel="stylesheet" href="{{ asset($chat['css']) }}">
+        @endif
 
         @include('include.common.google')
     </head>
@@ -41,6 +44,10 @@
         @endif
         @if(isset($detail_js))
             <script src="{{ asset($detail_js[0]) }}"></script>
+        @endif
+        @if(isset($chat))
+            <script src="{{ asset('js/common/validation.js') }}"></script>
+            <script src="{{ asset($chat['js']) }}"></script>
         @endif
     </body>
 </html>
