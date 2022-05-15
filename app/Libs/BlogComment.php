@@ -42,6 +42,7 @@ class BlogComment
         ->select('id', 'del_flg', 'view_flg', 'name', 'comment')
         ->where('blog_id', $blog_id)
         ->where('user_type', 0)
+        ->where('del_flg', 0)
         ->get();
     }
 
