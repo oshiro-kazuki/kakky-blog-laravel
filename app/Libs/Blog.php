@@ -236,5 +236,13 @@ class Blog
     {
         return $this->getIdBlog($id)->title;
     }
+
+    // blog_idでowner_id取得
+    public function getOwnerIdByBlogId(string $blog_id)
+    {
+        return Blogs::where('id', $blog_id)
+        ->select('owner_id')
+        ->first();
+    }
 }
 ?>

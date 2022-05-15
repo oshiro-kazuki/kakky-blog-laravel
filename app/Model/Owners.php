@@ -2,14 +2,12 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
 use Mail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\VerifyEmailJapanese;
-use App\Mail\Owner\LoginMailOwner;
+use App\Libs\Mail\Owner\LoginMailOwner;
 
 class Owners extends Authenticatable implements MustVerifyEmail
 {

@@ -11,6 +11,9 @@ use App\Libs\Blog;
 use App\Libs\BlogNice;
 use App\Libs\Owner;
 use App\Libs\BlogComment;
+use App\Libs\Mail\BlogCommentMailSend;
+use App\Libs\Mail\Owner\BlogCommentOwnerMailSend;
+use Mail;
 use stdClass;
 
 class BlogController extends Controller
@@ -131,7 +134,7 @@ class BlogController extends Controller
 
         // ブログのオーナーデータ取得
         $owner      = new Owner();
-        $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id)[0];
+        $owner_data = $owner->getOwnerByOwnerIdToName($blog->owner_id);
 
         // チャットコンテンツ用
         $chat = array(
@@ -143,8 +146,8 @@ class BlogController extends Controller
                     'name'      => $this->bc->setIdNameLength(),
                     'email'     => $this->bc->setEmailLength(),
                     'comment'   => $this->bc->setCommentLength(),
-                    )
-                    )
+                )
+            )
         );
         
         // ブログコメントデータ取得
@@ -212,7 +215,25 @@ class BlogController extends Controller
         
         $data['ip'] = $this->request->server('REMOTE_ADDR'); // ユーザーのip取得
 
-        $res = $this->bc->blogCommentUserInsert($data); // コメント挿入処理
+        $res = $this->bc->blogCommentUserInsert($data);      // コメント挿入処理
+
+        // owner_id取得
+        $blog_data = $this->blog->getOwnerIdByBlogId($data['id']);
+        $owenr_id = $blog_data->owner_id;
+
+        // ブログのオーナーデータ取得
+        $owner      = new Owner();
+        $owner_data = $owner->getOwnerByOwnerIdToEmail($owenr_id);
+        
+        // メール送信処理 ※ブログURL・コメント必須
+        if(!is_null($data['email'])){
+            Mail::to($data['email'])->send(             // ユーザーへメール送信
+                new BlogCommentMailSend($data['url'], $data['comment'])
+            );
+        }
+        Mail::to($owner_data->email)->send(             // ブロガーへメール送信
+            new BlogCommentOwnerMailSend($data['url'], $data['comment'], $data['name'])
+        );
 
         $status = $res ? 200 : 406; // 成功なら200
 

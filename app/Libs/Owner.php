@@ -10,7 +10,14 @@ class Owner
     {
         return Owners::where('owner_id', $owner_id)
         ->select('name')
-        ->get();
+        ->first();
+    }
+
+    public function getOwnerByOwnerIdToEmail(string $owner_id)
+    {
+        return Owners::where('owner_id', $owner_id)
+        ->select('email')
+        ->first();
     }
 }
 ?>

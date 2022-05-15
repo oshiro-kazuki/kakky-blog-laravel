@@ -100,7 +100,7 @@
     )
 
     <section class="blog_read_end">
-        <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
+        <p style="line-height:24px;">当記事は僕の私見もあるので、もし補足や訂正があれば上記「コメント」または<a href="/contact_mail" class="blog_contact">お問い合わせ</a>からご連絡ください。<br>
         最後まで読んでいただき、ありがとうございました。</p>
     </section>
 

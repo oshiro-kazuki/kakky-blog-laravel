@@ -144,11 +144,13 @@
     }
 
     const commentPost = ()=>{
-        const csrf_value = get_tag_query('input[name="_token"]').value;
-        const id_value = get_tag_query('input[name="id"]').value;
-        const data = {
-            '_token'    : csrf_value,
-            'id'        : id_value,
+        const csrf       = get_tag_query('input[name="_token"]').value;
+        const id         = get_tag_query('input[name="id"]').value;
+        const url        = get_tag_query('meta[property="og:url"]').content;
+        const data       = {
+            '_token'    : csrf,
+            'id'        : id,
+            'url'       : url,
             'name'      : user_name,
             'email'     : user_email,
             'comment'   : user_comment,
