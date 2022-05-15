@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Owner;
+use App\Model\Owners;
 use Auth;
 
 
@@ -14,15 +14,16 @@ class OwnerController extends Controller
         $this->middleware('auth:owner');
     }    
 
+    // オーナー画面表示
     public function index()
     {
-        $owner_data = $this->getOwner()[0];
+        $owner_data = $this->getOwner(); // オーナーデータ取得
         return view('owner.index', ['owner' => $owner_data]);
     }
 
     // 認証に成功したオーナー情報を取得
     public function getOwner()
     {
-        return Owner::where('id', Auth::id())->get();
+        return Owners::where('id', Auth::id())->first();
     }
 }

@@ -26,6 +26,7 @@ Route::prefix('/blog')->group(function($id) {
     Route::get('/{category}', 'BlogController@categoryList');
     Route::get('/{category}/{id}', 'BlogController@detail');
     Route::post('/nice_input', 'BlogController@nice_input');
+    Route::post('/comment_input', 'BlogController@comment_input');
 });
 
 // 以下認証系
@@ -76,6 +77,15 @@ Route::prefix('/owner')->group(function() {
             Route::post('/post', 'BlogOwnerController@blogEdit')->name('blog_edit.post');
         });
     });
+    // ブログコメント画面
+    Route::prefix('/blog_comment')->group(function() {
+        // 一覧画面表示
+        Route::get('/', 'BlogOwnerController@showCommentList');
+        // コメント詳細
+        Route::get('/{id}', 'BlogOwnerController@showCommentEdit');
+        Route::post('/reply', 'BlogOwnerController@commentReply')->name('blog_comment.reply');
+        Route::post('/del', 'BlogOwnerController@commentDel')->name('blog_comment.del');
+   });
 });
 
 // ルート以外はエラー画面表示

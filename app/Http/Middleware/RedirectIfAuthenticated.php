@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\Model\Owner;
+use App\Model\Owners;
 
 class RedirectIfAuthenticated
 {
@@ -17,7 +17,7 @@ class RedirectIfAuthenticated
                 $email = $request->session()->get('_old_input')['email'];
                 $os = $request->server('HTTP_SEC_CH_UA_PLATFORM');
                 $os = str_replace('"', '', $os);
-                $owner = new Owner;
+                $owner = new Owners;
                 $owner->sendEmailLogin($email, $os); //ログイン成功のメール送信
                 return redirect(RouteServiceProvider::OWNER);
             }

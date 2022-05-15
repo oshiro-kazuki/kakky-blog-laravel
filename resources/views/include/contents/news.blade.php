@@ -1,4 +1,4 @@
-<article>
+<section>
     <h3>NEWS</h3>
     @if(count($news_lists) > 0)
         <section class="news_items carousel_items_container">
@@ -32,4 +32,4 @@
             <a href="/news">NEWS一覧へ</a>  
         </section>
     @endif
-</article>
+</section>

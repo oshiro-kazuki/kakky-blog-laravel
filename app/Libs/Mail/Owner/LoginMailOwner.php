@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Owner;
+namespace App\Libs\Mail\Owner;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
