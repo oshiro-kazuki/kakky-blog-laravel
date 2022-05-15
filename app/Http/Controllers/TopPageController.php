@@ -21,7 +21,7 @@ class TopPageController extends Controller
         $news_lists = $this->get_news();
         $blog = $this->get_blog();
         $title = config('const.APP_NAME');
-        $description = 'koがseoや日々の疑問など調査した内容をアウトプットするブログです。';
+        $description = '沖縄、観光施設、プログラミング、本の紹介など、調べたり経験した内容をアウトプットするブログです。';
         $ogp = new OpenGraphProtocol($request->server('HTTP_HOST'), $request->server('REQUEST_URI'), $title, $description);
         
         return view(
