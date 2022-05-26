@@ -32,7 +32,7 @@ Route::prefix('/blog')->group(function($id) {
 // 以下認証系
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+// Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 // 一時的にエラー画面へ
 if(!config('const.REGISTER_FLG')){
